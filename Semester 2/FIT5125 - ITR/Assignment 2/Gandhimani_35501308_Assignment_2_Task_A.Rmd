@@ -1,0 +1,172 @@
+---
+title: "FIT5125 - Assignment 2"
+author: "Bharath Arun Gandhimani"
+date: "2025-11-06"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(readxl)
+
+file_path <- "Assignment_2_Task_A_Database.xlsx"
+room_hops <- read_excel(file_path, sheet = "room_hops")
+room_duration <- read_excel(file_path, sheet = "room_duration")
+
+room_hops <- room_hops %>% mutate(condition = trimws(condition))
+room_duration <- room_duration %>% mutate(condition = trimws(condition))
+
+avg_room_hops <- room_hops %>%
+  group_by(condition) %>%
+  summarise(avg_room_hops = mean(room_hops, na.rm = TRUE))
+
+session_durations <- room_duration %>%
+  group_by(participant_code, condition) %>%
+  summarise(session_duration = sum(room_duration_minutes, na.rm = TRUE)) %>%
+  ungroup()
+
+avg_session_duration <- session_durations %>%
+  group_by(condition) %>%
+  summarise(avg_session_duration = mean(session_duration, na.rm = TRUE))
+
+metrics <- left_join(avg_room_hops, avg_session_duration, by = "condition") %>%
+  filter(condition != "Cancelled") # remove 'Cancelled' if unwanted
+
+metrics_long <- metrics %>%
+  pivot_longer(cols = c("avg_room_hops", "avg_session_duration"),
+               names_to = "metric",
+               values_to = "value")
+
+# Plot with log scale and value labels
+ggplot(metrics_long, aes(x = condition, y = value, fill = metric)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  geom_text(aes(label = round(value, 2)), 
+            position = position_dodge(width = 0.9), 
+            vjust = -0.25, size = 3.5) +
+  scale_y_continuous(trans = "log10") +
+  labs(title = "Participant Engagement Metrics by Experimental Condition",
+       x = "Experimental Condition",
+       y = "Metric Value (log scale)",
+       fill = "Metric") +
+  scale_fill_manual(labels = c("Average Room Hops", "Average Session Duration (min)"),
+                    values = c("steelblue", "darkorange")) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 25, hjust = 1))
+
+
+```
+```{r}
+# Load required packages
+library(readxl)
+library(dplyr)
+library(ggplot2)
+library(MASS)
+library(ggfortify)
+
+# 1. Load data from both sheets (update path as needed)
+survey <- read_excel("Assignment_2_Task_B_Database.xlsx", sheet = "Survey_Data")
+summary <- read_excel("Assignment_2_Task_B_Database.xlsx", sheet = "Outgoing_Summary")
+
+# 2. Merge and clean columns
+df <- merge(
+  survey,
+  summary,
+  by.x = "Participant_Code",
+  by.y = "From_Participant"
+)
+df$Age_Range <- as.factor(df[["Age Range"]])
+df$First_Language <- as.factor(df[["First Language"]])
+df <- df[, c("Participant_Code", "Expressiveness_Avg", "Age_Range", "First_Language", "Unique_People_Spoke_To")]
+
+# 3. Set professional margin theme for all plots
+margin_theme <- theme(
+  plot.margin = margin(t = 25, r = 20, b = 35, l = 20),
+  plot.title = element_text(face = "bold", size = 15, hjust = 0.5),
+  plot.subtitle = element_text(size = 12, hjust = 0.5),
+  axis.title = element_text(face = "bold")
+)
+
+# Helper for rotating x-axis labels
+angled_labels <- theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# 4. Make binned histograms with readable x axis & bar value labels
+
+# (A) Histogram for Unique People Spoken To (bin size 3)
+hist_data <- df %>%
+  mutate(bin = cut(Unique_People_Spoke_To, breaks = seq(0, max(df$Unique_People_Spoke_To, na.rm=TRUE)+3, by = 3), include.lowest = TRUE, right = FALSE)) %>%
+  count(bin)
+hist_unique <- ggplot(hist_data, aes(x = bin, y = n)) +
+  geom_bar(stat = "identity", fill = "#CC79A7", color = "black") +
+  geom_text(aes(label = n), vjust = -0.2, size = 4, fontface = "bold") +
+  labs(
+    title = "Distribution of Number of Unique People Spoken To",
+    subtitle = "Total unique conversational partners per participant (bin size = 3)",
+    x = "Number of Unique People Spoken To (bin)",
+    y = "Number of Participants"
+  ) +
+  theme_minimal(base_size = 13) + margin_theme + angled_labels
+
+# (B) Histogram for Expressiveness Score (bin size 0.2)
+hist_data2 <- df %>%
+  mutate(bin = cut(Expressiveness_Avg, breaks = seq(1, 5, by = 0.2), include.lowest = TRUE, right = FALSE)) %>%
+  count(bin)
+hist_express <- ggplot(hist_data2, aes(x = bin, y = n)) +
+  geom_bar(stat = "identity", fill = "#56B4E9", color = "black") +
+  geom_text(aes(label = n), vjust = -0.2, size = 4, fontface = "bold") +
+  labs(
+    title = "Distribution of Expressiveness Scores",
+    subtitle = "Participant self-reported expressiveness (score range: 1-5, bin size = 0.2)",
+    x = "Expressiveness Score (bin)",
+    y = "Number of Participants"
+  ) +
+  theme_minimal(base_size = 13) + margin_theme + angled_labels
+
+# (C) Scatterplot w/ regression line
+scatter_plot <- ggplot(df, aes(x = Expressiveness_Avg, y = Unique_People_Spoke_To)) +
+  geom_point(alpha = 0.65, color = "#2C3E50", size = 2) +
+  geom_smooth(method = "lm", se = TRUE, color = "#0072B2", size = 1.2) +
+  labs(
+    title = "Expressiveness vs Number of Unique People Spoken To",
+    subtitle = "Linear regression with 95% confidence band",
+    x = "Expressiveness Score (1 = Low, 5 = High)",
+    y = "Number of Unique People Spoken To"
+  ) +
+  theme_minimal(base_size = 13) + margin_theme
+
+# 5. Show all plots interactively
+print(hist_unique)
+print(hist_express)
+print(scatter_plot)
+
+# 6. Save plots to file, unclipped and with wide aspect ratio for readability
+ggsave("hist_unique.png", hist_unique, dpi = 320, width = 12, height = 7)
+ggsave("hist_express.png", hist_express, dpi = 320, width = 12, height = 7)
+ggsave("scatter_plot.png", scatter_plot, dpi = 320, width = 8, height = 6)
+
+# 7. Statistical models and diagnostics
+lm_mod <- lm(Unique_People_Spoke_To ~ Expressiveness_Avg + Age_Range + First_Language, data = df)
+summary(lm_mod)
+autoplot(lm_mod)
+ggsave("lm_diagnostics.png", autoplot(lm_mod), dpi = 320, width = 10, height = 7)
+
+po_mod <- glm(Unique_People_Spoke_To ~ Expressiveness_Avg + Age_Range + First_Language,
+              family = poisson(link = "log"), data = df)
+summary(po_mod)
+overdispersion <- sum(residuals(po_mod, type = "pearson")^2) / po_mod$df.residual
+print(sprintf("Overdispersion parameter: %.2f", overdispersion))
+if(overdispersion > 2) {
+  nb_mod <- glm.nb(Unique_People_Spoke_To ~ Expressiveness_Avg + Age_Range + First_Language, data = df)
+  summary(nb_mod)
+}
+
+
+```

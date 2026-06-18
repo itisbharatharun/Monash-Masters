@@ -1,0 +1,822 @@
+[Bharath Gandhimani] 15:02:03
+Yeah. Okay, so let's start the interview.
+
+[Preethi Preethi Sundarrajan] 15:02:05
+Okay. Mm-hmm.
+
+[Bharath Gandhimani] 15:02:17
+Hi, Preeti, thank you so much for, uh. Taking our time to speak with me today.
+
+[Bharath Gandhimani] 15:02:22
+I really appreciate your participation. Uh, the purpose of this interview is to understand your experiences during the cluster networking.
+
+[Preethi Preethi Sundarrajan] 15:02:24
+Mm-hmm.
+
+[Bharath Gandhimani] 15:02:31
+Event which she participated. And I like to learn 3 things.
+
+[Bharath Gandhimani] 15:02:36
+Three main areas during, uh, through this interview. These things are how the online event.
+
+[Bharath Gandhimani] 15:02:42
+Uh, is compared to the traditional event in-person networking. So, how the online event?
+
+[Bharath Gandhimani] 15:02:49
+Is better or worse than the traditional event. Your experiences, completing the task of finding the team members, that's the main task.
+
+[Preethi Preethi Sundarrajan] 15:02:52
+Mm-hmm.
+
+[Bharath Gandhimani] 15:02:58
+Funding from that challenge right, yeah. And your thoughts on the interface of the platform, which is the cluster platform of yours.
+
+[Preethi Preethi Sundarrajan] 15:02:58
+Yeah, it is, it is. Yeah.
+
+[Preethi Preethi Sundarrajan] 15:03:03
+Mm-hmm. Yeah.
+
+[Bharath Gandhimani] 15:03:05
+So, uh, I'll be recording this interview. I hope you're okay by providing your consent for this.
+
+[Preethi Preethi Sundarrajan] 15:03:12
+Yeah, yeah, sure.
+
+[Bharath Gandhimani] 15:03:14
+Okay, so let's jump into the first question. Mitch is… Uh, how would you describe your overall experience?
+
+[Preethi Preethi Sundarrajan] 15:03:17
+Mm-hmm.
+
+[Bharath Gandhimani] 15:03:23
+Participating in clusters, so… could give me an overall idea, it'd be great.
+
+[Preethi Preethi Sundarrajan] 15:03:27
+Um, yeah, so basically my overall experience was generally positive. I feel like it was easy for me to.
+
+[Preethi Preethi Sundarrajan] 15:03:36
+Navigate the interface, it was fairly intuitive and comfortable. And the, like, features which they added is… I feel like they are pretty good in sort of mimicking the.
+
+[Bharath Gandhimani] 15:03:49
+Okay?
+
+[Preethi Preethi Sundarrajan] 15:03:51
+Uh… general, like. How networking would be in person.
+
+[Preethi Preethi Sundarrajan] 15:03:56
+So I feel like the feature sort of mimicked that, like, we also had a feature that can.
+
+[Preethi Preethi Sundarrajan] 15:04:02
+Sort of make us eavesdrop on other people's conversations to, like… to be a little crass, but yeah, so that…
+
+[Bharath Gandhimani] 15:04:08
+Yeah.
+
+[Preethi Preethi Sundarrajan] 15:04:11
+Kind of, um… one-to-one comparison, to a certain extent, I feel like was there. So, it was generally a pretty good experience.
+
+[Bharath Gandhimani] 15:04:17
+Okay. Okay, it was a good one. And…
+
+[Bharath Gandhimani] 15:04:22
+What aspects, uh, you felt similar to traditional networking? So, do you feel something similar or different, something like that?
+
+[Preethi Preethi Sundarrajan] 15:04:26
+Yeah. So, I mean, I did say that, but, like, the… there was a feature that, like, let us preview other, like, conversations happening in, like, the clusters that you are not in.
+
+[Preethi Preethi Sundarrajan] 15:04:41
+So that… that is one of the features that kind of mimics the, like, experience of networking in, like, a big event, where, like, there's a lot of conversations happening around you.
+
+[Preethi Preethi Sundarrajan] 15:04:50
+And you can sort of catch, you know, glimpses of those conversations as you are talking to someone.
+
+[Preethi Preethi Sundarrajan] 15:04:58
+Within your conversation. So, that kind of experience, I feel like.
+
+[Bharath Gandhimani] 15:04:58
+Yeah.
+
+[Preethi Preethi Sundarrajan] 15:05:03
+Was pretty good at innovative of the team to implement. And also, just generally, the, like, flow of conversations, even though it was in a virtual platform.
+
+[Preethi Preethi Sundarrajan] 15:05:14
+Like, you could really, sort of. Get more in-depth.
+
+[Preethi Preethi Sundarrajan] 15:05:18
+Which, like, the in-person experience also kind of has. As while it's not, like, a perfect substitute, it did mimic the experience pretty well, which is good.
+
+[Bharath Gandhimani] 15:05:23
+Yeah. Yeah. Yeah, that's good.
+
+[Bharath Gandhimani] 15:05:29
+So, uh… Did the online format make it a bit easier for you to communicate with newer people, or…
+
+[Bharath Gandhimani] 15:05:38
+Was it, you know, any way hindering the process of, you know, getting to know people?
+
+[Bharath Gandhimani] 15:05:43
+Yeah.
+
+[Preethi Preethi Sundarrajan] 15:05:45
+Um, like, I feel like with the online format, it's… there's always that, like, hurdle of awkwardness that, like, you have to jump over, which doesn't really exist in person, because, like, in person, you can really, like.
+
+[Preethi Preethi Sundarrajan] 15:05:59
+More instantaneously connect, but, like, online, it always becomes the, like.
+
+[Preethi Preethi Sundarrajan] 15:06:04
+Like, people are almost shy to talk. In online, uh, settings. So, like, unless someone really, like, gathers the bravery and, like.
+
+[Bharath Gandhimani] 15:06:09
+Yeah.
+
+[Preethi Preethi Sundarrajan] 15:06:15
+Sort of encourage this conversation. It's difficult to get conversations started.
+
+[Preethi Preethi Sundarrajan] 15:06:20
+But once the conversation starts, I feel like it's… it flows pretty easily.
+
+[Preethi Preethi Sundarrajan] 15:06:24
+So that it's different. Than real-life networking.
+
+[Bharath Gandhimani] 15:06:25
+Yeah, the… I would say it's more subjective to each person, but it was a wonderful answer, by the way, so…
+
+[Bharath Gandhimani] 15:06:35
+Yeah. So, going on to the next question. Do you think Cluster captured the spirit of networking?
+
+[Preethi Preethi Sundarrajan] 15:06:35
+Yeah. Mm-hmm.
+
+[Bharath Gandhimani] 15:06:42
+Uh, did it miss something, or did it enhance something which you feel like.
+
+[Bharath Gandhimani] 15:06:48
+This event as… this online event has brought compared to the real-life networking event.
+
+[Preethi Preethi Sundarrajan] 15:06:54
+Um, I think in real life, like, you always sort of network with a more general purpose.
+
+[Preethi Preethi Sundarrajan] 15:07:01
+As compared… like, for us, because this is an aside bed, it's like, okay, we are, like, just, you know, we are just… talking with the motive of, like, finding group mates, or finding… or, like, doing well on the assignment, but in real life, you…
+
+[Preethi Preethi Sundarrajan] 15:07:16
+Like, really want to gain something long-term out of networking. Which, I mean, if this was… if this technology is applied to that sort of context, I feel like it would be more interesting and would be more helpful.
+
+[Bharath Gandhimani] 15:07:19
+Yeah.
+
+[Preethi Preethi Sundarrajan] 15:07:30
+But, um… but also, like, in networking, in real life networking, especially.
+
+[Preethi Preethi Sundarrajan] 15:07:36
+In the corporate kind of setting. We're always looking for people who are better than us, or people who are more experienced than us, or, you know, so that we can learn from them.
+
+[Preethi Preethi Sundarrajan] 15:07:45
+But because we are doing this among peers, you don't really have that sort of.
+
+[Preethi Preethi Sundarrajan] 15:07:49
+Um, incentive to really, like, have deep conversations and stuff like that.
+
+[Bharath Gandhimani] 15:07:54
+Yeah.
+
+[Preethi Preethi Sundarrajan] 15:07:54
+So, this particular exercise, I feel like, was not the best representation of networking as a concept.
+
+[Preethi Preethi Sundarrajan] 15:08:03
+But the technology could be improved, and it could be, you know… uh, tailored to a more general and more productive networking experience, I feel.
+
+[Preethi Preethi Sundarrajan] 15:08:13
+Down the line.
+
+[Bharath Gandhimani] 15:08:15
+So I'm just curious, uh, would you suggest, uh, cluster networking.
+
+[Bharath Gandhimani] 15:08:19
+To another person who doesn't have any idea about this online networking event.
+
+[Bharath Gandhimani] 15:08:24
+Or would you say that you can just… avoid this online type of networking.
+
+[Bharath Gandhimani] 15:08:31
+I'm just curious about that.
+
+[Preethi Preethi Sundarrajan] 15:08:33
+Um, I feel like, okay, so there's pros and cons, right? Obviously, there is… there is nothing like in-person connection and in-person networking.
+
+[Preethi Preethi Sundarrajan] 15:08:42
+Because that's where you gain the most out of networking, and you have the most to offer from networking.
+
+[Preethi Preethi Sundarrajan] 15:08:50
+But, in a way, the online thing also facilitates more diversity in terms of networking, because, like, you… We'll network with people who are not necessarily in the same area as you. Like, even… even now, like, it…
+
+[Preethi Preethi Sundarrajan] 15:09:05
+Kind of facilitated people from both Clayton and Malaysia to, like, interact with each other. So, in a way, that is good.
+
+[Preethi Preethi Sundarrajan] 15:09:12
+But obviously, there's nothing like in-person connection and in-person, um… networking. So, would I suggest it to someone if it improves, if…
+
+[Preethi Preethi Sundarrajan] 15:09:24
+The technology is refined a little bit more, yeah, I could probably suggest.
+
+[Bharath Gandhimani] 15:09:28
+Yeah. Yeah, that's good. So… yeah, yeah.
+
+[Preethi Preethi Sundarrajan] 15:09:29
+Definement is required, basically.
+
+[Bharath Gandhimani] 15:09:32
+Okay. So, that's basically what I was looking for, so it's fine.
+
+[Preethi Preethi Sundarrajan] 15:09:36
+Mm-hmm.
+
+[Bharath Gandhimani] 15:09:37
+And… The next thing which I'm curious is how difficult was it to get the 6?
+
+[Bharath Gandhimani] 15:09:45
+Member team which you are assigned to. So, was it easy? Was it difficult?
+
+[Bharath Gandhimani] 15:09:50
+Uh, did you find the password, the secret code which you have to share to the other person? Do you find that.
+
+[Preethi Preethi Sundarrajan] 15:09:55
+Yeah, I feel like, I feel like that was the most confusing part of it, like, which code are we supposed to share? Is it this code? Is it that code? With whom are we supposed to share? Like, like, for example, but I feel like that's more to do with the assignment than with the actual technology.
+
+[Bharath Gandhimani] 15:09:56
+Method. Yeah.
+
+[Bharath Gandhimani] 15:10:01
+Yeah. Yeah.
+
+[Bharath Gandhimani] 15:10:10
+Yeah, okay.
+
+[Preethi Preethi Sundarrajan] 15:10:11
+The actual technology, I feel like, was… I feel like it was pretty smooth, like, clear, like, because we can sort of jump in and out of clusters.
+
+[Preethi Preethi Sundarrajan] 15:10:21
+Like, at a certain point, it just became that, like, like-minded people… We'll just sort of gathered in one place. So, like, shortlisting your teammates from that becomes easier, right?
+
+[Bharath Gandhimani] 15:10:28
+Okay. Yeah.
+
+[Preethi Preethi Sundarrajan] 15:10:32
+Because, um… because you can sort of eavesdrop on everybody else and what they are doing.
+
+[Preethi Preethi Sundarrajan] 15:10:38
+So, if you don't click with Viv with someone, you can just leave.
+
+[Preethi Preethi Sundarrajan] 15:10:41
+Which is great. So, like, I'd add… At a certain point, it just, you know, like.
+
+[Bharath Gandhimani] 15:10:41
+Yeah.
+
+[Preethi Preethi Sundarrajan] 15:10:47
+People who get along sort of coalesce into a group, which is… which is pretty cool, I feel. And that also kind of mimics real-life networking, in a way. Like, if you don't vibe with someone, you can just make excuses and leave.
+
+[Bharath Gandhimani] 15:10:55
+Yeah. Yeah.
+
+[Preethi Preethi Sundarrajan] 15:11:00
+Right? So, that… That was… that was a good, fun, sort.
+
+[Bharath Gandhimani] 15:11:01
+Okay. Yeah.
+
+[Preethi Preethi Sundarrajan] 15:11:04
+So it was decently easy, at least in my experience, to find people who.
+
+[Preethi Preethi Sundarrajan] 15:11:10
+Could be my team. It's… Obviously, I knew people going in, but… you know.
+
+[Bharath Gandhimani] 15:11:16
+Yeah. Oh, you know who are all… in your cluster, right? So, that made it much more easier for you to network.
+
+[Preethi Preethi Sundarrajan] 15:11:23
+No, as in, I knew, like, I had friends who had booked the same time slot.
+
+[Bharath Gandhimani] 15:11:28
+Oh, okay, okay. That's good. Yeah.
+
+[Preethi Preethi Sundarrajan] 15:11:30
+So… that's… that's what… I knew people going in, but, like, I met new people also, so it was kind of… you know, it's kind of good.
+
+[Bharath Gandhimani] 15:11:35
+Yeah, yeah. That's fair, yeah. So, on average, how long did you…
+
+[Preethi Preethi Sundarrajan] 15:11:37
+Yeah. Mm-hmm.
+
+[Bharath Gandhimani] 15:11:42
+Think it took for you to get your six-member team, so did it take… 10, 15, or 20.
+
+[Preethi Preethi Sundarrajan] 15:11:46
+It took the whole session, though. It took, like… how long was it? Was it an hour?
+
+[Bharath Gandhimani] 15:11:49
+Oh, okay. It was 45, I think, it was 45, yeah.
+
+[Preethi Preethi Sundarrajan] 15:11:52
+I think it was, like, an… it was 45 minutes, right? Yeah. So, but it… it did take that long, because, again.
+
+[Preethi Preethi Sundarrajan] 15:11:59
+Think about it, right? We have, like, you only get to that point once you have been through all the clusters.
+
+[Bharath Gandhimani] 15:12:06
+Yeah, yeah.
+
+[Preethi Preethi Sundarrajan] 15:12:06
+So, moving through all the clusters and having all those conversations, it only towards the end, you get to the point of, like, okay, I can finalize these 6 people.
+
+[Bharath Gandhimani] 15:12:16
+Yeah. It's a good one. So, did you face any obstacles, uh, while forming the group, where some people, you know.
+
+[Preethi Preethi Sundarrajan] 15:12:17
+Mm-hmm.
+
+[Bharath Gandhimani] 15:12:26
+Uh, angry towards yours, misbehaved somewhere, or was it smooth all the way through?
+
+[Preethi Preethi Sundarrajan] 15:12:33
+To me, no, I mean, I did not really face… I think the biggest obstacle I faced was, again, the, like, team code thing.
+
+[Bharath Gandhimani] 15:12:34
+Okay.
+
+[Preethi Preethi Sundarrajan] 15:12:39
+It's like… But again, that is to do with the assignment and not with the actual software.
+
+[Bharath Gandhimani] 15:12:39
+Okay.
+
+[Bharath Gandhimani] 15:12:45
+Oh, okay. Yeah, okay.
+
+[Preethi Preethi Sundarrajan] 15:12:47
+On the software side and on the people side, it was pretty chill. It's just, like, everybody was confused what exactly we are supposed to be doing.
+
+[Bharath Gandhimani] 15:12:50
+Yeah. Yeah, I get that, so…
+
+[Preethi Preethi Sundarrajan] 15:12:56
+Yeah. But, like, yeah. Yeah, I know.
+
+[Bharath Gandhimani] 15:12:57
+Because they weren't clear about it, so… Um, then…
+
+[Bharath Gandhimani] 15:13:03
+Uh, did you follow any strategies to, you know. Former groups, so I'll… for example, let's say I'll take two persons who I know.
+
+[Bharath Gandhimani] 15:13:13
+For my team, and the remaining four, I will take a new person, or something like that. Do you have any strategies for that?
+
+[Preethi Preethi Sundarrajan] 15:13:17
+Yeah, I did, because, like, like, like I said, I already had friends going in, so, like, we are kind of already made a decision, like.
+
+[Bharath Gandhimani] 15:13:23
+Okay. Oh, okay.
+
+[Preethi Preethi Sundarrajan] 15:13:26
+Oh, we'll just take… we'll just, like, we'll just make the team ourselves, and maybe if we find someone, we vibe with, we'll just… you know, add that person in. So, in a way, yeah, we did have strategy beforehand.
+
+[Bharath Gandhimani] 15:13:34
+Okay.
+
+[Preethi Preethi Sundarrajan] 15:13:37
+But I was… I personally was more open to. You know, putting other people in my group, because…
+
+[Bharath Gandhimani] 15:13:38
+Okay?
+
+[Bharath Gandhimani] 15:13:44
+Okay.
+
+[Preethi Preethi Sundarrajan] 15:13:44
+It's like, okay, if we are networking, then isn't it more fruitful for me.
+
+[Preethi Preethi Sundarrajan] 15:13:53
+Personally, to find friends or whatever, so… like, to meet new people. So, again, I did have strategy, but, like, I was pretty open to…
+
+[Bharath Gandhimani] 15:14:02
+So, your answer leads me to the next question, actually. So… Did you use this platform to make.
+
+[Preethi Preethi Sundarrajan] 15:14:02
+Meeting people. Mm-hmm.
+
+[Bharath Gandhimani] 15:14:09
+New friends, or just, you know, use this platform to gather groups of people for your assignment.
+
+[Preethi Preethi Sundarrajan] 15:14:16
+Um, actually, I did.
+
+[Bharath Gandhimani] 15:14:16
+Did you have an intention to make new friends? That's my question.
+
+[Preethi Preethi Sundarrajan] 15:14:21
+I mean, I was open to it, but, like, now I feel like when it comes to group forming, like, it's always assignment first, and then friendship second.
+
+[Bharath Gandhimani] 15:14:24
+Okay.
+
+[Bharath Gandhimani] 15:14:31
+Yeah. Yeah. Yeah, I get it.
+
+[Preethi Preethi Sundarrajan] 15:14:31
+Priorities, you know?
+
+[Bharath Gandhimani] 15:14:36
+So, looking back at the cluster event, what would you have done differently.
+
+[Bharath Gandhimani] 15:14:42
+Do you have any regrets with your team? Or, uh, you have done different something?
+
+[Preethi Preethi Sundarrajan] 15:14:45
+With my team? No, not… not really. I mean… I mean, I feel like the… like, towards the end, we, like.
+
+[Bharath Gandhimani] 15:14:48
+Okay.
+
+[Preethi Preethi Sundarrajan] 15:14:52
+Like, ideally sort of clicked Twitter with a few people, so that's fine. I don't really have any regrets.
+
+[Bharath Gandhimani] 15:14:55
+Yeah. Okay.
+
+[Preethi Preethi Sundarrajan] 15:14:58
+But if I did want to suggest something for the software, it should have a… it should have a… a chat function. Clearly, it was so inconvenient trying to share the code that we just had to show it on our phone screens.
+
+[Bharath Gandhimani] 15:15:05
+Oh, okay, yeah. Yeah, I get it.
+
+[Bharath Gandhimani] 15:15:11
+Yeah…
+
+[Preethi Preethi Sundarrajan] 15:15:12
+Should have a… at the very least, like, a chat function. That would have been very useful.
+
+[Bharath Gandhimani] 15:15:16
+Yeah, that would have been… Yeah. Because sometimes when we spell out the code, the letters sound similar, so…
+
+[Preethi Preethi Sundarrajan] 15:15:21
+Mm-hmm. Yeah…
+
+[Bharath Gandhimani] 15:15:23
+The other person might get the wrong code, and it's useless at that point, so… Yeah, I get that, so…
+
+[Preethi Preethi Sundarrajan] 15:15:26
+Mm-hmm. Yeah.
+
+[Bharath Gandhimani] 15:15:31
+Uh, what, uh… You already told about the platform being.
+
+[Bharath Gandhimani] 15:15:35
+Easier to navigate. Uh, do you have any suggestions, or do you have any… things to improve upon.
+
+[Preethi Preethi Sundarrajan] 15:15:37
+Mm-hmm.
+
+[Bharath Gandhimani] 15:15:42
+Other than the thing which you told about the chat function, right? So… Yeah, okay.
+
+[Preethi Preethi Sundarrajan] 15:15:45
+Yeah. Oh my god, please, chat would be good. But also, I feel like the, uh, layout of it was a little confusing, and we had a few glitches, actually.
+
+[Bharath Gandhimani] 15:15:56
+Okay.
+
+[Preethi Preethi Sundarrajan] 15:15:57
+When, um, the, like, people were going into private rooms, but we could… we in the wider cluster could still hear them talking.
+
+[Preethi Preethi Sundarrajan] 15:16:04
+So it was like, this is meant to be a private conversation, but, like, we are.
+
+[Bharath Gandhimani] 15:16:06
+Okay.
+
+[Preethi Preethi Sundarrajan] 15:16:10
+Like, it's, like, overlapping and stuff. But that is, like, a technical glitch. Um, on, like, a more structural level, I feel like… The, um, the idea of, like, taking peeks into other people's.
+
+[Bharath Gandhimani] 15:16:15
+Okay.
+
+[Preethi Preethi Sundarrajan] 15:16:25
+Clusters is interesting, I feel, and it's a good idea, just the implementation of it, I don't know if it was the smoothest again. Because it relied on, um… the, like, whole cluster being recorded and livestreamed on, like, the facilitator's YouTube channel, and then we had to… yeah, yeah, I noticed that, and I was like, why are they doing it like this? Like, surely there's an easier way to do it than…
+
+[Bharath Gandhimani] 15:16:51
+Yeah. Yeah.
+
+[Preethi Preethi Sundarrajan] 15:16:51
+You know, doing the whole platform integration thing. That, I feel like, could have been, like… I feel like they need to think about that.
+
+[Bharath Gandhimani] 15:16:57
+But handle better. Yeah. Yeah. And is there anything frustrating about the event, so…
+
+[Preethi Preethi Sundarrajan] 15:16:59
+A little more.
+
+[Bharath Gandhimani] 15:17:05
+For example, did the… interface caused any issues persistent, which is not fixable, or something like that.
+
+[Preethi Preethi Sundarrajan] 15:17:14
+Like those glitches I was talking about, where… Yeah, that is… yeah.
+
+[Bharath Gandhimani] 15:17:15
+Yeah, that's glitches, but is there any… permanent, uh, issues with the interface, though.
+
+[Bharath Gandhimani] 15:17:23
+Other than glitches. So, glitches are, like.
+
+[Preethi Preethi Sundarrajan] 15:17:24
+Um, I feel like it's… yeah, it's… it was fairly smooth, and I feel like it was well thought out of, like, the ideas are all there, I feel like, just from a UI perspective, it needs a little more… fine-tuning and, like, a little more, sort of, smoother integration of all the features that they want to implement.
+
+[Bharath Gandhimani] 15:17:38
+Okay.
+
+[Preethi Preethi Sundarrajan] 15:17:43
+And, uh, obviously, the, like, chat would be really, really useful.
+
+[Bharath Gandhimani] 15:17:44
+Yeah.
+
+[Preethi Preethi Sundarrajan] 15:17:48
+Other than that, it was pretty smooth every. Generally, it was pretty smooth.
+
+[Bharath Gandhimani] 15:17:53
+Okay. So… Uh, what… looking back, what is the biggest takeaway you…
+
+[Bharath Gandhimani] 15:18:00
+Took from this online cluster event, so… the final thing.
+
+[Preethi Preethi Sundarrajan] 15:18:03
+Um, in what aspect, you mean? Like, like…
+
+[Bharath Gandhimani] 15:18:05
+So… What I mean is, uh… Uh, it was a good experience.
+
+[Bharath Gandhimani] 15:18:13
+Uh, finding new people. Or was it, like, uh… I have already made a group of friends, which I wanted to make a team.
+
+[Bharath Gandhimani] 15:18:21
+So, I just want to make friends using this online cluster team.
+
+[Bharath Gandhimani] 15:18:25
+An online cluster networking platform. Or did you have an intention of making a team through this?
+
+[Preethi Preethi Sundarrajan] 15:18:28
+Mm-hmm.
+
+[Bharath Gandhimani] 15:18:32
+And making new friends, and uh… tug into new people, so… Would you say this is a positive.
+
+[Preethi Preethi Sundarrajan] 15:18:37
+I… I mean, I… I mean, yeah.
+
+[Bharath Gandhimani] 15:18:41
+Initiative, or a useless one, so that's what I'm trying to get.
+
+[Preethi Preethi Sundarrajan] 15:18:44
+I think… I think the idea is good, and… like, the idea can be generalized, you know, like, think about it, like, how, like, if you want to go to, like, a networking event, say, in, like, a foreign country, for example, let's say I want to go to, like, a networking event in Amsterdam.
+
+[Bharath Gandhimani] 15:18:46
+Okay.
+
+[Preethi Preethi Sundarrajan] 15:19:02
+Because there's, like, a lot of tech… trees and stuff showing up.
+
+[Preethi Preethi Sundarrajan] 15:19:07
+And I want to interact with them, but, like, I'm limited by my geographical location, because I'm in Clayton right now.
+
+[Preethi Preethi Sundarrajan] 15:19:14
+So, I feel like this sort of initiative would be very interesting to implement in those cases, because, like.
+
+[Bharath Gandhimani] 15:19:14
+Yeah.
+
+[Preethi Preethi Sundarrajan] 15:19:20
+Think of, like, all conferences and stuff only happen… only happen via Zoom and have, like, breakout rooms at best.
+
+[Preethi Preethi Sundarrajan] 15:19:27
+So, this sort of thing would be very useful for that sort of use case.
+
+[Bharath Gandhimani] 15:19:28
+Yeah.
+
+[Preethi Preethi Sundarrajan] 15:19:32
+Um, I feel like, just with, like, a little bit of a fine-tuning, it could really get there. It could be useful in, like, a more general sort of networking.
+
+[Bharath Gandhimani] 15:19:33
+Yeah?
+
+[Bharath Gandhimani] 15:19:40
+Boom. Yeah.
+
+[Preethi Preethi Sundarrajan] 15:19:41
+Which I think is the goal, right? It is the point of the whole thing.
+
+[Bharath Gandhimani] 15:19:44
+Yeah.
+
+[Preethi Preethi Sundarrajan] 15:19:45
+So, I feel like it would be very useful to be more generalized.
+
+[Preethi Preethi Sundarrajan] 15:19:50
+Um, specifically about this assignment, where… I mean, I already said, like, I was pretty open to, um, interacting with people, and even though I had friends going in, and I had, like, a plan to make teams with my friends.
+
+[Preethi Preethi Sundarrajan] 15:20:05
+I was pretty open to interact, and I feel like… We kind of succeeded there, and, like, we did have some fun conversations in the room.
+
+[Bharath Gandhimani] 15:20:11
+No.
+
+[Preethi Preethi Sundarrajan] 15:20:14
+So, it was interesting, definitely.
+
+[Bharath Gandhimani] 15:20:17
+So, I have one curious question. So, this is… what I thought of it, but… I don't know how you thought of it, yeah.
+
+[Preethi Preethi Sundarrajan] 15:20:20
+Mm-hmm. Yeah, yeah, sure.
+
+[Bharath Gandhimani] 15:20:25
+So, uh, do you think this event, uh. I mean, made us in a way to, uh, interact with the people who we are comfortable with, so…
+
+[Preethi Preethi Sundarrajan] 15:20:25
+Mm-hmm.
+
+[Bharath Gandhimani] 15:20:36
+By comfortable, what I mean is. Let's say a group of Asians or Indians are there, eh?
+
+[Bharath Gandhimani] 15:20:41
+So, do you think, uh, that plaster consisted of… Uh, people who are… we are more comfortable with.
+
+[Preethi Preethi Sundarrajan] 15:20:42
+Mm-hmm.
+
+[Bharath Gandhimani] 15:20:47
+So, what I found was… Uh, I'm an Indian, so I tend to go to a cluster where more number of Indians are prevalent there.
+
+[Preethi Preethi Sundarrajan] 15:20:52
+Mm-hmm.
+
+[Bharath Gandhimani] 15:20:55
+So, do you think, uh, making cluster like this.
+
+[Preethi Preethi Sundarrajan] 15:20:58
+But that is… but that is the case even in real life, right? Think about it, how many times have you willingly gone up to, like, to, like, a group full of Asians in real life, and just, like, it just, like, started talking to them, and, like, and if they just give you the cold shoulder.
+
+[Bharath Gandhimani] 15:21:02
+Yeah.
+
+[Bharath Gandhimani] 15:21:10
+Yeah.
+
+[Preethi Preethi Sundarrajan] 15:21:18
+Then that is… I mean, this happens in real life networking, too, so I don't think that's necessarily a problem with the, like, format of the… of the networking event. It's just, like, how humans are.
+
+[Preethi Preethi Sundarrajan] 15:21:30
+It's just like an in-group, out-group thing, right? So, um, but yeah, definitely. But I feel like language also plays, like, an important role in this, because.
+
+[Bharath Gandhimani] 15:21:30
+Yeah. Yeah.
+
+[Bharath Gandhimani] 15:21:38
+Yeah. Good idea.
+
+[Preethi Preethi Sundarrajan] 15:21:40
+Like, all the Asians and all the, like, Chinese people, they just, they just started talking in Chinese, and I was like, okay, what am I supposed to do here?
+
+[Bharath Gandhimani] 15:21:46
+Yeah, I have to find a different group. Yeah.
+
+[Preethi Preethi Sundarrajan] 15:21:47
+I don't know his ideas, I'm just… I'm just… I'm just gonna leave! So… But this is the case in real life also, so, like, it's not exclusive to this, it just happens, because humans are like that.
+
+[Bharath Gandhimani] 15:21:59
+Yeah. Okay, get it. So…
+
+[Preethi Preethi Sundarrajan] 15:22:00
+Mm-hmm.
+
+[Bharath Gandhimani] 15:22:05
+I think I'm done with the interview then, now? It was a good interview, actually, so…
+
+[Preethi Preethi Sundarrajan] 15:22:07
+Okay. Mm-hmm.
+
+[Bharath Gandhimani] 15:22:12
+Your points were clear and brief enough for me. Uh, do you have any, uh.
+
+[Preethi Preethi Sundarrajan] 15:22:17
+Okay, thank you.
+
+[Bharath Gandhimani] 15:22:20
+Thing to add upon for this interview.
+
+[Preethi Preethi Sundarrajan] 15:22:23
+Um, like, like, you actually brought it up, but, like, I'm… I'm kind of more curious how you felt about the whole experience, because, like, I feel like, because I sort of… had, like, strategies to, you know, make my teams and stuff. Like, did a… did you…
+
+[Preethi Preethi Sundarrajan] 15:22:41
+Do go into it, like, very open-mindedly, and I was like, oh, I'm just gonna make.
+
+[Bharath Gandhimani] 15:22:43
+Yeah.
+
+[Preethi Preethi Sundarrajan] 15:22:45
+Teams through this app, or whatever.
+
+[Bharath Gandhimani] 15:22:47
+I find it more, uh, helpful for me, because. Basically, I tend to talk less when I'm with people.
+
+[Bharath Gandhimani] 15:22:55
+So, through online, uh, that shiny barrier. You know, kind of broke for me, so…
+
+[Preethi Preethi Sundarrajan] 15:22:56
+Oh, okay. Mm-hmm.
+
+[Preethi Preethi Sundarrajan] 15:23:01
+Oh, so it was the… it was the inverse for you, where you don't feel more shy online.
+
+[Bharath Gandhimani] 15:23:02
+I… yeah, yeah. So it was easier for me to communicate with new people through online.
+
+[Preethi Preethi Sundarrajan] 15:23:07
+Oh, that's… that's interesting. That's interesting.
+
+[Bharath Gandhimani] 15:23:10
+But again, uh… To be honest, I couldn't get the 6 people I wanted, so… I tried tugging to… yeah, so…
+
+[Preethi Preethi Sundarrajan] 15:23:16
+Oh, is it? Yeah, that's it. Up to 6 people, right? You don't have to pick 6 people exactly. So, even…
+
+[Bharath Gandhimani] 15:23:19
+I spent way too much… Yeah.
+
+[Bharath Gandhimani] 15:23:24
+Yeah. Yeah, so I spent way too much time on a couple of people. By the time I…
+
+[Preethi Preethi Sundarrajan] 15:23:26
+And I only put 5 people.
+
+[Bharath Gandhimani] 15:23:33
+Then turn more on to the next person. The time was up, so… We just, you know, I…
+
+[Preethi Preethi Sundarrajan] 15:23:37
+Yeah. I think, I think, I think by the time it came to my, like, session of networking, I feel like enough people had gone that, like, everybody was like, oh, you just, you just share your code in the beginning itself.
+
+[Preethi Preethi Sundarrajan] 15:23:50
+That way, you know, you can just get more people's scores, and then you can shortlist among them, which is what I did.
+
+[Bharath Gandhimani] 15:23:51
+Yeah. Yeah, uh… Yeah. And it's… and I think it's subjective, so each person's experience might vary from.
+
+[Preethi Preethi Sundarrajan] 15:23:59
+So, I feel like, again, it's all about strategy, and it's all about what you want to get out of it.
+
+[Bharath Gandhimani] 15:24:07
+A different person, so… what I felt… Yeah.
+
+[Preethi Preethi Sundarrajan] 15:24:09
+Yeah, yeah, yeah, yeah, because they… because, yeah, they also made us, like, do a survey kind of thing about how you communicate in general.
+
+[Bharath Gandhimani] 15:24:15
+Yeah. Hmm. Yeah.
+
+[Preethi Preethi Sundarrajan] 15:24:19
+So, they'll probably find some correlation from that, I feel. I hope so, let's see. I just… I just want to pass.
+
+[Bharath Gandhimani] 15:24:22
+Yeah. I hope so. Let's see, uh…
+
+[Bharath Gandhimani] 15:24:30
+Yeah… Yeah. Yeah.
+
+[Preethi Preethi Sundarrajan] 15:24:32
+No, we can do it, it's okay, it's not that difficult or anything.
+
+[Preethi Preethi Sundarrajan] 15:24:35
+You can do it. Yeah. Mm-hmm.
+
+[Bharath Gandhimani] 15:24:37
+Yeah, it was a wonderful time, you know, interviewing you. I hope I did great interviewing you.
+
+[Preethi Preethi Sundarrajan] 15:24:43
+Yeah, okay.
+
+[Bharath Gandhimani] 15:24:44
+Yeah. Thank you. So, I will just, uh, you know, take your consent form after the interview, and I… Yeah. Yeah.
+
+[Preethi Preethi Sundarrajan] 15:24:50
+Yeah, I just… I'll just… I'll just send it to you by email.
+
+[Preethi Preethi Sundarrajan] 15:24:55
+That'll be fine. Okay. Yeah, sure. See you then!
+
+[Bharath Gandhimani] 15:24:57
+Thank you, Preeti, yeah. Yeah, bye.
+
+[Preethi Preethi Sundarrajan] 15:24:59
+Mm-hmm, bye!
+
