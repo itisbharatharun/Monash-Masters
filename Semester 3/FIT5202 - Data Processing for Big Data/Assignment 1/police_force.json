@@ -1,0 +1,211 @@
+{
+"select code_format as id, \"label\" as name from police_force\r\n": [
+	{
+		"id" : "1",
+		"name" : "Metropolitan Police"
+	},
+	{
+		"id" : "3",
+		"name" : "Cumbria"
+	},
+	{
+		"id" : "4",
+		"name" : "Lancashire"
+	},
+	{
+		"id" : "5",
+		"name" : "Merseyside"
+	},
+	{
+		"id" : "6",
+		"name" : "Greater Manchester"
+	},
+	{
+		"id" : "7",
+		"name" : "Cheshire"
+	},
+	{
+		"id" : "10",
+		"name" : "Northumbria"
+	},
+	{
+		"id" : "11",
+		"name" : "Durham"
+	},
+	{
+		"id" : "12",
+		"name" : "North Yorkshire"
+	},
+	{
+		"id" : "13",
+		"name" : "West Yorkshire"
+	},
+	{
+		"id" : "14",
+		"name" : "South Yorkshire"
+	},
+	{
+		"id" : "16",
+		"name" : "Humberside"
+	},
+	{
+		"id" : "17",
+		"name" : "Cleveland"
+	},
+	{
+		"id" : "20",
+		"name" : "West Midlands"
+	},
+	{
+		"id" : "21",
+		"name" : "Staffordshire"
+	},
+	{
+		"id" : "22",
+		"name" : "West Mercia"
+	},
+	{
+		"id" : "23",
+		"name" : "Warwickshire"
+	},
+	{
+		"id" : "30",
+		"name" : "Derbyshire"
+	},
+	{
+		"id" : "31",
+		"name" : "Nottinghamshire"
+	},
+	{
+		"id" : "32",
+		"name" : "Lincolnshire"
+	},
+	{
+		"id" : "33",
+		"name" : "Leicestershire"
+	},
+	{
+		"id" : "34",
+		"name" : "Northamptonshire"
+	},
+	{
+		"id" : "35",
+		"name" : "Cambridgeshire"
+	},
+	{
+		"id" : "36",
+		"name" : "Norfolk"
+	},
+	{
+		"id" : "37",
+		"name" : "Suffolk"
+	},
+	{
+		"id" : "40",
+		"name" : "Bedfordshire"
+	},
+	{
+		"id" : "41",
+		"name" : "Hertfordshire"
+	},
+	{
+		"id" : "42",
+		"name" : "Essex"
+	},
+	{
+		"id" : "43",
+		"name" : "Thames Valley"
+	},
+	{
+		"id" : "44",
+		"name" : "Hampshire"
+	},
+	{
+		"id" : "45",
+		"name" : "Surrey"
+	},
+	{
+		"id" : "46",
+		"name" : "Kent"
+	},
+	{
+		"id" : "47",
+		"name" : "Sussex"
+	},
+	{
+		"id" : "48",
+		"name" : "City of London"
+	},
+	{
+		"id" : "50",
+		"name" : "Devon and Cornwall"
+	},
+	{
+		"id" : "52",
+		"name" : "Avon and Somerset"
+	},
+	{
+		"id" : "53",
+		"name" : "Gloucestershire"
+	},
+	{
+		"id" : "54",
+		"name" : "Wiltshire"
+	},
+	{
+		"id" : "55",
+		"name" : "Dorset"
+	},
+	{
+		"id" : "60",
+		"name" : "North Wales"
+	},
+	{
+		"id" : "61",
+		"name" : "Gwent"
+	},
+	{
+		"id" : "62",
+		"name" : "South Wales"
+	},
+	{
+		"id" : "63",
+		"name" : "Dyfed-Powys"
+	},
+	{
+		"id" : "91",
+		"name" : "Northern"
+	},
+	{
+		"id" : "92",
+		"name" : "Grampian"
+	},
+	{
+		"id" : "93",
+		"name" : "Tayside"
+	},
+	{
+		"id" : "94",
+		"name" : "Fife"
+	},
+	{
+		"id" : "95",
+		"name" : "Lothian and Borders"
+	},
+	{
+		"id" : "96",
+		"name" : "Central"
+	},
+	{
+		"id" : "97",
+		"name" : "Strathclyde"
+	},
+	{
+		"id" : "98",
+		"name" : "Dumfries and Galloway"
+	},
+	{
+		"id" : "99",
+		"name" : "Police Scotland"
+	}
+]}

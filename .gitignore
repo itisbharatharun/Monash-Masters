@@ -20,8 +20,8 @@ __pycache__/
 .Rhistory
 .Rapp.history
 
-# Terraform provider binaries
-.terraform/providers/
+# Terraform provider binaries (use **/ prefix so it matches at any depth)
+**/.terraform/
 
 # Large ML model files (exceed GitHub 100MB limit)
 *.onnx
@@ -48,10 +48,16 @@ node_modules/
 
 # Large datasets — FIT5202 Big Data (each file 100MB–1.1GB)
 2026S1_dataset/
+accidents.csv
+collision.csv
+vehicle.csv
 a2_accidents.csv
 a2_collision.csv
 a2_vehicle.csv
 severity_rating.csv
+
+# Duplicate/copy notebooks
+*copy*.ipynb
 
 # Claude Code project settings
 .claude/
