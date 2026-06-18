@@ -1,0 +1,73 @@
+# Flush all existing rules to start clean
+sudo iptables -F
+sudo iptables -X
+sudo iptables -Z
+
+# Set default policies to DROP (Requirement 8 - Critical!)
+sudo iptables -P INPUT DROP
+sudo iptables -P FORWARD DROP
+sudo iptables -P OUTPUT DROP
+
+# Allow established/related connections (essential for stateful inspection)
+# This allows return traffic for legitimate connections initiated from the allowed side.
+sudo iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+sudo iptables -A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+# Requirement 1: Allow traffic from anywhere to DMZ for specific public services
+# eth2 is R3_INTERNET_IF, eth0 is R3_DMZ_IF
+sudo iptables -A FORWARD -i eth2 -o eth0 -d 181.56.181.10 -p udp --dport 53 -j ACCEPT  # DNS (UDP) for dns.talos.edu
+sudo iptables -A FORWARD -i eth2 -o eth0 -d 181.56.181.10 -p tcp --dport 53 -j ACCEPT  # DNS (TCP) for dns.talos.edu
+sudo iptables -A FORWARD -i eth2 -o eth0 -d 181.56.181.11 -p tcp --dport 80 -j ACCEPT   # HTTP for web.talos.edu
+sudo iptables -A FORWARD -i eth2 -o eth0 -d 181.56.181.12 -p tcp --dport 25 -j ACCEPT   # SMTP for mail.talos.edu
+
+# Requirement 2: Allow servers in DMZ to initiate communication to External (stateful: DMZ -> External)
+# eth0 is R3_DMZ_IF, eth2 is R3_INTERNET_IF
+# Allow all DMZ servers to perform DNS lookups to external DNS servers
+sudo iptables -A FORWARD -i eth0 -o eth2 -p udp --dport 53 -j ACCEPT
+sudo iptables -A FORWARD -i eth0 -o eth2 -p tcp --dport 53 -j ACCEPT
+# Allow mail server (181.56.181.12) to send mail (SMTP outbound)
+sudo iptables -A FORWARD -i eth0 -o eth2 -s 181.56.181.12 -p tcp --dport 25 -j ACCEPT
+# Allow web server (181.56.181.11) to fetch external content (HTTP/HTTPS outbound)
+sudo iptables -A FORWARD -i eth0 -o eth2 -s 181.56.181.11 -p tcp --dport 80 -j ACCEPT
+sudo iptables -A FORWARD -i eth0 -o eth2 -s 181.56.181.11 -p tcp --dport 443 -j ACCEPT
+
+# Requirement 3: Allow internal hosts to access all services provided by servers in the DMZ (stateful: Internal -> DMZ)
+# eth1 is R3_INTERNAL_IF (connecting to 181.56.18.0/24 via 181.56.40.0/24), eth0 is R3_DMZ_IF
+sudo iptables -A FORWARD -i eth1 -o eth0 -s 181.56.18.0/24 -d 181.56.181.0/24 -j ACCEPT
+
+# Requirement 4: Allow internal hosts to reach other internal hosts (if passing through R3)
+# eth1 is R3_INTERNAL_IF
+# This covers routing between the 181.56.18.0/24 client subnet (behind R1) and the 181.56.40.0/24 segment R3 is directly connected to.
+sudo iptables -A FORWARD -i eth1 -o eth1 -s 181.56.18.0/24 -d 181.56.40.0/24 -j ACCEPT
+sudo iptables -A FORWARD -i eth1 -o eth1 -s 181.56.40.0/24 -d 181.56.18.0/24 -j ACCEPT
+
+
+# Requirement 5: Allow internal nodes to access external servers (stateful: Internal -> External)
+# eth1 is R3_INTERNAL_IF, eth2 is R3_INTERNET_IF
+sudo iptables -A FORWARD -i eth1 -o eth2 -s 181.56.18.0/24 -j ACCEPT
+
+# Requirement 6: Allow only clients subnet of talos (181.56.18.0/24) to SSH to node R3
+# This rule applies to R3's INPUT chain (traffic destined for R3 itself)
+sudo iptables -A INPUT -i eth1 -s 181.56.18.0/24 -p tcp --dport 22 -j ACCEPT
+
+# Requirement 7: Permit R3 to send/receive ICMP echo (ping) to/from internal/DMZ nodes
+# Allow R3 to send ICMP echo requests (ping) to Internal and DMZ (OUTPUT chain)
+sudo iptables -A OUTPUT -p icmp --icmp-type 8 -d 181.56.18.0/24 -j ACCEPT  # To client subnet
+sudo iptables -A OUTPUT -p icmp --icmp-type 8 -d 181.56.40.0/24 -j ACCEPT  # To direct internal segment
+sudo iptables -A OUTPUT -p icmp --icmp-type 8 -d 181.56.181.0/24 -j ACCEPT # To DMZ
+
+# Allow Internal and DMZ nodes to send ICMP echo requests (ping) to R3 (INPUT chain)
+sudo iptables -A INPUT -i eth1 -s 181.56.18.0/24 -p icmp --icmp-type 8 -j ACCEPT # From client subnet
+sudo iptables -A INPUT -i eth1 -s 181.56.40.0/24 -p icmp --icmp-type 8 -j ACCEPT # From direct internal segment
+sudo iptables -A INPUT -i eth0 -s 181.56.181.0/24 -p icmp --icmp-type 8 -j ACCEPT # From DMZ
+
+# ICMP echo replies are largely covered by the RELATED,ESTABLISHED rules, but for explicit clarity:
+# R3 receives ping replies from Internal and DMZ (INPUT chain)
+sudo iptables -A INPUT -p icmp --icmp-type 0 -s 181.56.18.0/24 -j ACCEPT
+sudo iptables -A INPUT -p icmp --icmp-type 0 -s 181.56.40.0/24 -j ACCEPT
+sudo iptables -A INPUT -p icmp --icmp-type 0 -s 181.56.181.0/24 -j ACCEPT
+# R3 sends ping replies to Internal and DMZ (OUTPUT chain)
+sudo iptables -A OUTPUT -p icmp --icmp-type 0 -d 181.56.18.0/24 -j ACCEPT
+sudo iptables -A OUTPUT -p icmp --icmp-type 0 -d 181.56.40.0/24 -j ACCEPT
+sudo iptables -A OUTPUT -p icmp --icmp-type 0 -d 181.56.181.0/24 -j ACCEPT

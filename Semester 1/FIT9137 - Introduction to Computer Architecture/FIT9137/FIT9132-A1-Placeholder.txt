@@ -1,0 +1,106 @@
+#!/bin/bash
+
+
+# Flush all existing rules and delete user-defined chains
+iptables -F
+iptables -X
+iptables -t nat -F
+iptables -t nat -X
+iptables -Z
+
+
+# Set default policies to DROP (Requirement 8)
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+
+
+########################################
+# Global: Allow established/related connections (stateful)
+########################################
+iptables -A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A FORWARD -m state --state RELATED,ESTABLISHED -j ACCEPT
+iptables -A OUTPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+
+########################################
+# Rule 1: Public → DMZ for specific services only
+# DNS: 181.56.181.10 (UDP/TCP 53)
+# Web: 181.56.181.11 (TCP 80)
+# Mail: 181.56.181.12 (TCP 25)
+########################################
+iptables -A FORWARD -p udp -d 181.56.181.10 --dport 53 -i eth3 -o eth0 -j ACCEPT
+iptables -A FORWARD -p tcp -d 181.56.181.10 --dport 53 -i eth3 -o eth0 -j ACCEPT
+iptables -A FORWARD -p tcp -d 181.56.181.11 --dport 80 -i eth3 -o eth0 -j ACCEPT
+iptables -A FORWARD -p tcp -d 181.56.181.12 --dport 25 -i eth3 -o eth0 -j ACCEPT
+
+
+########################################
+# Rule 2: DMZ → External (only required services)
+########################################
+iptables -A FORWARD -i eth0 -o eth3 -s 181.56.181.10 -p udp --dport 53 -j ACCEPT
+iptables -A FORWARD -i eth0 -o eth3 -s 181.56.181.12 -p tcp --dport 25 -j ACCEPT
+
+
+# Optional (only include if explicitly needed for updates)
+# iptables -A FORWARD -i eth0 -o eth3 -s 181.56.181.11 -p tcp --dport 80 -j ACCEPT
+# iptables -A FORWARD -i eth0 -o eth3 -s 181.56.181.11 -p tcp --dport 443 -j ACCEPT
+
+
+########################################
+# Rule 3: Internal → DMZ (allow all)
+########################################
+iptables -A FORWARD -i eth1 -o eth0 -s 181.56.18.0/24 -d 181.56.181.0/24 -j ACCEPT
+iptables -A FORWARD -i eth1 -o eth0 -s 181.56.40.0/24 -d 181.56.181.0/24 -j ACCEPT
+iptables -A FORWARD -i eth2 -o eth0 -s 181.56.26.0/24 -d 181.56.181.0/24 -j ACCEPT
+
+
+########################################
+# Rule 4: Internal ↔ Internal (only if traffic goes through R3)
+########################################
+iptables -A FORWARD -i eth1 -o eth2 -s 181.56.18.0/24 -d 181.56.26.0/24 -j ACCEPT
+iptables -A FORWARD -i eth1 -o eth2 -s 181.56.40.0/24 -d 181.56.26.0/24 -j ACCEPT
+iptables -A FORWARD -i eth2 -o eth1 -s 181.56.26.0/24 -d 181.56.18.0/24 -j ACCEPT
+iptables -A FORWARD -i eth2 -o eth1 -s 181.56.26.0/24 -d 181.56.40.0/24 -j ACCEPT
+
+
+########################################
+# Rule 5: Internal → Internet (stateful)
+########################################
+iptables -A FORWARD -i eth1 -o eth3 -s 181.56.18.0/24 -j ACCEPT
+iptables -A FORWARD -i eth1 -o eth3 -s 181.56.40.0/24 -j ACCEPT
+iptables -A FORWARD -i eth2 -o eth3 -s 181.56.26.0/24 -j ACCEPT
+
+
+########################################
+# Rule 6: SSH to R3 from client subnet only (181.56.18.0/24)
+########################################
+iptables -A INPUT -p tcp --dport 22 -s 181.56.18.0/24 -i eth1 -j ACCEPT
+
+
+########################################
+# Rule 7: ICMP (ping) for R3, DMZ, and Internal
+########################################
+# R3 → others (echo-requests)
+iptables -A OUTPUT -p icmp --icmp-type echo-request -d 181.56.18.0/24 -j ACCEPT
+iptables -A OUTPUT -p icmp --icmp-type echo-request -d 181.56.40.0/24 -j ACCEPT
+iptables -A OUTPUT -p icmp --icmp-type echo-request -d 181.56.26.0/24 -j ACCEPT
+iptables -A OUTPUT -p icmp --icmp-type echo-request -d 181.56.181.0/24 -j ACCEPT
+
+
+# Internal/DMZ → R3 (echo-requests)
+iptables -A INPUT -p icmp --icmp-type echo-request -s 181.56.18.0/24 -i eth1 -j ACCEPT
+iptables -A INPUT -p icmp --icmp-type echo-request -s 181.56.40.0/24 -i eth1 -j ACCEPT
+iptables -A INPUT -p icmp --icmp-type echo-request -s 181.56.26.0/24 -i eth2 -j ACCEPT
+iptables -A INPUT -p icmp --icmp-type echo-request -s 181.56.181.0/24 -i eth0 -j ACCEPT
+
+
+# Internal ↔ DMZ via FORWARD (ping requests)
+iptables -A FORWARD -p icmp --icmp-type echo-request -i e
+
+
+
+# Allow ICMP (ping) from DMZ to Internet for testing
+iptables -A FORWARD -i eth0 -o eth3 -s 181.56.181.10 -p icmp --icmp-type echo-request -j ACCEPT
+iptables -A FORWARD -i eth0 -o eth3 -s 181.56.181.11 -p icmp --icmp-type echo-request -j ACCEPT
+iptables -A FORWARD -i eth0 -o eth3 -s 181.56.181.12 -p icmp --icmp-type echo-request -j ACCEPT
