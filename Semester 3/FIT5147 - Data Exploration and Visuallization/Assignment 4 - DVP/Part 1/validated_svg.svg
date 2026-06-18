@@ -1,0 +1,146 @@
+<svg xmlns="w3.org" viewBox="0 0 850 580" width="100%" height="100%" style="background-color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+  
+  <!-- Definitions for shadows and filters -->
+  <defs>
+    <filter id="cardShadow" x="-2%" y="-2%" width="104%" height="106%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.06"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#0f172a" flood-opacity="0.04"/>
+    </filter>
+  </defs>
+
+  <!-- Main Presentation Canvas Area -->
+  <rect x="25" y="25" width="800" height="530" rx="16" fill="#ffffff" stroke="#e2e8f0" stroke-width="1" filter="url(#cardShadow)"/>
+
+  <!-- Chart Header Grid Elements -->
+  <text x="65" y="70" font-size="20" font-weight="800" fill="#0f172a" letter-spacing="-0.025em">Household Vehicle Ownership by Income Band</text>
+  <text x="65" y="92" font-size="13" font-weight="500" fill="#64748b">Analysis of mean fleet size, 95% Confidence Intervals (CI), and car-free distribution ratios</text>
+
+  <!-- Y-Axis Grid Lines & Background Ticks -->
+  <g transform="translate(100, 0)" stroke="#f1f5f9" stroke-width="1.5">
+    <line x1="0" y1="140" x2="650" y2="140" />
+    <line x1="0" y1="200" x2="650" y2="200" />
+    <line x1="0" y1="260" x2="650" y2="260" />
+    <line x1="0" y1="320" x2="650" y2="320" />
+    <line x1="0" y1="380" x2="650" y2="380" />
+    <line x1="0" y1="440" x2="650" y2="440" />
+  </g>
+
+  <!-- Y-Axis Metrics & Primary Label Column -->
+  <g font-size="12" font-weight="600" fill="#64748b" text-anchor="end">
+    <text x="85" y="144">2.5</text>
+    <text x="85" y="204">2.0</text>
+    <text x="85" y="264">1.5</text>
+    <text x="85" y="324">1.0</text>
+    <text x="85" y="384">0.5</text>
+    <text x="85" y="444">0.0</text>
+    <text x="-290" y="35" transform="rotate(-90)" font-size="13" font-weight="700" fill="#334155" text-anchor="middle">Mean Vehicles per Household</text>
+  </g>
+
+  <!-- X-Axis Line Structure -->
+  <line x1="100" y1="440" x2="750" y2="440" stroke="#cbd5e1" stroke-width="2" stroke-linecap="round" />
+
+  <!-- X-Axis Labels (Five Base Household Income Bands) -->
+  <g font-size="12" font-weight="700" fill="#334155" text-anchor="middle">
+    <text x="160" y="468">Lowest 20%</text>
+    <text x="290" y="468">Lower-Middle</text>
+    <text x="420" y="468">Middle Income</text>
+    <text x="550" y="468">Upper-Middle</text>
+    <text x="680" y="468">Highest 20%</text>
+    <text x="425" y="502" font-size="13" font-weight="800" fill="#1e293b" letter-spacing="0.05em">ANNUAL HOUSEHOLD INCOME QUINTILES</text>
+  </g>
+
+  <!-- Connected Dot Plot Trend Path -->
+  <!-- Coordinates calculated based on Y-scale: 440 = 0.0, 140 = 2.5 (120px per 1.0 vehicle unit) -->
+  <!-- Means: Q1=0.62 (365.6), Q2=1.15 (302), Q3=1.68 (238.4), Q4=2.10 (188), Q5=2.38 (154.4) -->
+  <path d="M 160 365.6 L 290 302 L 420 238.4 L 550 188 L 680 154.4" fill="none" stroke="#2563eb" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" />
+
+  <!-- Confidence Interval Error Bars (95% CI Vertical Spans) -->
+  <g stroke="#64748b" stroke-width="2" stroke-linecap="round">
+    <!-- Q1 Interval: 0.54 to 0.70 -->
+    <line x1="160" y1="375.2" x2="160" y2="356.0" />
+    <line x1="154" y1="375.2" x2="166" y2="375.2" />
+    <line x1="154" y1="356.0" x2="166" y2="356.0" />
+
+    <!-- Q2 Interval: 1.08 to 1.22 -->
+    <line x1="290" y1="310.4" x2="290" y2="293.6" />
+    <line x1="284" y1="310.4" x2="296" y2="310.4" />
+    <line x1="284" y1="293.6" x2="296" y2="293.6" />
+
+    <!-- Q3 Interval: 1.62 to 1.74 -->
+    <line x1="420" y1="245.6" x2="420" y2="231.2" />
+    <line x1="414" y1="245.6" x2="426" y2="245.6" />
+    <line x1="414" y1="231.2" x2="426" y2="231.2" />
+
+    <!-- Q4 Interval: 2.05 to 2.15 -->
+    <line x1="550" y1="194.0" x2="550" y2="182.0" />
+    <line x1="544" y1="194.0" x2="556" y2="194.0" />
+    <line x1="544" y1="182.0" x2="556" y2="182.0" />
+
+    <!-- Q5 Interval: 2.32 to 2.44 -->
+    <line x1="680" y1="161.6" x2="680" y2="147.2" />
+    <line x1="674" y1="161.6" x2="686" y2="161.6" />
+    <line x1="674" y1="147.2" x2="686" y2="147.2" />
+  </g>
+
+  <!-- Central Nodes / Data Dots (Mean Positions) -->
+  <g fill="#ffffff" stroke="#2563eb" stroke-width="4.5">
+    <circle cx="160" cy="365.6" r="7" />
+    <circle cx="290" cy="302.0" r="7" />
+    <circle cx="420" cy="238.4" r="7" />
+    <circle cx="550" cy="188.0" r="7" />
+    <circle cx="680" cy="154.4" r="7" />
+  </g>
+
+  <!-- Value Callouts: Inline Mean Labels -->
+  <g font-size="12" font-weight="800" fill="#1e3a8a" text-anchor="middle">
+    <text x="160" y="342">0.62</text>
+    <text x="290" y="278">1.15</text>
+    <text x="420" y="215">1.68</text>
+    <text x="550" y="165">2.10</text>
+    <text x="680" y="132">2.38</text>
+  </g>
+
+  <!-- Car-Free Floating Badges (% of households with 0 registered vehicles) -->
+  <!-- Positioned dynamically under the plot line structure -->
+  <g transform="translate(0, 25)">
+    <!-- Q1 Component -->
+    <rect x="133" y="380" width="54" height="24" rx="6" fill="#ef4444" />
+    <text x="160" y="396" font-size="11" font-weight="800" fill="#ffffff" text-anchor="middle">38% Ø</text>
+    
+    <!-- Q2 Component -->
+    <rect x="263" y="320" width="54" height="24" rx="6" fill="#f97316" />
+    <text x="290" y="336" font-size="11" font-weight="800" fill="#ffffff" text-anchor="middle">19% Ø</text>
+
+    <!-- Q3 Component -->
+    <rect x="393" y="260" width="54" height="24" rx="6" fill="#eab308" />
+    <text x="420" y="276" font-size="11" font-weight="800" fill="#ffffff" text-anchor="middle">8% Ø</text>
+
+    <!-- Q4 Component -->
+    <rect x="523" y="210" width="54" height="24" rx="6" fill="#10b981" />
+    <text x="550" y="226" font-size="11" font-weight="800" fill="#ffffff" text-anchor="middle">3% Ø</text>
+
+    <!-- Q5 Component -->
+    <rect x="653" y="175" width="54" height="24" rx="6" fill="#059669" />
+    <text x="680" y="191" font-size="11" font-weight="800" fill="#ffffff" text-anchor="middle">1% Ø</text>
+  </g>
+
+  <!-- Explanatory Data Legends -->
+  <g transform="translate(100, 532)" font-size="11" font-weight="600" fill="#64748b">
+    <!-- Mean Plot Element -->
+    <line x1="0" y1="0" x2="25" y2="0" stroke="#2563eb" stroke-width="3" />
+    <circle cx="12.5" cy="0" r="4" fill="#ffffff" stroke="#2563eb" stroke-width="2.5" />
+    <text x="32" y="4">Household Mean</text>
+
+    <!-- CI Element -->
+    <line x1="165" y1="-8" x2="165" y2="8" stroke="#64748b" stroke-width="2" />
+    <line x1="160" y1="-8" x2="170" y2="-8" stroke="#64748b" stroke-width="1.5" />
+    <line x1="160" y1="8" x2="170" y2="8" stroke="#64748b" stroke-width="1.5" />
+    <text x="178" y="4">95% Confidence Interval</text>
+
+    <!-- Car-Free Element -->
+    <rect x="345" y="-8" width="28" height="15" rx="4" fill="#ef4444" />
+    <text x="359" y="3" font-size="9" font-weight="800" fill="#ffffff" text-anchor="middle">% Ø</text>
+    <text x="380" y="4">Proportion Car-Free (0 Vehicles)</text>
+  </g>
+
+</svg>

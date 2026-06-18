@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sheet 2 – FDS – Bharath Arun Gandhimani</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  @page { size: A4 portrait; margin: 8mm 8mm 8mm 8mm; }
+
+  html, body {
+    width: 100%; height: 100%;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 7px; background: #fff; color: #111;
+  }
+
+  .page {
+    width: 100%;
+    min-height: calc(297mm - 16mm);
+    display: flex; flex-direction: column; gap: 2.5mm;
+  }
+
+  .header {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 2px solid #111; padding-bottom: 2mm;
+    flex-shrink: 0;
+  }
+  .header-left { font-size: 16px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  .header-right { display:flex; align-items:center; gap:8px; }
+  .header-meta { font-size: 8.5px; color:#333; text-align:right; line-height:1.7; }
+  .badge { background:#111; color:#fff; font-size:9px; font-weight:700; padding:3px 9px; border-radius:2px; }
+
+  .sec-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; border-left: 3px solid #111;
+    padding-left: 4px; margin-bottom: 2mm;
+    flex-shrink: 0;
+  }
+
+  .info-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 3mm;
+    flex-shrink: 0;
+  }
+  .info-box {
+    border: 0.7px solid #999; border-radius: 3px;
+    padding: 4px 6px; background: #f7f7f7;
+  }
+  .info-title { font-size: 7px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #555; border-bottom: 0.4px solid #ccc; padding-bottom: 2px; margin-bottom: 3px; }
+  .info-text { font-size: 6.5px; line-height: 1.6; color: #222; }
+  .info-text strong { font-weight: 700; }
+
+  .layout-section { flex-shrink: 0; }
+  .layout-wireframe {
+    border: 1px solid #333; border-radius: 3px;
+    padding: 4px; background: #fafafa;
+  }
+  .layout-body { display: flex; gap: 3mm; }
+  .layout-main { flex: 1; min-width: 0; }
+  .layout-thumbs { width: 44mm; display: flex; flex-direction: column; gap: 1.5mm; flex-shrink: 0; }
+  .thumb-label { font-size: 6px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #777; margin-bottom: 1mm; }
+  .thumb { border: 0.5px solid #bbb; border-radius: 2px; background: #f5f5f5; padding: 2px; }
+  .thumb-step { font-size: 5.5px; font-weight: 700; color: #555; line-height: 1.3; margin-top: 1px; }
+  .thumb-name { font-size: 5px; color: #888; line-height: 1.3; }
+
+  .ops-section { flex-shrink: 0; }
+  .ops-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5mm; }
+  .op-box { border: 0.6px solid #ccc; border-radius: 3px; padding: 3px 4px; background: #fafafa; }
+  .op-action font-size: 6.5px; font-weight: 700; color: #111; line-height: 1.4; }
+  .op-arrow { font-size: 6.5px; color: #c00; margin: 1px 0; }
+  .op-result { font-size: 6.2px; line-height: 1.5; color: #333; }
+
+  .focus-section { flex-shrink: 0; }
+  .focus-body { display: flex; gap: 3mm; }
+  .focus-left { flex: 1; border: 1px solid #333; border-radius: 3px; padding: 4px; }
+  .focus-right { width: 55mm; flex-shrink: 0; display: flex; flex-direction: column; gap: 2mm; }
+  .focus-note { font-size: 6.2px; line-height: 1.5; color: #555; border-top: 0.4px solid #ccc; padding-top: 2px; margin-top: 2px; }
+
+  .discussion { border-top: 1.5px solid #111; padding-top: 2.5mm; flex: 1; display: flex; flex-direction: column; }
+  .disc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5mm; flex: 1; }
+  .disc-box { border: 0.5px solid #ccc; border-radius: 3px; padding: 4px 5px; background: #fafafa; }
+  .disc-title { font-size: 7px; font-weight: 700; color: #111; border-bottom: 0.4px solid #ccc; padding-bottom: 2px; margin-bottom: 3px; }
+  .disc-text { font-size: 6.2px; line-height: 1.6; color: #333; }
+  .disc-text li { margin-left: 7px; margin-bottom: 1.5px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div class="header-left">Sheet 2 — Design A: Sequential Stepper</div>
+  <div class="header-right">
+    <div class="header-meta">Bharath Arun Gandhimani &nbsp;|&nbsp; FIT5147 DVP &nbsp;|&nbsp; 12 / 05 / 2026 (revised 02 / 06 / 2026)</div>
+    <div class="badge">FDS</div>
+  </div>
+</div>
+
+<div class="info-row">
+  <div class="info-box">
+    <div class="info-title">Information</div>
+    <div class="info-text">
+      <strong>Title:</strong> Design A — Sequential Stepper &nbsp;|&nbsp; <strong>Sheet No:</strong> Sheet #2<br>
+      <strong>Author:</strong> Bharath Arun Gandhimani &nbsp;|&nbsp; <strong>Date:</strong> 12/05/2026<br>
+      <strong>Description:</strong> Fully author-driven interactive narrative visualisation communicating findings about educational infrastructure investment, socioeconomic equity, and household travel behaviour in Victoria. Targeted at policymakers and transport planners. Reader progresses through a fixed 7-step sequence — one analytical layer per step.
+    </div>
+  </div>
+  <div class="info-box">
+    <div class="info-title">Design Rationale</div>
+    <div class="info-text">
+      The stepper enforces a deliberate reading order — investment geography is established first before socioeconomic or behavioural patterns are introduced. This prevents a policymaker from jumping to conclusions without the geographic context that frames the entire argument. Chart types (choropleth, slope chart, lollipop) are drawn from Sheet 1 Ideas #7, #6, and the geographic/map category respectively. No filters or dropdowns — narrative control stays with the author. Chart family (choropleth, lollipop, slope, grouped bar, scatter) is entirely distinct from Design B (scatter, violin, small multiples) and Design C (dot strip, bump, connected dot) — these three designs use non-overlapping visual encodings, satisfying the FDS requirement for genuine chart-level distinctness across Sheets 2–4.
+    </div>
+  </div>
+</div>
+
+<div class="layout-section">
+  <div class="sec-label">Layout</div>
+  <div class="layout-wireframe">
+    <div class="layout-body">
+
+      <div class="layout-main">
+        <svg width="100%" height="320" viewBox="0 0 390 320">
+
+          <line x1="8" y1="13" x2="382" y2="13" stroke="#ccc" stroke-width="1.5"/>
+          <circle cx="35" cy="13" r="7" fill="#aaa" stroke="#888" stroke-width="0.8"/>
+          <text x="35" y="16.5" font-size="5.5" fill="#fff" text-anchor="middle">1</text>
+          <circle cx="90" cy="13" r="7" fill="#aaa" stroke="#888" stroke-width="0.8"/>
+          <text x="90" y="16.5" font-size="5.5" fill="#fff" text-anchor="middle">2</text>
+          <circle cx="145" cy="13" r="7" fill="#aaa" stroke="#888" stroke-width="0.8"/>
+          <text x="145" y="16.5" font-size="5.5" fill="#fff" text-anchor="middle">3</text>
+          <circle cx="200" cy="13" r="9" fill="#111" stroke="#111" stroke-width="1"/>
+          <text x="200" y="17" font-size="6" fill="#fff" text-anchor="middle" font-weight="700">4</text>
+          <circle cx="255" cy="13" r="7" fill="#fff" stroke="#bbb" stroke-width="0.8"/>
+          <text x="255" y="16.5" font-size="5.5" fill="#ccc" text-anchor="middle">5</text>
+          <circle cx="310" cy="13" r="7" fill="#fff" stroke="#bbb" stroke-width="0.8"/>
+          <text x="310" y="16.5" font-size="5.5" fill="#ccc" text-anchor="middle">6</text>
+          <circle cx="365" cy="13" r="7" fill="#fff" stroke="#bbb" stroke-width="0.8"/>
+          <text x="365" y="16.5" font-size="5.5" fill="#ccc" text-anchor="middle">7</text>
+
+          <text x="8" y="34" font-size="7" font-weight="700" fill="#111">[F] Step 4 of 7 — Mode Share Shift Across Investment Tiers</text>
+          <text x="8" y="43" font-size="5.5" fill="#888">[D] Chart Zone (60% content)</text>
+          <text x="248" y="43" font-size="5.5" fill="#888">[E] Narrative Text Zone (40% content)</text>
+
+          <rect x="8" y="47" width="232" height="222" rx="2" fill="#eee" stroke="#bbb" stroke-width="0.7"/>
+
+          <line x1="48" y1="62" x2="48" y2="182" stroke="#bbb" stroke-width="0.9"/>
+          <line x1="208" y1="62" x2="208" y2="182" stroke="#bbb" stroke-width="0.9"/>
+          <text x="48" y="59" font-size="5.5" fill="#666" text-anchor="middle">Low Inv.</text>
+          <text x="208" y="59" font-size="5.5" fill="#666" text-anchor="middle">High Inv.</text>
+
+          <line x1="48" y1="92" x2="208" y2="68" stroke="#333" stroke-width="2"/>
+          <circle cx="48" cy="92" r="4" fill="#333"/>
+          <circle cx="208" cy="68" r="4" fill="#333"/>
+          <text x="14" y="95" font-size="5.5" fill="#333">PV 56%</text>
+          <text x="212" y="71" font-size="5.5" fill="#333">PV 74%</text>
+
+          <line x1="48" y1="115" x2="208" y2="138" stroke="#777" stroke-width="2"/>
+          <circle cx="48" cy="115" r="4" fill="#777"/>
+          <circle cx="208" cy="138" r="4" fill="#777"/>
+          <text x="12" y="118" font-size="5.5" fill="#777">PT 34%</text>
+          <text x="212" y="141" font-size="5.5" fill="#777">PT 18%</text>
+
+          <line x1="48" y1="155" x2="208" y2="163" stroke="#bbb" stroke-width="1.5"/>
+          <circle cx="48" cy="155" r="4" fill="#bbb"/>
+          <circle cx="208" cy="163" r="4" fill="#bbb"/>
+          <text x="12" y="158" font-size="5.5" fill="#999">Act 10%</text>
+          <text x="212" y="166" font-size="5.5" fill="#999">Act  8%</text>
+
+          <rect x="55" y="172" width="6" height="5" fill="#333"/>
+          <text x="64" y="177" font-size="5.5" fill="#555">Private Vehicle</text>
+          <rect x="120" y="172" width="6" height="5" fill="#777"/>
+          <text x="129" y="177" font-size="5.5" fill="#555">Public Transport</text>
+          <rect x="185" y="172" width="6" height="5" fill="#bbb"/>
+          <text x="194" y="177" font-size="5.5" fill="#555">Active</text>
+
+          <rect x="90" y="98" width="72" height="24" rx="2" fill="#222"/>
+          <polygon points="126,122 121,129 131,129" fill="#222"/>
+          <text x="126" y="108" font-size="5" fill="#fff" text-anchor="middle">Low Inv. LGAs</text>
+          <text x="126" y="116" font-size="5" fill="#bbb" text-anchor="middle">PT share: 34%</text>
+
+          <rect x="248" y="47" width="134" height="222" rx="2" fill="#f5f5f5" stroke="#bbb" stroke-width="0.7"/>
+          <rect x="254" y="55" width="75" height="5" rx="0.5" fill="#ccc"/>
+          <rect x="254" y="64" width="120" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="71" width="115" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="78" width="120" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="85" width="108" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="95" width="75" height="4" rx="0.5" fill="#bbb"/>
+          <rect x="254" y="103" width="120" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="110" width="112" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="117" width="120" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="124" width="100" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="131" width="120" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="141" width="75" height="4" rx="0.5" fill="#bbb"/>
+          <rect x="254" y="149" width="120" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="156" width="108" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="163" width="120" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="170" width="95" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="177" width="120" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="184" width="108" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="194" width="75" height="4" rx="0.5" fill="#bbb"/>
+          <rect x="254" y="202" width="120" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="209" width="112" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="216" width="120" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="223" width="100" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="230" width="120" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="240" width="75" height="4" rx="0.5" fill="#bbb"/>
+          <rect x="254" y="248" width="120" height="3.5" rx="0.5" fill="#ddd"/>
+          <rect x="254" y="255" width="108" height="3.5" rx="0.5" fill="#ddd"/>
+
+          <rect x="8" y="282" width="60" height="16" rx="2" fill="#fff" stroke="#333" stroke-width="0.9"/>
+          <text x="38" y="292" font-size="6.5" fill="#333" text-anchor="middle">[C] ← Previous</text>
+          <rect x="322" y="282" width="60" height="16" rx="2" fill="#111"/>
+          <text x="352" y="292" font-size="6.5" fill="#fff" text-anchor="middle">[B] Next →</text>
+
+          <text x="8" y="312" font-size="5" fill="#aaa">[A] Step Indicator &nbsp; [B] Next Button &nbsp; [C] Previous Button &nbsp; [D] Chart Zone &nbsp; [E] Narrative Text &nbsp; [F] Step Heading</text>
+        </svg>
+      </div>
+
+      <div class="layout-thumbs">
+        <div class="thumb-label">Other Steps</div>
+
+        <div class="thumb">
+          <svg width="100%" height="40" viewBox="0 0 120 40">
+            <rect x="1" y="1" width="118" height="38" rx="1" fill="#f0f0f0" stroke="#ccc" stroke-width="0.6"/>
+            <text x="60" y="9" font-size="5" fill="#555" text-anchor="middle" font-weight="700">Step 1 — Title Frame</text>
+            <rect x="8" y="12" width="104" height="5" rx="0.5" fill="#bbb"/>
+            <rect x="18" y="20" width="84" height="3.5" rx="0.5" fill="#ddd"/>
+            <rect x="22" y="26" width="76" height="3.5" rx="0.5" fill="#ddd"/>
+            <rect x="30" y="32" width="60" height="3" rx="0.5" fill="#eee"/>
+          </svg>
+          <div class="thumb-step">Step 1</div>
+          <div class="thumb-name">Title / Framing Question</div>
+        </div>
+
+        <div class="thumb">
+          <svg width="100%" height="40" viewBox="0 0 120 40">
+            <rect x="1" y="1" width="118" height="38" rx="1" fill="#f0f0f0" stroke="#ccc" stroke-width="0.6"/>
+            <text x="60" y="9" font-size="5" fill="#555" text-anchor="middle" font-weight="700">Step 2 — Choropleth</text>
+            <rect x="8" y="12" width="22" height="14" rx="1" fill="#555"/>
+            <rect x="32" y="15" width="18" height="11" rx="1" fill="#888"/>
+            <rect x="52" y="11" width="20" height="15" rx="1" fill="#333"/>
+            <rect x="74" y="14" width="16" height="12" rx="1" fill="#aaa"/>
+            <rect x="92" y="12" width="20" height="14" rx="1" fill="#666"/>
+            <rect x="14" y="27" width="14" height="9" rx="1" fill="#aaa"/>
+            <rect x="38" y="27" width="20" height="9" rx="1" fill="#444"/>
+            <rect x="62" y="26" width="16" height="10" rx="1" fill="#777"/>
+            <rect x="82" y="27" width="22" height="9" rx="1" fill="#333"/>
+            <rect x="8" y="36" width="8" height="3" fill="#eee"/>
+            <rect x="17" y="36" width="8" height="3" fill="#aaa"/>
+            <rect x="26" y="36" width="8" height="3" fill="#777"/>
+            <rect x="35" y="36" width="8" height="3" fill="#444"/>
+            <rect x="44" y="36" width="8" height="3" fill="#111"/>
+            <text x="56" y="39" font-size="4" fill="#888">Low → High investment</text>
+          </svg>
+          <div class="thumb-step">Step 2</div>
+          <div class="thumb-name">Choropleth — Investment by LGA</div>
+        </div>
+
+        <div class="thumb">
+          <svg width="100%" height="40" viewBox="0 0 120 40">
+            <rect x="1" y="1" width="118" height="38" rx="1" fill="#f0f0f0" stroke="#ccc" stroke-width="0.6"/>
+            <text x="60" y="9" font-size="5" fill="#555" text-anchor="middle" font-weight="700">Step 3 — Lollipop</text>
+            <line x1="20" y1="35" x2="112" y2="35" stroke="#bbb" stroke-width="0.7"/>
+            <line x1="32" y1="35" x2="32" y2="14" stroke="#555" stroke-width="1.2"/>
+            <circle cx="32" cy="14" r="3.5" fill="#555"/>
+            <line x1="48" y1="35" x2="48" y2="20" stroke="#555" stroke-width="1.2"/>
+            <circle cx="48" cy="20" r="3.5" fill="#555"/>
+            <line x1="64" y1="35" x2="64" y2="11" stroke="#555" stroke-width="1.2"/>
+            <circle cx="64" cy="11" r="3.5" fill="#333"/>
+            <line x1="80" y1="35" x2="80" y2="24" stroke="#888" stroke-width="1.2"/>
+            <circle cx="80" cy="24" r="3.5" fill="#888"/>
+            <line x1="96" y1="35" x2="96" y2="28" stroke="#aaa" stroke-width="1.2"/>
+            <circle cx="96" cy="28" r="3.5" fill="#aaa"/>
+          </svg>
+          <div class="thumb-step">Step 3</div>
+          <div class="thumb-name">Lollipop — LGA Project Count</div>
+        </div>
+
+        <div class="thumb" style="border-color:#111; border-width:1px;">
+          <svg width="100%" height="40" viewBox="0 0 120 40">
+            <rect x="1" y="1" width="118" height="38" rx="1" fill="#f0f0f0" stroke="#111" stroke-width="1"/>
+            <text x="60" y="9" font-size="5" fill="#111" text-anchor="middle" font-weight="700">Step 4 — Slope ← Active</text>
+            <line x1="28" y1="12" x2="28" y2="34" stroke="#bbb" stroke-width="0.8"/>
+            <line x1="92" y1="12" x2="92" y2="34" stroke="#bbb" stroke-width="0.8"/>
+            <line x1="28" y1="16" x2="92" y2="26" stroke="#333" stroke-width="1.5"/>
+            <line x1="28" y1="22" x2="92" y2="15" stroke="#777" stroke-width="1.5"/>
+            <line x1="28" y1="28" x2="92" y2="30" stroke="#bbb" stroke-width="1.2"/>
+            <circle cx="28" cy="16" r="2.5" fill="#333"/><circle cx="92" cy="26" r="2.5" fill="#333"/>
+            <circle cx="28" cy="22" r="2.5" fill="#777"/><circle cx="92" cy="15" r="2.5" fill="#777"/>
+            <circle cx="28" cy="28" r="2.5" fill="#bbb"/><circle cx="92" cy="30" r="2.5" fill="#bbb"/>
+          </svg>
+          <div class="thumb-step">Step 4 (Active)</div>
+          <div class="thumb-name">Slope Chart — Mode Share Shift</div>
+        </div>
+
+        <div class="thumb">
+          <svg width="100%" height="40" viewBox="0 0 120 40">
+            <rect x="1" y="1" width="118" height="38" rx="1" fill="#f0f0f0" stroke="#ccc" stroke-width="0.6"/>
+            <text x="60" y="9" font-size="5" fill="#555" text-anchor="middle" font-weight="700">Step 5 — Grouped Bar</text>
+            <line x1="12" y1="34" x2="112" y2="34" stroke="#bbb" stroke-width="0.7"/>
+            <rect x="16" y="18" width="7" height="16" fill="#333"/>
+            <rect x="24" y="24" width="7" height="10" fill="#888"/>
+            <rect x="42" y="14" width="7" height="20" fill="#333"/>
+            <rect x="50" y="20" width="7" height="14" fill="#888"/>
+            <rect x="68" y="21" width="7" height="13" fill="#333"/>
+            <rect x="76" y="26" width="7" height="8" fill="#888"/>
+            <text x="20" y="38" font-size="4" fill="#888">Metro</text>
+            <text x="44" y="38" font-size="4" fill="#888">Regional</text>
+            <text x="70" y="38" font-size="4" fill="#888">Rural</text>
+            <rect x="90" y="16" width="5" height="4" fill="#333"/><text x="97" y="20" font-size="4" fill="#555">0 cars</text>
+            <rect x="90" y="23" width="5" height="4" fill="#888"/><text x="97" y="27" font-size="4" fill="#555">1+ cars</text>
+          </svg>
+          <div class="thumb-step">Step 5</div>
+          <div class="thumb-name">Grouped Bar — Vehicle Ownership</div>
+        </div>
+
+        <div class="thumb">
+          <svg width="100%" height="40" viewBox="0 0 120 40">
+            <rect x="1" y="1" width="118" height="38" rx="1" fill="#f0f0f0" stroke="#ccc" stroke-width="0.6"/>
+            <text x="60" y="9" font-size="5" fill="#555" text-anchor="middle" font-weight="700">Step 6 — Scatter</text>
+            <line x1="14" y1="34" x2="110" y2="34" stroke="#bbb" stroke-width="0.6"/>
+            <line x1="14" y1="12" x2="14" y2="34" stroke="#bbb" stroke-width="0.6"/>
+            <circle cx="22" cy="30" r="2" fill="#555"/>
+            <circle cx="30" cy="28" r="2" fill="#555"/>
+            <circle cx="40" cy="26" r="2" fill="#555"/>
+            <circle cx="52" cy="24" r="2" fill="#555"/>
+            <circle cx="62" cy="21" r="2" fill="#555"/>
+            <circle cx="74" cy="19" r="2" fill="#555"/>
+            <circle cx="84" cy="18" r="2" fill="#555"/>
+            <circle cx="96" cy="15" r="2" fill="#555"/>
+            <line x1="16" y1="31" x2="108" y2="14" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1.5"/>
+            <text x="14" y="38" font-size="4" fill="#888">IRSD Decile (low → high)</text>
+          </svg>
+          <div class="thumb-step">Step 6</div>
+          <div class="thumb-name">Scatter — IRSD vs Mode Share</div>
+        </div>
+
+        <div class="thumb">
+          <svg width="100%" height="40" viewBox="0 0 120 40">
+            <rect x="1" y="1" width="118" height="38" rx="1" fill="#fff8f0" stroke="#ccc" stroke-width="0.6"/>
+            <text x="60" y="9" font-size="5" fill="#555" text-anchor="middle" font-weight="700">Step 7 — Closing</text>
+            <rect x="6" y="12" width="108" height="18" rx="2" fill="#fff8f0" stroke="#888" stroke-width="0.7" stroke-dasharray="3,2"/>
+            <text x="60" y="20" font-size="5.5" fill="#333" text-anchor="middle" font-weight="700">⚠ 29-LGA Gap Callout</text>
+            <text x="60" y="27" font-size="4.5" fill="#666" text-anchor="middle">Investment recorded, no VISTA data</text>
+            <rect x="30" y="32" width="60" height="5" rx="1" fill="#333"/>
+            <text x="60" y="36.5" font-size="4" fill="#fff" text-anchor="middle">Data sources + Restart</text>
+          </svg>
+          <div class="thumb-step">Step 7</div>
+          <div class="thumb-name">Closing — 29-LGA Gap + Policy</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ops-section">
+  <div class="sec-label">Operations</div>
+  <div class="ops-grid">
+    <div class="op-box">
+      <div class="op-action">[B] Click "Next →"</div>
+      <div class="op-arrow">⇒</div>
+      <div class="op-result">Content in [D] and [E] fades out. Next step's chart and narrative text fade in. Step indicator [A] advances — current circle fills solid grey (visited), next circle activates black. On the final step the Next button is replaced by a "Restart" option.</div>
+    </div>
+    <div class="op-box">
+      <div class="op-action">[C] Click "← Previous"</div>
+      <div class="op-arrow">⇒</div>
+      <div class="op-result">Returns to the prior step. [A] updates to reflect the previous active step. [C] is hidden when the reader is on Step 1 — there is no "before" the opening frame.</div>
+    </div>
+    <div class="op-box">
+      <div class="op-action">[A] Click a visited step circle</div>
+      <div class="op-arrow">⇒</div>
+      <div class="op-result">Jumps directly to that completed step for review. Unvisited future circles remain greyed out and unclickable — the reader cannot skip ahead to content they have not yet reached.</div>
+    </div>
+    <div class="op-box">
+      <div class="op-action">[D] Hover on chart element</div>
+      <div class="op-arrow">⇒</div>
+      <div class="op-result">A tooltip appears showing exact values — percentage, count, LGA name. This is the only interactivity within a step. No filters, no dropdowns, no view changes are available.</div>
+    </div>
+    <div class="op-box">
+      <div class="op-action">[A] Step circle — state logic</div>
+      <div class="op-arrow">⇒</div>
+      <div class="op-result">Visited circles show filled grey. Active circle shows filled black. Unvisited future circles show white with light grey border and are unclickable. State maintained for the full session.</div>
+    </div>
+    <div class="op-box">
+      <div class="op-action">Step 7 — Final step reached</div>
+      <div class="op-arrow">⇒</div>
+      <div class="op-result">The 29-LGA gap callout and policy implication text are revealed. Data source links and a "Restart" button appear. The [B] Next button is hidden. Reader has completed the full narrative arc.</div>
+    </div>
+  </div>
+</div>
+
+<div class="focus-section">
+  <div class="sec-label">Focus / Parti — Step Transition Mechanism</div>
+  <div class="focus-body">
+    <div class="focus-left">
+      <svg width="100%" height="92" viewBox="0 0 375 92">
+
+        <rect x="2" y="4" width="158" height="84" rx="3" fill="#f7f7f7" stroke="#999" stroke-width="0.8"/>
+        <text x="81" y="14" font-size="6" fill="#555" text-anchor="middle" font-weight="700">Indicator State: N active</text>
+        <line x1="14" y1="24" x2="148" y2="24" stroke="#ccc" stroke-width="1"/>
+        <circle cx="38" cy="24" r="6" fill="#aaa" stroke="#888" stroke-width="0.7"/>
+        <text x="38" y="27.5" font-size="5" fill="#fff" text-anchor="middle">N-1</text>
+        <circle cx="78" cy="24" r="7" fill="#111" stroke="#111" stroke-width="0.8"/>
+        <text x="78" y="27.5" font-size="5.5" fill="#fff" text-anchor="middle" font-weight="700">N</text>
+        <circle cx="118" cy="24" r="6" fill="#fff" stroke="#ccc" stroke-width="0.7"/>
+        <text x="118" y="27.5" font-size="5" fill="#bbb" text-anchor="middle">N+1</text>
+        <rect x="10" y="35" width="142" height="22" rx="1" fill="#eee" stroke="#bbb" stroke-width="0.6"/>
+        <text x="81" y="48" font-size="5.5" fill="#888" text-anchor="middle">Chart — Step N</text>
+        <rect x="10" y="61" width="142" height="18" rx="1" fill="#f0f0f0" stroke="#bbb" stroke-width="0.6"/>
+        <text x="81" y="72" font-size="5.5" fill="#999" text-anchor="middle">Narrative Text</text>
+
+        <text x="186" y="42" font-size="6.5" fill="#333" text-anchor="middle" font-weight="700">Click</text>
+        <text x="186" y="51" font-size="6.5" fill="#333" text-anchor="middle" font-weight="700">Next</text>
+        <line x1="168" y1="56" x2="200" y2="56" stroke="#555" stroke-width="0.9"/>
+        <polygon points="215,50 200,54 200,46" fill="#555"/>
+        <text x="186" y="66" font-size="5" fill="#888" text-anchor="middle">Fade out /</text>
+        <text x="186" y="73" font-size="5" fill="#888" text-anchor="middle">Fade in</text>
+
+        <rect x="217" y="4" width="158" height="84" rx="3" fill="#f7f7f7" stroke="#999" stroke-width="0.8"/>
+        <text x="296" y="14" font-size="6" fill="#555" text-anchor="middle" font-weight="700">Indicator State: N+1 active</text>
+        <line x1="229" y1="24" x2="363" y2="24" stroke="#ccc" stroke-width="1"/>
+        <circle cx="253" cy="24" r="6" fill="#aaa" stroke="#888" stroke-width="0.7"/>
+        <text x="253" y="27.5" font-size="5" fill="#fff" text-anchor="middle">N-1</text>
+        <circle cx="293" cy="24" r="6" fill="#aaa" stroke="#888" stroke-width="0.7"/>
+        <text x="293" y="27.5" font-size="5" fill="#fff" text-anchor="middle">N</text>
+        <circle cx="333" cy="24" r="7" fill="#111" stroke="#111" stroke-width="0.8"/>
+        <text x="333" y="27.5" font-size="5.5" fill="#fff" text-anchor="middle" font-weight="700">+1</text>
+        <rect x="225" y="35" width="142" height="22" rx="1" fill="#eee" stroke="#bbb" stroke-width="0.6"/>
+        <text x="296" y="48" font-size="5.5" fill="#888" text-anchor="middle">Chart — Step N+1</text>
+        <rect x="225" y="61" width="142" height="18" rx="1" fill="#f0f0f0" stroke="#bbb" stroke-width="0.6"/>
+        <text x="296" y="72" font-size="5.5" fill="#999" text-anchor="middle">Narrative Text</text>
+
+        <text x="188" y="88" font-size="5" fill="#555" text-anchor="middle">Each step reveals exactly one analytical layer. Reader cannot skip ahead but can revisit visited circles [A].</text>
+      </svg>
+      <div class="focus-note">The closing step only makes sense once all prior evidence has been absorbed — this is what separates Design A from B and C. Chart types per step: Step 2 → Choropleth (geographic category, Sheet 1); Step 3 → Lollipop (Sheet 1 Idea #6); Step 4 → Slope Chart (Sheet 1 Idea #7).</div>
+    </div>
+    <div class="focus-right">
+      <div class="op-box">
+        <div class="op-action">Step Circle States</div>
+        <div class="op-result" style="margin-top:2px;">
+          ● Visited — filled grey<br>
+          ● Active — filled black<br>
+          ○ Locked — white, unclickable
+        </div>
+      </div>
+      <div class="op-box">
+        <div class="op-action">Label Reference</div>
+        <div class="op-result" style="margin-top:2px;">
+          [A] Step Indicator<br>
+          [B] Next Button<br>
+          [C] Previous Button<br>
+          [D] Chart Zone<br>
+          [E] Narrative Text<br>
+          [F] Step Heading
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="discussion">
+  <div class="sec-label">Discussion</div>
+  <div class="disc-grid">
+    <div class="disc-box">
+      <div class="disc-title">Pros</div>
+      <div class="disc-text">
+        <ul>
+          <li>Sees evidence in exact order as intended — no confusion about where to start.</li>
+          <li>One chart, one explanation per step keeps things simple and focused for a non-technical policymaker audience.</li>
+          <li>Opens with geographic framing (choropleth). Closes with what remains unknown (29-LGA gap). Clean narrative arc.</li>
+          <li>Works well with non-technical audiences like policymakers who need framing before data.</li>
+          <li>Easy to implement in R Shiny using a reactive step counter with conditional panel rendering.</li>
+          <li>Chart types in this design — choropleth, lollipop, slope, grouped bar, scatter — address geographic and categorical comparisons. This is a different perceptual task family from Design B (distributional / bivariate) and Design C (strip / ranking / paired), ensuring genuine design-space breadth across Sheets 2–4 as required by the FDS methodology.</li>
+          <li>Hover tooltips as the sole interactivity keeps implementation scope controlled and avoids cognitive overload.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="disc-box">
+      <div class="disc-title">Cons</div>
+      <div class="disc-text">
+        <ul>
+          <li>Cannot compare two charts side by side — reader must go back and forth.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+lga_standard,project_count,project_types,investment_tier,investment_tier_order
+Ararat,1,['School upgrades'],Low (1-2),1
+Ballarat,2,"['Training, Higher Education and Workforce Development', 'School upgrades']",Low (1-2),1
+Banyule,2,"['Early Learning Centres', 'School Upgrade Delivery Fund ']",Low (1-2),1
+Bass Coast,2,"['School upgrades', 'School Upgrade Delivery Fund ']",Low (1-2),1
+Baw Baw,1,['School Upgrade Delivery Fund '],Low (1-2),1
+Bayside,3,"['Non-Government Schools Capital Fund', 'School Upgrade Delivery Fund ']",Medium (3-5),2
+Boroondara,1,['School Upgrade Delivery Fund '],Low (1-2),1
+Brimbank,6,"['School Education ', 'Non-Government Schools Capital Fund', 'Early Learning Centres', 'School upgrades']",High (6+),3
+Campaspe,1,['Early Learning Centres'],Low (1-2),1
+Cardinia,3,"['School upgrades', 'New schools construction']",Medium (3-5),2
+Casey,15,"['Early Learning Centres', 'New schools construction', 'School upgrades', 'School Upgrade Delivery Fund ']",High (6+),3
+Central Goldfields,1,['Early Learning Centres'],Low (1-2),1
+Colac Otway,2,"['Training, Higher Education and Workforce Development', 'School Upgrade Delivery Fund ']",Low (1-2),1
+Corangamite,2,['School Upgrade Delivery Fund '],Low (1-2),1
+Darebin,3,"['Early Learning Centres', 'School upgrades', 'School Upgrade Delivery Fund ']",Medium (3-5),2
+East Gippsland,2,['School Upgrade Delivery Fund '],Low (1-2),1
+Frankston,7,"['School Education ', 'Early Learning Centres', 'School upgrades', 'School Upgrade Delivery Fund ']",High (6+),3
+Glen Eira,3,"['School upgrades', 'School Upgrade Delivery Fund ']",Medium (3-5),2
+Glenelg,1,['Early Learning Centres'],Low (1-2),1
+Golden Plains,1,['Early Learning Centres'],Low (1-2),1
+Greater Bendigo,4,"['Early Learning Centres', 'School upgrades: established area growth for 2027 (a)', 'School Upgrade Delivery Fund ']",Medium (3-5),2
+Greater Dandenong,4,"['School Education ', 'Early Learning Centres', 'School upgrades']",Medium (3-5),2
+Greater Geelong,8,"['Non-Government Schools Capital Fund', 'Early Learning Centres', 'Training, Higher Education and Workforce Development', 'School upgrades', 'School Upgrade Delivery Fund ']",High (6+),3
+Greater Shepparton,1,['Early Learning Centres'],Low (1-2),1
+Hepburn,1,['Early Learning Centres'],Low (1-2),1
+Hobsons Bay,1,['School upgrades'],Low (1-2),1
+Horsham,1,['Non-Government Schools Capital Fund'],Low (1-2),1
+Hume,10,"['School Education ', 'Non-Government Schools Capital Fund', 'Training, Higher Education and Workforce Development', 'New schools construction', 'School upgrades', 'School Upgrade Delivery Fund ']",High (6+),3
+Indigo,1,['School Upgrade Delivery Fund '],Low (1-2),1
+Kingston,3,"['School upgrades', 'School Upgrade Delivery Fund ']",Medium (3-5),2
+Knox,6,"['Non-Government Schools Capital Fund', 'School upgrades', 'School Upgrade Delivery Fund ']",High (6+),3
+Latrobe,4,"['Early Learning Centres', 'Training, Higher Education and Workforce Development', 'School upgrades', 'School Upgrade Delivery Fund ']",Medium (3-5),2
+Loddon,1,['Early Learning Centres'],Low (1-2),1
+Macedon Ranges,1,['School upgrades'],Low (1-2),1
+Maribyrnong,2,"['Non-Government Schools Capital Fund', 'School upgrades']",Low (1-2),1
+Maroondah,2,"['School upgrades', 'School Upgrade Delivery Fund ']",Low (1-2),1
+Melbourne,2,"['Non-Government Schools Capital Fund', 'Supports for Schools and Staff']",Low (1-2),1
+Melton,8,"['Non-Government Schools Capital Fund', 'Early Learning Centres', 'Training, Higher Education and Workforce Development', 'School upgrades', 'School Upgrade Delivery Fund ']",High (6+),3
+Merri-bek,4,"['Early Learning Centres', 'School upgrades: established area growth for 2027 (a)', 'School upgrades']",Medium (3-5),2
+Mildura,3,"['Non-Government Schools Capital Fund', 'Early Learning Centres', 'School upgrades']",Medium (3-5),2
+Mitchell,3,"['Early Learning Centres', 'School upgrades', 'School Upgrade Delivery Fund ']",Medium (3-5),2
+Moira,1,['Early Learning Centres'],Low (1-2),1
+Monash,5,"['Early Childhood Sector Supports and Regulation ', 'School upgrades', 'School Upgrade Delivery Fund ']",Medium (3-5),2
+Moonee Valley,3,"['Non-Government Schools Capital Fund', 'School Upgrade Delivery Fund ']",Medium (3-5),2
+Moorabool,1,['Non-Government Schools Capital Fund'],Low (1-2),1
+Mornington Peninsula,5,"['School upgrades', 'School Upgrade Delivery Fund ']",Medium (3-5),2
+Mount Alexander,1,"['Training, Higher Education and Workforce Development']",Low (1-2),1
+Murrindindi,1,['School Upgrade Delivery Fund '],Low (1-2),1
+Nillumbik,3,"['Early Childhood Sector Supports and Regulation ', 'School upgrades']",Medium (3-5),2
+Northern Grampians,1,['School Upgrade Delivery Fund '],Low (1-2),1
+Port Phillip,2,"['School Upgrade Delivery Fund ', 'New schools construction']",Low (1-2),1
+South Gippsland,2,"['Early Learning Centres', 'School Upgrade Delivery Fund ']",Low (1-2),1
+Swan Hill,1,['School Upgrade Delivery Fund '],Low (1-2),1
+Towong,1,['School upgrades'],Low (1-2),1
+Wangaratta,2,"['School Education ', 'School Upgrade Delivery Fund ']",Low (1-2),1
+Warrnambool,2,"['School Education ', 'Non-Government Schools Capital Fund']",Low (1-2),1
+West Wimmera,1,['School Upgrade Delivery Fund '],Low (1-2),1
+Whitehorse,4,"['School upgrades', 'School Upgrade Delivery Fund ']",Medium (3-5),2
+Whittlesea,5,"['Non-Government Schools Capital Fund', 'Early Learning Centres', 'School Upgrade Delivery Fund ', 'New schools construction']",Medium (3-5),2
+Wyndham,6,"['Early Learning Centres', 'New schools construction', 'School upgrades: established area growth for 2027 (a)', 'School Upgrade Delivery Fund ']",High (6+),3
+Yarra,4,"['School upgrades: established area growth for 2027 (a)', 'School Upgrade Delivery Fund ']",Medium (3-5),2
+Yarriambiack,1,['Early Learning Centres'],Low (1-2),1
+Yarra Ranges,0,[],None,0
+Manningham,0,[],None,0
+Stonnington,0,[],None,0
+Queenscliffe,0,[],None,0
+Surf Coast,0,[],None,0

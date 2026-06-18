@@ -1,0 +1,10 @@
+investment_tier,investment_tier_order,mode_group,n_trips,total_trips,pct
+Low (1-2),1,Active Transport,21,58,36.2
+Low (1-2),1,Private Vehicle,30,58,51.7
+Low (1-2),1,Public Transport,7,58,12.1
+Medium (3-5),2,Active Transport,85,232,36.6
+Medium (3-5),2,Private Vehicle,141,232,60.8
+Medium (3-5),2,Public Transport,6,232,2.6
+High (6+),3,Active Transport,52,183,28.4
+High (6+),3,Private Vehicle,122,183,66.7
+High (6+),3,Public Transport,9,183,4.9

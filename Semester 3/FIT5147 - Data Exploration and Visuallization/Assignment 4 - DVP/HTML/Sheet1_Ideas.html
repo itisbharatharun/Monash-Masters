@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sheet 1 – FDS – Bharath Arun Gandhimani</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  @page { size: A4 portrait; margin: 8mm 8mm 8mm 8mm; }
+
+  html, body {
+    width: 100%; height: 100%;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 7px; background: #fff; color: #111;
+  }
+
+  .page {
+    width: 100%;
+    min-height: calc(297mm - 16mm);
+    display: flex; flex-direction: column; gap: 2.5mm;
+  }
+
+  .header {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 2px solid #111; padding-bottom: 2mm;
+    flex-shrink: 0;
+  }
+  .header-left { font-size: 16px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  .header-right { display:flex; align-items:center; gap:8px; }
+  .header-meta { font-size: 8.5px; color:#333; text-align:right; line-height:1.7; }
+  .badge { background:#111; color:#fff; font-size:9px; font-weight:700; padding:3px 9px; border-radius:2px; }
+
+  .sec-label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; border-left: 3px solid #111;
+    padding-left: 4px; margin-bottom: 2mm;
+    flex-shrink: 0;
+  }
+
+  .ideas-row { display:flex; gap:3mm; flex-shrink: 0; }
+  .ideas-left { flex:1; }
+  .ideas-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 2.5px; }
+  .idea {
+    border: 0.6px solid #ccc; border-radius: 2px;
+    padding: 2px 2px 3px 2px; background:#fafafa;
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+  }
+  .idea-num { font-size:6.5px; font-weight:700; color:#777; align-self:flex-start; line-height:1; }
+  .idea-name { font-size:6.5px; font-weight:500; text-align:center; line-height:1.3; }
+
+  .filter-box {
+    width: 52mm; border: 1px solid #111; border-radius: 3px;
+    padding: 3px 5px; flex-shrink:0;
+    display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .filter-item {
+    display:flex; gap:2px; align-items:flex-start;
+    border-bottom: 0.4px solid #eee; padding-bottom: 2.5px; margin-bottom:2.5px;
+  }
+  .filter-item:last-child { border-bottom:none; margin-bottom:0; }
+  .f-num { font-size:6.5px; font-weight:700; color:#c00; min-width:15px; }
+  .f-arr { color:#c00; font-size:7px; margin-right:1px; flex-shrink:0; }
+  .f-text { font-size:6.5px; line-height:1.45; }
+
+  .cat-section { flex-shrink: 0; }
+  .cat-row { display:grid; grid-template-columns:repeat(5,1fr); gap:2.5mm; }
+  .cat-box {
+    border: 0.7px solid #999; border-radius:3px;
+    padding: 3.5px 4px; background:#f7f7f7;
+  }
+  .cat-title { font-size:7px; font-weight:700; line-height:1.35; border-bottom:0.4px solid #bbb; padding-bottom:2px; margin-bottom:2px; }
+  .cat-ids { font-size:6.5px; font-weight:700; color:#333; font-family:monospace; margin-bottom:2px; }
+  .cat-desc { font-size:6.2px; line-height:1.5; color:#444; }
+
+  .combine-section { flex-shrink: 0; }
+  .combine-row { display:grid; grid-template-columns:repeat(3,1fr); gap:2.5mm; }
+  .design-box { border:1px solid #333; border-radius:3px; padding:3px 4px; }
+  .design-title { font-size:8px; font-weight:700; border-bottom:0.7px solid #333; padding-bottom:2px; margin-bottom:2px; }
+  .design-desc { font-size:6.5px; line-height:1.45; color:#222; margin-bottom:3px; }
+  .wireframe { border:0.5px dashed #aaa; border-radius:2px; padding:2px; background:#f9f9f9; }
+
+  .questions { border-top:1.5px solid #111; padding-top:2.5mm; flex:1; display:flex; flex-direction:column; }
+  .q-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2.5mm; flex:1; }
+  .q-box {
+    border:0.5px solid #ccc; border-radius:3px; padding:4px 5px; background:#fafafa;
+    display:flex; flex-direction:column;
+  }
+  .q-n { font-size:6px; font-weight:700; color:#999; font-family:monospace; margin-bottom:1px; }
+  .q-q { font-size:6.5px; font-weight:700; line-height:1.4; margin-bottom:2px; color:#111; }
+  .q-a { font-size:6.2px; line-height:1.55; color:#333; flex:1; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div class="header-left">Sheet 1 — Ideas</div>
+  <div class="header-right">
+    <div class="header-meta">Bharath Arun Gandhimani &nbsp;|&nbsp; FIT5147 DVP &nbsp;|&nbsp; 10 / 05 / 2026 (revised 02 / 06 / 2026)</div>
+    <div class="badge">FDS</div>
+  </div>
+</div>
+
+<div class="ideas-row">
+  <div class="ideas-left">
+    <div class="sec-label">Ideas</div>
+    <div class="ideas-grid">
+
+      <div class="idea"><span class="idea-num">01</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <rect x="3" y="10" width="10" height="10" fill="#555"/><rect x="3" y="20" width="10" height="9" fill="#aaa"/>
+          <rect x="16" y="6" width="10" height="14" fill="#555"/><rect x="16" y="20" width="10" height="9" fill="#aaa"/>
+          <rect x="29" y="3" width="10" height="17" fill="#555"/><rect x="29" y="20" width="10" height="9" fill="#aaa"/>
+          <rect x="42" y="13" width="10" height="7" fill="#555"/><rect x="42" y="20" width="10" height="9" fill="#aaa"/>
+          <line x1="1" y1="29" x2="54" y2="29" stroke="#333" stroke-width="0.8"/>
+        </svg>
+        <span class="idea-name">Stacked Bar Chart</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">02</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <rect x="3" y="9" width="7" height="20" fill="#555"/>
+          <rect x="11" y="16" width="7" height="13" fill="#aaa"/>
+          <rect x="22" y="5" width="7" height="24" fill="#555"/>
+          <rect x="30" y="12" width="7" height="17" fill="#aaa"/>
+          <rect x="41" y="12" width="7" height="17" fill="#555"/>
+          <rect x="49" y="19" width="7" height="10" fill="#aaa"/>
+          <line x1="1" y1="29" x2="57" y2="29" stroke="#333" stroke-width="0.8"/>
+        </svg>
+        <span class="idea-name">Grouped Bar Chart</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">03</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <line x1="9" y1="4" x2="9" y2="32" stroke="#ddd" stroke-width="0.8"/>
+          <line x1="22" y1="4" x2="22" y2="32" stroke="#ddd" stroke-width="0.8"/>
+          <line x1="36" y1="4" x2="36" y2="32" stroke="#ddd" stroke-width="0.8"/>
+          <line x1="49" y1="4" x2="49" y2="32" stroke="#ddd" stroke-width="0.8"/>
+          <line x1="9" y1="9" x2="49" y2="18" stroke="#333" stroke-width="1.2"/>
+          <line x1="9" y1="27" x2="49" y2="22" stroke="#888" stroke-width="1.2"/>
+          <circle cx="9" cy="9" r="3" fill="#333"/><circle cx="22" cy="12" r="3" fill="#333"/>
+          <circle cx="36" cy="15" r="3" fill="#333"/><circle cx="49" cy="18" r="3" fill="#333"/>
+          <circle cx="9" cy="27" r="3" fill="#aaa"/><circle cx="22" cy="25" r="3" fill="#aaa"/>
+          <circle cx="36" cy="23" r="3" fill="#aaa"/><circle cx="49" cy="22" r="3" fill="#aaa"/>
+        </svg>
+        <span class="idea-name">Connected Dot Plot</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">04</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <ellipse cx="16" cy="18" rx="7" ry="14" fill="none" stroke="#555" stroke-width="1.2"/>
+          <ellipse cx="16" cy="18" rx="3.5" ry="7" fill="none" stroke="#555" stroke-width="0.8"/>
+          <line x1="10" y1="18" x2="22" y2="18" stroke="#333" stroke-width="2"/>
+          <ellipse cx="40" cy="18" rx="9" ry="14" fill="none" stroke="#555" stroke-width="1.2"/>
+          <ellipse cx="40" cy="18" rx="4" ry="7" fill="none" stroke="#555" stroke-width="0.8"/>
+          <line x1="33" y1="18" x2="47" y2="18" stroke="#333" stroke-width="2"/>
+        </svg>
+        <span class="idea-name">Violin + Box Plot</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">05</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <line x1="5" y1="33" x2="55" y2="33" stroke="#333" stroke-width="0.8"/>
+          <line x1="5" y1="3" x2="5" y2="33" stroke="#333" stroke-width="0.8"/>
+          <circle cx="9" cy="28" r="2" fill="#555"/>
+          <circle cx="16" cy="23" r="2" fill="#555"/>
+          <circle cx="22" cy="25" r="2" fill="#555"/>
+          <circle cx="29" cy="18" r="2" fill="#555"/>
+          <circle cx="36" cy="15" r="2" fill="#555"/>
+          <circle cx="43" cy="11" r="2" fill="#555"/>
+          <circle cx="50" cy="7" r="2" fill="#555"/>
+          <line x1="7" y1="30" x2="52" y2="5" stroke="#999" stroke-width="0.9" stroke-dasharray="2,1.5"/>
+        </svg>
+        <span class="idea-name">Scatter + Trend Line</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">06</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <line x1="1" y1="32" x2="57" y2="32" stroke="#333" stroke-width="0.8"/>
+          <line x1="10" y1="32" x2="10" y2="12" stroke="#555" stroke-width="1.5"/>
+          <circle cx="10" cy="12" r="3.5" fill="#555"/>
+          <line x1="23" y1="32" x2="23" y2="20" stroke="#555" stroke-width="1.5"/>
+          <circle cx="23" cy="20" r="3.5" fill="#555"/>
+          <line x1="36" y1="32" x2="36" y2="7" stroke="#555" stroke-width="1.5"/>
+          <circle cx="36" cy="7" r="3.5" fill="#555"/>
+          <line x1="49" y1="32" x2="49" y2="22" stroke="#555" stroke-width="1.5"/>
+          <circle cx="49" cy="22" r="3.5" fill="#555"/>
+        </svg>
+        <span class="idea-name">Lollipop Chart</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">07</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <line x1="11" y1="2" x2="11" y2="36" stroke="#ccc" stroke-width="0.8"/>
+          <line x1="47" y1="2" x2="47" y2="36" stroke="#ccc" stroke-width="0.8"/>
+          <line x1="11" y1="7" x2="47" y2="24" stroke="#333" stroke-width="1.5"/>
+          <line x1="11" y1="16" x2="47" y2="9" stroke="#777" stroke-width="1.5"/>
+          <line x1="11" y1="27" x2="47" y2="30" stroke="#bbb" stroke-width="1.5"/>
+          <circle cx="11" cy="7" r="3" fill="#333"/><circle cx="47" cy="24" r="3" fill="#333"/>
+          <circle cx="11" cy="16" r="3" fill="#777"/><circle cx="47" cy="9" r="3" fill="#777"/>
+          <circle cx="11" cy="27" r="3" fill="#bbb"/><circle cx="47" cy="30" r="3" fill="#bbb"/>
+          <text x="5" y="37" font-size="4" fill="#aaa">B</text>
+          <text x="43" y="37" font-size="4" fill="#aaa">A</text>
+        </svg>
+        <span class="idea-name">Slope Chart</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">08</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <line x1="29" y1="2" x2="29" y2="34" stroke="#bbb" stroke-width="0.8" stroke-dasharray="2,1.5"/>
+          <rect x="18" y="5" width="11" height="7" fill="#555"/>
+          <rect x="29" y="5" width="9" height="7" fill="#aaa"/>
+          <rect x="19" y="15" width="10" height="7" fill="#555"/>
+          <rect x="29" y="15" width="16" height="7" fill="#aaa"/>
+          <rect x="15" y="25" width="14" height="7" fill="#555"/>
+          <rect x="29" y="25" width="6" height="7" fill="#aaa"/>
+          <line x1="2" y1="34" x2="56" y2="34" stroke="#333" stroke-width="0.8"/>
+        </svg>
+        <span class="idea-name">Diverging Bar Chart</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">09</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <rect x="2" y="2" width="12" height="10" fill="#ddd" stroke="#fff" stroke-width="1"/>
+          <rect x="15" y="2" width="12" height="10" fill="#aaa" stroke="#fff" stroke-width="1"/>
+          <rect x="28" y="2" width="12" height="10" fill="#333" stroke="#fff" stroke-width="1"/>
+          <rect x="41" y="2" width="14" height="10" fill="#777" stroke="#fff" stroke-width="1"/>
+          <rect x="2" y="13" width="12" height="10" fill="#777" stroke="#fff" stroke-width="1"/>
+          <rect x="15" y="13" width="12" height="10" fill="#ddd" stroke="#fff" stroke-width="1"/>
+          <rect x="28" y="13" width="12" height="10" fill="#aaa" stroke="#fff" stroke-width="1"/>
+          <rect x="41" y="13" width="14" height="10" fill="#111" stroke="#fff" stroke-width="1"/>
+          <rect x="2" y="24" width="12" height="12" fill="#444" stroke="#fff" stroke-width="1"/>
+          <rect x="15" y="24" width="12" height="12" fill="#888" stroke="#fff" stroke-width="1"/>
+          <rect x="28" y="24" width="12" height="12" fill="#eee" stroke="#fff" stroke-width="1"/>
+          <rect x="41" y="24" width="14" height="12" fill="#bbb" stroke="#fff" stroke-width="1"/>
+        </svg>
+        <span class="idea-name">Heatmap</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">10</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <rect x="1" y="1" width="56" height="35" fill="none" stroke="#999" stroke-width="0.9"/>
+          <line x1="15" y1="1" x2="15" y2="36" stroke="#bbb" stroke-width="0.6"/>
+          <line x1="29" y1="1" x2="29" y2="36" stroke="#bbb" stroke-width="0.6"/>
+          <line x1="43" y1="1" x2="43" y2="36" stroke="#bbb" stroke-width="0.6"/>
+          <line x1="1" y1="13" x2="57" y2="13" stroke="#bbb" stroke-width="0.6"/>
+          <line x1="1" y1="25" x2="57" y2="25" stroke="#bbb" stroke-width="0.6"/>
+          <rect x="2" y="2" width="12" height="10" fill="#222"/>
+          <rect x="16" y="14" width="12" height="10" fill="#777"/>
+          <rect x="30" y="26" width="12" height="9" fill="#bbb"/>
+          <rect x="44" y="2" width="12" height="10" fill="#444"/>
+        </svg>
+        <span class="idea-name">Matrix / Table</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">11</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <rect x="1" y="1" width="17" height="16" fill="none" stroke="#aaa" stroke-width="0.8"/>
+          <rect x="21" y="1" width="17" height="16" fill="none" stroke="#aaa" stroke-width="0.8"/>
+          <rect x="40" y="1" width="17" height="16" fill="none" stroke="#aaa" stroke-width="0.8"/>
+          <rect x="1" y="21" width="17" height="16" fill="none" stroke="#aaa" stroke-width="0.8"/>
+          <rect x="21" y="21" width="17" height="16" fill="none" stroke="#aaa" stroke-width="0.8"/>
+          <rect x="40" y="21" width="17" height="16" fill="none" stroke="#aaa" stroke-width="0.8"/>
+          <rect x="3" y="12" width="3" height="4" fill="#555"/>
+          <rect x="7" y="9" width="3" height="7" fill="#555"/>
+          <rect x="12" y="10" width="3" height="6" fill="#555"/>
+          <line x1="22" y1="6" x2="36" y2="13" stroke="#555" stroke-width="1.2"/>
+          <line x1="41" y1="13" x2="55" y2="6" stroke="#555" stroke-width="1.2"/>
+          <line x1="2" y1="28" x2="16" y2="33" stroke="#777" stroke-width="1.2"/>
+          <rect x="22" y="28" width="4" height="8" fill="#777"/>
+          <rect x="28" y="25" width="4" height="11" fill="#777"/>
+          <rect x="41" y="24" width="4" height="12" fill="#555"/>
+          <rect x="47" y="28" width="4" height="8" fill="#555"/>
+          <rect x="53" y="26" width="3" height="10" fill="#555"/>
+        </svg>
+        <span class="idea-name">Small Multiples</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">12</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <line x1="16" y1="2" x2="16" y2="36" stroke="#ccc" stroke-width="0.9"/>
+          <line x1="16" y1="8" x2="50" y2="8" stroke="#eee" stroke-width="1.5"/>
+          <line x1="16" y1="16" x2="44" y2="16" stroke="#eee" stroke-width="1.5"/>
+          <line x1="16" y1="24" x2="36" y2="24" stroke="#eee" stroke-width="1.5"/>
+          <line x1="16" y1="32" x2="54" y2="32" stroke="#eee" stroke-width="1.5"/>
+          <text x="2" y="10" font-size="5" fill="#777">LGA A</text>
+          <text x="2" y="18" font-size="5" fill="#777">LGA B</text>
+          <text x="2" y="26" font-size="5" fill="#777">LGA C</text>
+          <text x="2" y="34" font-size="5" fill="#777">LGA D</text>
+          <circle cx="50" cy="8" r="3.5" fill="#333"/>
+          <circle cx="44" cy="16" r="3.5" fill="#555"/>
+          <circle cx="36" cy="24" r="3.5" fill="#777"/>
+          <circle cx="54" cy="32" r="3.5" fill="#999"/>
+        </svg>
+        <span class="idea-name">Ranked Dot Plot</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">13</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <rect x="1" y="1" width="56" height="35" rx="1" fill="none" stroke="#aaa" stroke-width="0.8"/>
+          <rect x="3" y="3" width="26" height="12" rx="1" fill="#ddd" stroke="#bbb" stroke-width="0.6"/>
+          <text x="16" y="11" font-size="5.5" fill="#888" text-anchor="middle">Chart</text>
+          <rect x="32" y="3" width="23" height="5" rx="0.5" fill="#eee"/>
+          <rect x="32" y="10" width="23" height="4" rx="0.5" fill="#eee"/>
+          <rect x="3" y="18" width="52" height="5" rx="0.5" fill="#e5e5e5"/>
+          <rect x="3" y="25" width="52" height="5" rx="0.5" fill="#e5e5e5"/>
+          <rect x="3" y="32" width="35" height="3" rx="0.5" fill="#e5e5e5"/>
+        </svg>
+        <span class="idea-name">Scroll Narrative</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">14</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <rect x="1" y="6" width="15" height="8" rx="1" fill="#555"/>
+          <rect x="18" y="6" width="14" height="8" rx="1" fill="#ccc"/>
+          <rect x="34" y="6" width="13" height="8" rx="1" fill="#ccc"/>
+          <text x="8" y="11.5" font-size="4.5" fill="#fff" text-anchor="middle">T1</text>
+          <text x="25" y="11.5" font-size="4.5" fill="#555" text-anchor="middle">T2</text>
+          <text x="40" y="11.5" font-size="4.5" fill="#555" text-anchor="middle">T3</text>
+          <rect x="1" y="14" width="56" height="22" rx="1" fill="none" stroke="#555" stroke-width="0.9"/>
+          <rect x="3" y="16" width="26" height="18" rx="1" fill="#ddd"/>
+          <rect x="32" y="16" width="23" height="8" rx="0.5" fill="#eee"/>
+          <rect x="32" y="26" width="23" height="6" rx="0.5" fill="#eee"/>
+        </svg>
+        <span class="idea-name">Tab Dashboard</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">15</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <rect x="1" y="1" width="10" height="7" rx="1" fill="#555"/>
+          <rect x="13" y="1" width="10" height="7" rx="1" fill="#ccc"/>
+          <rect x="25" y="1" width="10" height="7" rx="1" fill="#ccc"/>
+          <rect x="37" y="1" width="10" height="7" rx="1" fill="#ccc"/>
+          <rect x="49" y="1" width="8" height="7" rx="1" fill="#ccc"/>
+          <text x="6" y="6.5" font-size="4.5" fill="#fff" text-anchor="middle">1</text>
+          <text x="18" y="6.5" font-size="4.5" fill="#555" text-anchor="middle">2</text>
+          <text x="30" y="6.5" font-size="4.5" fill="#555" text-anchor="middle">3</text>
+          <text x="42" y="6.5" font-size="4.5" fill="#555" text-anchor="middle">4</text>
+          <text x="53" y="6.5" font-size="4.5" fill="#555" text-anchor="middle">5</text>
+          <rect x="1" y="10" width="56" height="20" rx="1" fill="none" stroke="#555" stroke-width="0.9"/>
+          <text x="29" y="22" font-size="5.5" fill="#bbb" text-anchor="middle">Step 1 content</text>
+          <rect x="36" y="33" width="20" height="5" rx="1" fill="#555"/>
+          <text x="46" y="37" font-size="4" fill="#fff" text-anchor="middle">Next →</text>
+        </svg>
+        <span class="idea-name">Stepper Layout</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">16</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <line x1="6" y1="2" x2="6" y2="35" stroke="#ddd" stroke-width="0.8"/>
+          <line x1="22" y1="2" x2="22" y2="35" stroke="#ddd" stroke-width="0.8"/>
+          <line x1="38" y1="2" x2="38" y2="35" stroke="#ddd" stroke-width="0.8"/>
+          <line x1="52" y1="2" x2="52" y2="35" stroke="#ddd" stroke-width="0.8"/>
+          <path d="M6,7 C14,7 14,22 22,22 C30,22 30,12 38,12 C46,12 46,27 52,27" fill="none" stroke="#333" stroke-width="1.5"/>
+          <path d="M6,16 C14,16 14,8 22,8 C30,8 30,19 38,19 C46,19 46,7 52,7" fill="none" stroke="#777" stroke-width="1.5"/>
+          <path d="M6,27 C14,27 14,16 22,16 C30,16 30,27 38,27 C46,27 46,17 52,17" fill="none" stroke="#bbb" stroke-width="1.5"/>
+          <text x="6" y="37" font-size="4" fill="#aaa" text-anchor="middle">T1</text>
+          <text x="22" y="37" font-size="4" fill="#aaa" text-anchor="middle">T2</text>
+          <text x="38" y="37" font-size="4" fill="#aaa" text-anchor="middle">T3</text>
+          <text x="52" y="37" font-size="4" fill="#aaa" text-anchor="middle">T4</text>
+        </svg>
+        <span class="idea-name">Bump Chart</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">17</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <rect x="1" y="1" width="56" height="35" rx="1" fill="none" stroke="#aaa" stroke-width="0.8"/>
+          <rect x="3" y="4" width="50" height="6" rx="0.5" fill="#ddd"/>
+          <rect x="3" y="13" width="40" height="5" rx="0.5" fill="#eee"/>
+          <rect x="3" y="21" width="50" height="5" rx="0.5" fill="#eee"/>
+          <rect x="3" y="29" width="32" height="5" rx="0.5" fill="#eee"/>
+          <text x="50" y="8.5" font-size="8" fill="#c00" text-anchor="middle">✕</text>
+          <text x="29" y="37" font-size="4" fill="#c00" text-anchor="middle">No interactivity</text>
+        </svg>
+        <span class="idea-name">Static Log Page</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">18</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <rect x="3" y="3" width="42" height="9" rx="1" fill="#eee" stroke="#999" stroke-width="0.8"/>
+          <text x="16" y="9" font-size="5.5" fill="#555">Select…</text>
+          <text x="40" y="9.5" font-size="7" fill="#555">▾</text>
+          <rect x="3" y="12.5" width="42" height="7" rx="0" fill="#fff" stroke="#bbb" stroke-width="0.6"/>
+          <rect x="3" y="20" width="42" height="7" rx="0" fill="#f0f0f0" stroke="#bbb" stroke-width="0.6"/>
+          <rect x="3" y="27.5" width="42" height="7" rx="0" fill="#fff" stroke="#bbb" stroke-width="0.6"/>
+          <text x="9" y="18" font-size="5" fill="#555">Option A</text>
+          <text x="9" y="25.5" font-size="5" fill="#222" font-weight="700">Option B ✓</text>
+          <text x="9" y="33" font-size="5" fill="#555">Option C</text>
+        </svg>
+        <span class="idea-name">Dropdown Filter</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">19</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <text x="5" y="11" font-size="5.5" fill="#777">Start</text>
+          <text x="42" y="11" font-size="5.5" fill="#777">End</text>
+          <line x1="5" y1="22" x2="53" y2="22" stroke="#ccc" stroke-width="4"/>
+          <line x1="16" y1="22" x2="40" y2="22" stroke="#555" stroke-width="4"/>
+          <circle cx="16" cy="22" r="5.5" fill="#555"/>
+          <circle cx="40" cy="22" r="5.5" fill="#555"/>
+          <text x="13" y="34" font-size="5" fill="#333">Low</text>
+          <text x="36" y="34" font-size="5" fill="#333">High</text>
+        </svg>
+        <span class="idea-name">Range Slider</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">20</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <rect x="2" y="18" width="9" height="14" fill="#555"/>
+          <rect x="14" y="13" width="9" height="19" fill="#555"/>
+          <rect x="26" y="8" width="9" height="24" fill="#555"/>
+          <rect x="38" y="14" width="9" height="18" fill="#888"/>
+          <rect x="19" y="1" width="26" height="11" rx="2" fill="#222"/>
+          <polygon points="32,12 28,16 36,16" fill="#222"/>
+          <text x="32" y="7" font-size="4.5" fill="#fff" text-anchor="middle">Casey: 15</text>
+          <text x="32" y="11.5" font-size="4" fill="#bbb" text-anchor="middle">High tier</text>
+          <line x1="1" y1="32" x2="49" y2="32" stroke="#333" stroke-width="0.7"/>
+        </svg>
+        <span class="idea-name">Tooltip</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">21</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <circle cx="9" cy="9" r="5" fill="none" stroke="#555" stroke-width="1.2"/>
+          <circle cx="9" cy="9" r="2.5" fill="#555"/>
+          <text x="18" y="12" font-size="6.5" fill="#333">Work</text>
+          <circle cx="9" cy="22" r="5" fill="none" stroke="#bbb" stroke-width="1.2"/>
+          <text x="18" y="25" font-size="6.5" fill="#333">Education</text>
+          <circle cx="9" cy="34" r="5" fill="none" stroke="#bbb" stroke-width="1.2"/>
+          <text x="18" y="37" font-size="6.5" fill="#333">All</text>
+        </svg>
+        <span class="idea-name">Radio Button</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">22</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <text x="5" y="11" font-size="6" fill="#777">Weekday</text>
+          <rect x="5" y="16" width="28" height="11" rx="5.5" fill="#555"/>
+          <circle cx="29" cy="21.5" r="5" fill="#fff"/>
+          <text x="5" y="36" font-size="5.5" fill="#aaa">↔ Weekend</text>
+        </svg>
+        <span class="idea-name">Toggle</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">23</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <rect x="1" y="1" width="26" height="16" fill="none" stroke="#bbb" stroke-width="0.8"/>
+          <rect x="31" y="1" width="26" height="16" fill="none" stroke="#bbb" stroke-width="0.8"/>
+          <rect x="1" y="21" width="26" height="16" fill="none" stroke="#bbb" stroke-width="0.8"/>
+          <rect x="31" y="21" width="26" height="16" fill="none" stroke="#bbb" stroke-width="0.8"/>
+          <rect x="4" y="4" width="9" height="9" fill="#333"/>
+          <rect x="16" y="4" width="9" height="9" fill="#ddd"/>
+          <rect x="34" y="4" width="9" height="9" fill="#333"/>
+          <rect x="46" y="4" width="9" height="9" fill="#ddd"/>
+          <line x1="13" y1="8.5" x2="31" y2="8.5" stroke="#555" stroke-width="0.8" stroke-dasharray="2,1"/>
+          <line x1="13" y1="28" x2="31" y2="28" stroke="#555" stroke-width="0.8" stroke-dasharray="2,1"/>
+          <rect x="4" y="24" width="9" height="9" fill="#777"/>
+          <rect x="34" y="24" width="9" height="9" fill="#777"/>
+        </svg>
+        <span class="idea-name">Linked Highlight</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">24</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <rect x="1" y="2" width="26" height="34" rx="2" fill="#f0f0f0" stroke="#ccc" stroke-width="0.8"/>
+          <text x="14" y="22" font-size="15" fill="#222" text-anchor="middle" font-weight="700">89%</text>
+          <text x="14" y="29" font-size="4.5" fill="#777" text-anchor="middle">Private Vehicle</text>
+          <rect x="31" y="2" width="26" height="34" rx="2" fill="#f0f0f0" stroke="#ccc" stroke-width="0.8"/>
+          <text x="44" y="22" font-size="15" fill="#222" text-anchor="middle" font-weight="700">29</text>
+          <text x="44" y="29" font-size="4.5" fill="#777" text-anchor="middle">LGA Gap</text>
+        </svg>
+        <span class="idea-name">Headline Numbers</span>
+      </div>
+
+      <div class="idea"><span class="idea-num">25</span>
+        <svg width="58" height="38" viewBox="0 0 58 38">
+          <rect x="15" y="1" width="28" height="9" rx="1" fill="#555"/>
+          <text x="29" y="7.5" font-size="5.5" fill="#fff" text-anchor="middle">Question</text>
+          <line x1="22" y1="10" x2="10" y2="18" stroke="#555" stroke-width="1"/>
+          <line x1="29" y1="10" x2="29" y2="18" stroke="#555" stroke-width="1"/>
+          <line x1="36" y1="10" x2="48" y2="18" stroke="#555" stroke-width="1"/>
+          <rect x="2" y="18" width="16" height="9" rx="1" fill="#888"/>
+          <rect x="21" y="18" width="16" height="9" rx="1" fill="#888"/>
+          <rect x="40" y="18" width="16" height="9" rx="1" fill="#888"/>
+          <text x="10" y="24" font-size="5" fill="#fff" text-anchor="middle">SQ1</text>
+          <text x="29" y="24" font-size="5" fill="#fff" text-anchor="middle">SQ2</text>
+          <text x="48" y="24" font-size="5" fill="#fff" text-anchor="middle">SQ3</text>
+        </svg>
+        <span class="idea-name">Question Decomp.</span>
+      </div>
+
+      <div class="idea" style="grid-column:span 2;">
+        <span class="idea-num">26</span>
+        <svg width="120" height="38" viewBox="0 0 120 38">
+          <rect x="1" y="3" width="118" height="30" rx="3" fill="#fff8f0" stroke="#555" stroke-width="1.4" stroke-dasharray="4,2"/>
+          <text x="60" y="16" font-size="8" fill="#333" text-anchor="middle" font-weight="700">⚠ Data Coverage Gap Callout</text>
+          <text x="60" y="27" font-size="5.5" fill="#666" text-anchor="middle">29 LGAs: investment recorded, no VISTA survey coverage</text>
+        </svg>
+        <span class="idea-name">Data Coverage Gap Callout</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="filter-box">
+    <div class="sec-label">Filter</div>
+    <div class="filter-item"><span class="f-num">#9</span><span class="f-arr">→</span><span class="f-text">Heatmap: poor at differentiating small % change across cells.</span></div>
+    <div class="filter-item"><span class="f-num">#10</span><span class="f-arr">→</span><span class="f-text">White-cell table: individual unit encoding becomes unreadable.</span></div>
+    <div class="filter-item"><span class="f-num">#2</span><span class="f-arr">→</span><span class="f-text">Toggle: interaction complexity without clear payoff.</span></div>
+    <div class="filter-item"><span class="f-num">#17</span><span class="f-arr">→</span><span class="f-text">Static log page: needs interactivity to be meaningful.</span></div>
+    <div class="filter-item"><span class="f-num">#6</span><span class="f-arr">→</span><span class="f-text">Lollipop: redundant with bar + dot plot combination.</span></div>
+    <div class="filter-item"><span class="f-num">#8</span><span class="f-arr">→</span><span class="f-text">Diverging bar: realistic neutral midpoint may not exist in this data.</span></div>
+    <div class="filter-item"><span class="f-num">#13</span><span class="f-arr">→</span><span class="f-text">Scroll narrative: JavaScript dependency — excluded per course constraints.</span></div>
+    <div class="filter-item"><span class="f-num">#23</span><span class="f-arr">→</span><span class="f-text">Linked highlight: patterns matter more than individual row comparison.</span></div>
+  </div>
+</div>
+
+<div class="cat-section">
+  <div class="sec-label">Categorise</div>
+  <div class="cat-row">
+    <div class="cat-box">
+      <div class="cat-title">Ideas that Set Context</div>
+      <div class="cat-ids">#24, #25, #12</div>
+      <div class="cat-desc">Orients the reader before analysis. Establishes scale, frames questions, shows what is most prominent.</div>
+    </div>
+    <div class="cat-box">
+      <div class="cat-title">Ideas that Frame the Narrative</div>
+      <div class="cat-ids">#25, #26</div>
+      <div class="cat-desc">Tells the reader what data can and cannot show. #26 serves double duty — contextualises entry point and frames the whole narrative.</div>
+    </div>
+    <div class="cat-box">
+      <div class="cat-title">Ideas that Show Comparisons</div>
+      <div class="cat-ids">#1, #2, #3, #5</div>
+      <div class="cat-desc">Lets the reader see differences between groups or across an ordered axis.</div>
+    </div>
+    <div class="cat-box">
+      <div class="cat-title">Ideas that Show Distribution &amp; Variability</div>
+      <div class="cat-ids">#4, #6</div>
+      <div class="cat-desc">Reveals spread and shape behind summary stats. #11 can serve as companion across subgroups and as a layout device.</div>
+    </div>
+    <div class="cat-box">
+      <div class="cat-title">Ideas that Give Reader Control</div>
+      <div class="cat-ids">#18, #19, #20, #21</div>
+      <div class="cat-desc">Interactive controls. Augment charts, not standalone. Risk: complexity without payoff for a policymaker audience.</div>
+    </div>
+  </div>
+</div>
+
+<div class="combine-section">
+  <div class="sec-label">Combine &amp; Refine</div>
+  <div class="combine-row">
+    <div class="design-box">
+      <div class="design-title">Design A — Sequential Stepper</div>
+      <div class="design-desc">Fully author-driven. Fixed forward-only path. Each step: one chart (choropleth / lollipop / slope / grouped bar / scatter) + narrative text panel. Reader cannot skip ahead.</div>
+      <div class="wireframe">
+        <svg width="100%" height="68" viewBox="0 0 190 68">
+          <rect x="1" y="1" width="24" height="10" rx="1" fill="#555"/>
+          <rect x="27" y="1" width="24" height="10" rx="1" fill="#ccc"/>
+          <rect x="53" y="1" width="24" height="10" rx="1" fill="#ccc"/>
+          <rect x="79" y="1" width="24" height="10" rx="1" fill="#ccc"/>
+          <rect x="105" y="1" width="24" height="10" rx="1" fill="#ccc"/>
+          <rect x="131" y="1" width="24" height="10" rx="1" fill="#ccc"/>
+          <rect x="157" y="1" width="32" height="10" rx="1" fill="#ccc"/>
+          <text x="13" y="8" font-size="5.5" fill="#fff" text-anchor="middle">1</text>
+          <text x="39" y="8" font-size="5.5" fill="#555" text-anchor="middle">2</text>
+          <text x="65" y="8" font-size="5.5" fill="#555" text-anchor="middle">3</text>
+          <text x="91" y="8" font-size="5.5" fill="#555" text-anchor="middle">4</text>
+          <text x="117" y="8" font-size="5.5" fill="#555" text-anchor="middle">5</text>
+          <text x="143" y="8" font-size="5.5" fill="#555" text-anchor="middle">6</text>
+          <text x="173" y="8" font-size="5.5" fill="#555" text-anchor="middle">7</text>
+          <rect x="1" y="13" width="118" height="32" rx="1" fill="#eee" stroke="#bbb" stroke-width="0.7"/>
+          <text x="60" y="31" font-size="5.5" fill="#aaa" text-anchor="middle">Chart — Choropleth / Slope</text>
+          <rect x="122" y="13" width="67" height="32" rx="1" fill="#f5f5f5" stroke="#bbb" stroke-width="0.7"/>
+          <rect x="125" y="17" width="42" height="3.5" rx="0.5" fill="#ccc"/>
+          <rect x="125" y="23" width="61" height="3" rx="0.5" fill="#ddd"/>
+          <rect x="125" y="28" width="55" height="3" rx="0.5" fill="#ddd"/>
+          <rect x="125" y="33" width="61" height="3" rx="0.5" fill="#ddd"/>
+          <rect x="125" y="38" width="48" height="3" rx="0.5" fill="#ddd"/>
+          <rect x="1" y="48" width="118" height="18" rx="1" fill="#f5f5f5" stroke="#bbb" stroke-width="0.7"/>
+          <rect x="4" y="51" width="85" height="3" rx="0.5" fill="#ccc"/>
+          <rect x="4" y="56" width="111" height="2.5" rx="0.5" fill="#ddd"/>
+          <rect x="4" y="61" width="100" height="2.5" rx="0.5" fill="#ddd"/>
+          <rect x="122" y="48" width="67" height="18" rx="1" fill="#f5f5f5" stroke="#bbb" stroke-width="0.7"/>
+          <rect x="125" y="51" width="40" height="3" rx="0.5" fill="#ccc"/>
+          <rect x="125" y="56" width="60" height="2.5" rx="0.5" fill="#ddd"/>
+          <text x="5" y="67" font-size="5" fill="#777">← Prev</text>
+          <text x="165" y="67" font-size="5" fill="#777">Next →</text>
+        </svg>
+      </div>
+    </div>
+    <div class="design-box">
+      <div class="design-title">Design B — Question-Answer Dashboard</div>
+      <div class="design-desc">Fully reader-driven. Three panels simultaneously visible using distinct encodings: scatter (bivariate), violin (distribution), small multiples (faceted comparison). Scoped filters per panel.</div>
+      <div class="wireframe">
+        <svg width="100%" height="68" viewBox="0 0 190 68">
+          <rect x="1" y="1" width="60" height="10" rx="1" fill="#eee" stroke="#bbb" stroke-width="0.7"/>
+          <text x="22" y="7.5" font-size="5.5" fill="#555">▾ Dropdown</text>
+          <rect x="65" y="3.5" width="85" height="5" rx="2.5" fill="#ddd"/>
+          <rect x="65" y="3.5" width="48" height="5" rx="2.5" fill="#555"/>
+          <circle cx="113" cy="6" r="4.5" fill="#555"/>
+          <text x="158" y="7.5" font-size="5.5" fill="#777">Slider</text>
+          <rect x="1" y="14" width="92" height="24" rx="1" fill="#eee" stroke="#bbb" stroke-width="0.6"/>
+          <text x="46" y="28" font-size="5.5" fill="#aaa" text-anchor="middle">Scatter: Invest vs HH</text>
+          <rect x="97" y="14" width="92" height="24" rx="1" fill="#eee" stroke="#bbb" stroke-width="0.6"/>
+          <text x="143" y="28" font-size="5.5" fill="#aaa" text-anchor="middle">Violin: Duration × Tier</text>
+          <rect x="1" y="41" width="188" height="25" rx="1" fill="#eee" stroke="#bbb" stroke-width="0.6"/>
+          <text x="94" y="55" font-size="5.5" fill="#aaa" text-anchor="middle">Small Multiples: Mode Share × IRSD Decile</text>
+        </svg>
+      </div>
+    </div>
+    <div class="design-box">
+      <div class="design-title">Design C — Martini Glass</div>
+      <div class="design-desc">Guided scroll narrative (author-driven) through three headline-and-chart panels, then a state-change button unlocks an LGA Explorer. Author controls the evidence sequence; reader controls the depth.</div>
+      <div class="wireframe">
+        <svg width="100%" height="68" viewBox="0 0 190 68">
+          <!-- Left col — narrative panels -->
+          <rect x="1" y="1" width="108" height="64" rx="1" fill="#f5f5f5" stroke="#bbb" stroke-width="0.6"/>
+          <rect x="3" y="3" width="104" height="12" rx="1" fill="#eee" stroke="#bbb" stroke-width="0.5"/>
+          <text x="55" y="11" font-size="5" fill="#888" text-anchor="middle">P1 — Dot Strip + Headline</text>
+          <rect x="3" y="17" width="104" height="12" rx="1" fill="#eee" stroke="#bbb" stroke-width="0.5"/>
+          <text x="55" y="25" font-size="5" fill="#888" text-anchor="middle">P2 — Slope Line + Headline</text>
+          <rect x="3" y="31" width="104" height="12" rx="1" fill="#eee" stroke="#bbb" stroke-width="0.5"/>
+          <text x="55" y="39" font-size="5" fill="#888" text-anchor="middle">P3 — Connected Dot + Headline</text>
+          <rect x="18" y="47" width="72" height="9" rx="2" fill="#333"/>
+          <text x="54" y="53.5" font-size="5" fill="#fff" text-anchor="middle">[D] Explore Your LGA →</text>
+          <!-- Right col — greyed overlay -->
+          <rect x="112" y="1" width="77" height="64" rx="1" fill="#ececec" stroke="#bbb" stroke-width="0.5"/>
+          <line x1="112" y1="12" x2="124" y2="1" stroke="#ddd" stroke-width="0.7"/>
+          <line x1="112" y1="24" x2="136" y2="1" stroke="#ddd" stroke-width="0.7"/>
+          <line x1="112" y1="36" x2="148" y2="1" stroke="#ddd" stroke-width="0.7"/>
+          <line x1="112" y1="48" x2="160" y2="1" stroke="#ddd" stroke-width="0.7"/>
+          <line x1="112" y1="60" x2="172" y2="1" stroke="#ddd" stroke-width="0.7"/>
+          <line x1="120" y1="65" x2="185" y2="8" stroke="#ddd" stroke-width="0.7"/>
+          <rect x="118" y="22" width="64" height="18" rx="2" fill="#fff" stroke="#aaa" stroke-width="0.5"/>
+          <text x="150" y="30" font-size="5" fill="#aaa" text-anchor="middle">LGA Explorer</text>
+          <text x="150" y="37" font-size="4.5" fill="#bbb" text-anchor="middle">activates on [D] click</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="questions">
+  <div class="sec-label">Questions</div>
+  <div class="q-grid">
+    <div class="q-box">
+      <div class="q-n">Q1</div>
+      <div class="q-q">Does any design give a policymaker a clear sense of what action to take?</div>
+      <div class="q-a">Design A ends at a clear policy implication. B and C leave the reader to draw their own conclusions, risking unresolved questions for a non-expert audience.</div>
+    </div>
+    <div class="q-box">
+      <div class="q-n">Q2</div>
+      <div class="q-q">How much narrative text does a policymaker need alongside each chart?</div>
+      <div class="q-a">Design A allocates explicit text panels per chart. B and C prioritise chart real estate over narration — risky for a policymaker who needs framing to act.</div>
+    </div>
+    <div class="q-box">
+      <div class="q-n">Q3</div>
+      <div class="q-q">If a reader enters mid-way, can they understand without reading earlier sections?</div>
+      <div class="q-a">Design B handles this best — each panel is self-contained. Design A breaks without sequential reading. C partially handles it via the persistent headline numbers in the title panel.</div>
+    </div>
+    <div class="q-box">
+      <div class="q-n">Q4</div>
+      <div class="q-q">Does Design A's fixed sequence risk losing a reader interested in only one question?</div>
+      <div class="q-a">Yes, but acceptable — policymakers need the full picture to act. Author-controlled narrative is appropriate for this audience.</div>
+    </div>
+    <div class="q-box">
+      <div class="q-n">Q5</div>
+      <div class="q-q">Does Design B's simultaneous visibility create cognitive overload?</div>
+      <div class="q-a">Yes. Showing all three questions at once without a guided entry overwhelms a non-expert reader. Works for analysts, not policymakers.</div>
+    </div>
+    <div class="q-box">
+      <div class="q-n">Q6</div>
+      <div class="q-q">Does Design C's Martini Glass structure balance author-controlled narrative with reader-driven exploration, and is the two-state transition clear enough to prevent premature exploration?</div>
+      <div class="q-a">Mostly yes. The narrative panels deliver the complete argument before the exploration zone unlocks, so readers who exit early still receive the full message. The main risk is that a persistent right column signals exploration before it is earned — the overlay copy and [D] button must be calibrated to preserve the author's intended reading order.</div>
+    </div>
+    <div class="q-box" style="grid-column:span 2;">
+      <div class="q-n">Q7</div>
+      <div class="q-q">How do we communicate the structural data gaps without it looking like incomplete analysis?</div>
+      <div class="q-a">Frame the 29-LGA coverage gap as a policy-relevant finding: VISTA does not survey regional Victoria, meaning policymakers currently lack travel behaviour evidence to evaluate investment in those areas. Present as a prominent callout, not a limitation footnote — the gap itself is part of the story.</div>
+    </div>
+    <div class="q-box" style="grid-column:span 4; border: 1px solid #c00; border-left: 4px solid #c00; background:#fff8f8;">
+      <div class="q-n" style="color:#c00; font-size:7px; font-weight:700;">DVP PART 1 FEEDBACK — Revision Record</div>
+      <div class="q-q" style="color:#c00;">Michael Niemann identified that the three alternative designs were too similar — primarily layout variants rather than genuinely distinct design approaches. What structural changes were made for DVP Part 2?</div>
+      <div class="q-a">The revised designs differ in three dimensions simultaneously. (1) <strong>Narrative genre:</strong> Design A is fully author-locked with forward-only stepper navigation; Design B is fully reader-controlled with simultaneous scoped panels; Design C uses a two-state Martini Glass — author-controlled in State A, reader-controlled in State B. (2) <strong>Chart family:</strong> Design A uses geographic and distribution encodings (choropleth, lollipop, slope, grouped bar, scatter); Design B uses bivariate, distributional, and faceted encodings (scatter, violin, small multiples); Design C uses strip, ranking, and paired-comparison encodings (dot strip, bump, connected dot). No chart type appears in more than one design. (3) <strong>Interaction model:</strong> Design A has no filters — locked forward navigation only; Design B has asymmetrically scoped cross-panel filters; Design C has no filters — only a state-change toggle between guided narrative and LGA personalisation. These differences operate at the level of spatial grammar, perceptual task, and interaction philosophy.</div>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

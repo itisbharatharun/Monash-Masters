@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PE3 — Australian parrots</title>
+<style>
+  html, body { margin: 0; padding: 0; font-family: -apple-system, "Segoe UI", sans-serif; background: #f7f7f7; color: #222; }
+  header { padding: 16px 24px 8px; }
+  h1 { margin: 0; font-size: 18px; }
+  p.subtitle { margin: 4px 0 0; color: #666; font-size: 13px; max-width: 980px; }
+  .layout { display: flex; gap: 16px; padding: 12px 24px 24px; }
+  .canvas-wrap { background: white; border: 1px solid #ddd; flex: 1; min-width: 0; }
+  svg#viz { display: block; width: 100%; height: auto; max-width: 1500px; }
+
+  .link { fill: none; stroke: #c4c4c4; stroke-width: 1px; }
+  .node circle { stroke: white; stroke-width: 1.2px; }
+  .node--internal text { fill: #555; font-size: 11px; }
+  .node--leaf text.leaf-label { font-size: 12px; font-weight: 600; fill: #222; }
+  .node--leaf text.leaf-sci   { font-size: 10px; font-style: italic; fill: #888; }
+
+  .bar-baseline { stroke: #bbb; stroke-width: 0.5px; }
+
+  /* Hover highlight (styled by CSS; Task 4 wires up the class toggles). */
+  .node, .link { transition: opacity 150ms ease-out; }
+  .node.faded, .link.faded { opacity: 0.12; }
+
+  #tooltip {
+    position: absolute; pointer-events: none; display: none;
+    background: white; border: 1px solid #bbb; border-radius: 4px;
+    padding: 8px 10px; font-size: 12px; box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+    max-width: 260px;
+  }
+  #tooltip .tt-title { font-weight: 600; margin-bottom: 2px; }
+  #tooltip .tt-sci { font-style: italic; color: #777; font-size: 10.5px; margin-bottom: 4px; }
+  #tooltip .tt-row { display: flex; justify-content: space-between; gap: 8px; }
+  #tooltip .tt-row span:first-child { color: #555; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Where Australia's parrots are seen — a taxonomic tree</h1>
+  <p class="subtitle">Fifteen species of Australian parrot, arranged by taxonomy from order <em>Psittaciformes</em> down through family, genus and species. 
+    Each species leaf (end node) connects to a small bar chart showing the share of that species' observation records across the eight states and territories, in a standardised order from left-to-right: WA, SA, VIC, TAS, ACT, NSW, QLD, NT. 
+    Node size in the tree is proportional to log of observation count, so abundant species like the Galah and Rainbow Lorikeet with around a million records each can be compared alongside the critically endangered Orange-bellied Parrot with approximately 500 observations. 
+    The bar-chart shapes make biogeography immediate: east-coast urban species (Rainbow Lorikeet, Eastern Rosella, Australian King-Parrot) show high observations in VIC and NSW, with some in QLD,
+    while arid-inland and northern species (Budgerigar, Red-winged Parrot, Red-tailed Black Cockatoo) are more evident in QLD, NT and WA.
+    To explore the details, hover any node for a summary; hover a single bar for the state's count.</p>
+</header>
+<div class="layout">
+  <div class="canvas-wrap">
+    <svg id="viz" viewBox="0 0 1640 760" preserveAspectRatio="xMinYMin meet" width="1640" height="760"></svg>
+  </div>
+</div>
+<div id="tooltip"></div>
+
+<script src="https://cdn.jsdelivr.net/gh/gavjmooney/fit5147-sem1-2026-pe3-data@main/data.js"></script>
+<script src="https://unpkg.com/d3@7"></script>
+<script>
+// ======================================================================
+// PROVIDED SCAFFOLD — do NOT change.
+//
+// This block gives you:
+//   - STATES, STATE_ABBR, familyColour, GLYPH_* constants
+//   - svg / width / height / margin
+//   - root  (a d3.hierarchy; every node has d.data.total_observations
+//           — leaves hold their own count, ancestors hold the sum of all
+//           leaves below them)
+//   - d3.cluster() already applied, so each node has d.x, d.y positions
+//   - familyOf(d)       — walk up from a leaf to its family ancestor
+//   - tooltip, g        — the <div> selection and the main <g> group
+//   - linkSel           — the tree links (already drawn for you)
+//   - node              — an empty <g> at each node; Tasks 1–5 fill these
+//   - leafSel           — convenience selection of just the species leaves
+// ======================================================================
+
+const STATES = [
+"Western Australia", "South Australia", "Victoria", "Tasmania",
+"Australian Capital Territory", "New South Wales", "Queensland", "Northern Territory",
+];
+const STATE_ABBR = {
+  "Western Australia": "WA", "South Australia": "SA", "Victoria": "VIC", "Tasmania": "TAS",
+  "Australian Capital Territory": "ACT", "New South Wales": "NSW", "Queensland": "QLD",
+  "Northern Territory": "NT",
+};
+
+const GLYPH_OFFSET = 175;
+const GLYPH_W = 200;
+const GLYPH_H = 24;
+const BAR_WIDTH = GLYPH_W / STATES.length;
+
+const svg = d3.select("#viz");
+const width = +svg.attr("width");
+const height = +svg.attr("height");
+const margin = { top: 40, right: 680, bottom: 20, left: 90 };
+
+const root = d3.hierarchy(PE3_DATA);
+d3.cluster().size([height - margin.top - margin.bottom, width - margin.left - margin.right])(root);
+
+const familyOf = d => {
+  let c = d;
+  while (c && c.data.rank !== "family") c = c.parent;
+  return c && c.data.name;
+};
+
+const tooltip = d3.select("#tooltip");
+
+const g = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+
+const linkSel = g.append("g")
+  .selectAll("path")
+  .data(root.links())
+  .join("path")
+  .attr("class", "link")
+  .attr("d", d3.linkHorizontal().x(d => d.y).y(d => d.x));
+
+const node = g.append("g")
+  .selectAll("g")
+  .data(root.descendants())
+  .join("g")
+  .attr("class", d => "node " + (d.children ? "node--internal" : "node--leaf"))
+  .attr("transform", d => `translate(${d.y},${d.x})`);
+
+const leafSel = node.filter(d => !d.children);
+
+
+// Rank column headers — one label per taxonomic level, centred on its column.
+const rankLabels = d3.groups(root.descendants(), d => d.depth)
+  .map(([, nodes]) => ({ rank: nodes[0].data.rank, y: nodes[0].y }))
+  .sort((a, b) => a.y - b.y);
+rankLabels.forEach(({ rank, y }) => {
+  g.append("text")
+    .attr("x", y)
+    .attr("y", -18)
+    .attr("text-anchor", "middle")
+    .style("font-size", "11px")
+    .style("fill", "#999")
+    .style("font-weight", 600)
+    .style("text-transform", "capitalize")
+    .text(rank);
+});
+
+// Bar-chart column headers — state abbreviations above the first leaf's glyph.
+const firstLeaf = root.leaves()[0];
+const colHeader = g.append("g")
+  .attr("transform", `translate(${firstLeaf.y + GLYPH_OFFSET},${firstLeaf.x - GLYPH_H/2 - 14})`);
+STATES.forEach((s, i) => {
+  colHeader.append("text")
+    .attr("x", i * BAR_WIDTH + BAR_WIDTH/2)
+    .attr("text-anchor", "middle")
+    .style("font-size", "9px")
+    .style("fill", "#555")
+    .text(STATE_ABBR[s]);
+});
+colHeader.append("text")
+  .attr("x", GLYPH_W/2)
+  .attr("y", -12)
+  .attr("text-anchor", "middle")
+  .style("font-size", "10px")
+  .style("fill", "#888")
+  .style("font-style", "italic")
+  .text("proportion of species' records per state (max-normalised)");
+
+// END OF PROVIDED SCAFFOLD — your tasks begin below.
+
+
+// ======================================================================
+// #TASK 1 — Draw and style the nodes
+//
+// The scaffold has created an empty <g> at every node position (the
+// `node` selection). Your job is to make the nodes visible and
+// meaningful.
+//
+// 1.1  Create a visual marker for each node.
+
+node.append("circle");
+
+// END CODE
+
+
+// 1.2  Colour the nodes so the two parrot families are visually
+//      distinct. Family, genus and species nodes should reflect which
+//      family they belong to; nodes above the family level (the order
+//      root) should use a neutral colour.
+//
+//      Each node's taxonomic rank is in `d.data.rank` (one of "order",
+//      "family", "genus", or "species"). The scaffold function
+//      `familyOf(d)` returns the family name for any node.
+
+// YOUR CODE HERE
+
+// Shared colour map — single source of truth used by both the tree nodes and the legend
+const FAMILY_COLOURS = {
+  "Cacatuidae":  "#e07b54",   // warm coral
+  "Psittacidae": "#3a9e8f",   // teal
+};
+const familyColour = d => FAMILY_COLOURS[familyOf(d)] || "#888";  // "#888" = neutral for order root
+
+node.select("circle").attr("fill", familyColour);
+
+// END CODE
+
+
+// 1.3  Make each node's size proportional to the number of
+//      observations at that node (`d.data.total_observations`).
+//      Observation counts span several orders of magnitude, so choose
+//      a scale that keeps both rare and common species readable.
+//      Assign your scale to `rScale` and a helper that returns a
+//      node's radius to `nodeRadius` — later tasks may use these for
+//      positioning.
+
+// YOUR CODE HERE
+
+// Log scale maps the huge range (~500 to ~1M) into readable radii (3–14px)
+const allObs = root.descendants().map(d => d.data.total_observations);
+let rScale = d3.scaleLog()
+  .domain([d3.min(allObs), d3.max(allObs)])
+  .range([3, 14]);
+
+let nodeRadius = d => rScale(d.data.total_observations);
+
+// Apply the radius to every node circle
+node.select("circle").attr("r", nodeRadius);
+
+
+
+
+// 1.4  Label the nodes. Internal nodes (order, family, genus) should
+//      display their taxonomic name (`d.data.name`). Species leaves
+//      should show both the common name (`d.data.commonName`) and the
+//      scientific name (`d.data.scientificName`). You may wish to use
+//      the provided CSS classes `.leaf-label` and `.leaf-sci` for
+//      species labels, and the `leafSel` selection which is
+//      pre-filtered to species leaves. Position labels so they don't
+//      overlap the nodes.
+
+// YOUR CODE HERE
+
+// Internal nodes: taxonomic name, positioned to the left of the circle
+node.filter(d => d.children).append("text")
+  .attr("dy", "0.32em")
+  .attr("x", d => -nodeRadius(d) - 6)
+  .attr("text-anchor", "end")
+  .text(d => d.data.name);
+
+// Species leaves: common name on top line, scientific name below
+leafSel.append("text")
+  .attr("class", "leaf-label")
+  .attr("dy", "-0.15em")
+  .attr("x", d => nodeRadius(d) + 6)
+  .text(d => d.data.commonName);
+
+leafSel.append("text")
+  .attr("class", "leaf-sci")
+  .attr("dy", "1em")
+  .attr("x", d => nodeRadius(d) + 6)
+  .text(d => d.data.scientificName);
+
+// END CODE
+
+// #END TASK 1
+
+
+
+// ======================================================================
+// #TASK 2 — Draw the bar-chart glyphs at species leaves
+//
+// Each species leaf should have a small bar chart showing how that
+// species' observations are distributed across Australian states.
+// The per-species data is in `d.data.observations_by_state`.
+//
+// All glyphs should use the same state order so readers can compare
+// them at a glance. Each species' bars should be normalised to its
+// own maximum so the chart shows distribution shape, not absolute
+// abundance (node size already encodes that).
+//
+// You may want to give every bar a `data-state` attribute with the 
+// state name which will be useful in task 3.2 to identify which bar is 
+// hovered.
+//
+// You may wish to use the provided constants (`STATES`, `GLYPH_OFFSET`,
+// `GLYPH_W`, `GLYPH_H`, `BAR_WIDTH`) and the `leafSel` selection.
+
+// YOUR CODE HERE
+
+// For each leaf, create a group offset to the right for the bar chart
+const glyphG = leafSel.append("g")
+  .attr("class", "glyph")
+  .attr("transform", `translate(${GLYPH_OFFSET}, ${-GLYPH_H / 2})`);
+
+// Draw a baseline under each glyph
+glyphG.append("line")
+  .attr("class", "bar-baseline")
+  .attr("x1", 0)
+  .attr("x2", GLYPH_W)
+  .attr("y1", GLYPH_H)
+  .attr("y2", GLYPH_H);
+
+// Draw 8 bars per species, one for each state, max-normalised per species
+glyphG.each(function (d) {
+  const obs = d.data.observations_by_state || {};
+  const maxCount = d3.max(STATES, s => obs[s] || 0) || 1;  // avoid div-by-zero
+  const barScale = d3.scaleLinear().domain([0, maxCount]).range([0, GLYPH_H]);
+
+  d3.select(this).selectAll("rect.bar")
+    .data(STATES)
+    .join("rect")
+    .attr("class", "bar")
+    .attr("x", (s, i) => i * BAR_WIDTH + 1)           // 1px gap inside each slot
+    .attr("width", BAR_WIDTH - 2)                       // leave 2px total padding
+    .attr("y", s => GLYPH_H - barScale(obs[s] || 0))
+    .attr("height", s => barScale(obs[s] || 0))
+    .attr("fill", familyColour(d))
+    .attr("opacity", 0.75)
+    .attr("data-state", s => s);                        // needed for tooltip in Task 3.2
+});
+
+// END CODE
+
+// #END TASK 2
+
+
+// ======================================================================
+// #TASK 3 — Tooltip on hover
+//
+// Show a tooltip that follows the cursor when the user hovers over
+// elements in the tree. The `tooltip` variable is a d3 selection for
+// the `#tooltip` div in the HTML. You may wish to use the provided
+// CSS classes (`.tt-title`, `.tt-sci`, `.tt-row`) for styling.
+// Position the tooltip near the cursor and ensure it stays within
+// the viewport.
+//
+// 3.1  When hovering a node, show the node's name and its total
+//      observation count (`d.data.total_observations`). For species
+//      leaves, show both the common name (`d.data.commonName`) and
+//      scientific name (`d.data.scientificName`). A node's taxonomic
+//      rank is in `d.data.rank`.
+
+
+// YOUR CODE HERE
+
+// Helper: position tooltip near cursor, clamped to viewport
+function positionTooltip(event) {
+  const pad = 14;
+  let x = event.pageX + pad;
+  let y = event.pageY + pad;
+  const ttNode = tooltip.node();
+  const rect = ttNode.getBoundingClientRect();
+  if (x + rect.width > window.innerWidth) x = event.pageX - rect.width - pad;
+  if (y + rect.height > window.innerHeight) y = event.pageY - rect.height - pad;
+  tooltip.style("left", x + "px").style("top", y + "px");
+}
+
+// Node tooltip
+node.on("mouseenter.tooltip", function (event, d) {
+  let html = "";
+  if (d.data.rank === "species") {
+    html += `<div class="tt-title">${d.data.commonName}</div>`;
+    html += `<div class="tt-sci">${d.data.scientificName}</div>`;
+  } else {
+    html += `<div class="tt-title">${d.data.name}</div>`;
+  }
+  html += `<div class="tt-row"><span>Total observations</span><span>${d.data.total_observations.toLocaleString()}</span></div>`;
+  tooltip.html(html).style("display", "block");
+  positionTooltip(event);
+})
+.on("mousemove.tooltip", function (event) {
+  positionTooltip(event);
+})
+.on("mouseleave.tooltip", function () {
+  tooltip.style("display", "none");
+});
+
+// END CODE
+
+// 3.2  When hovering a bar in the glyph, show the species' common
+//      name, the state name, and that state's observation count.
+//      Per-state counts are in `d.data.observations_by_state` (a
+//      dictionary keyed by full state name). You may wish to use the
+//      `data-state` attribute from Task 2 to identify which bar the
+//      cursor is on.
+
+// YOUR CODE HERE
+
+// Bar tooltip: the bar's parent <g> is the glyph, whose parent <g> is the node
+// (which carries the species datum via d3's data binding).
+d3.selectAll(".glyph rect.bar")
+  .on("mouseenter.tooltip", function (event) {
+    const stateName = d3.select(this).attr("data-state");
+    // Walk up to the node <g> which has the species data bound
+    const d = d3.select(this.parentNode.parentNode).datum();
+    const count = (d.data.observations_by_state || {})[stateName] || 0;
+    let html = `<div class="tt-title">${d.data.commonName}</div>`;
+    html += `<div class="tt-row"><span>${stateName}</span><span>${count.toLocaleString()}</span></div>`;
+    tooltip.html(html).style("display", "block");
+    positionTooltip(event);
+  })
+  .on("mousemove.tooltip", function (event) {
+    positionTooltip(event);
+  })
+  .on("mouseleave.tooltip", function () {
+    tooltip.style("display", "none");
+  });
+
+// END CODE
+
+
+// #END TASK 3
+
+
+// ======================================================================
+// #TASK 4 — Highlight on hover
+//
+// When the user hovers a node, visually highlight its context in the
+// tree. The highlighted set should include the hovered node, its
+// ancestors (the path back to the root) and its descendants
+// (everything below it, including the bar glyphs). The highlight
+// should reset when the cursor leaves the node. How you visually
+// distinguish the highlighted elements from the rest of the tree is
+// your design choice.
+//
+// D3's `d.ancestors()` and `d.descendants()` may be useful for
+// building the set of active nodes.
+//
+// Note: if you already have mouse handlers from Task 3, D3 supports
+// multiple handlers on the same event via namespaced event names
+// (e.g. "mouseenter.highlight") so they don't overwrite each other.
+
+// YOUR CODE HERE
+
+node.on("mouseenter.highlight", function (event, d) {
+  // Build a Set of highlighted node data references: ancestors + descendants
+  const activeNodes = new Set();
+  d.ancestors().forEach(n => activeNodes.add(n));
+  d.descendants().forEach(n => activeNodes.add(n));
+
+  // Fade all nodes that are NOT in the active set
+  node.classed("faded", n => !activeNodes.has(n));
+
+  // For links: highlight if both source and target are in the active set
+  linkSel.classed("faded", l => !(activeNodes.has(l.source) && activeNodes.has(l.target)));
+})
+.on("mouseleave.highlight", function () {
+  // Remove all faded classes to restore full opacity
+  node.classed("faded", false);
+  linkSel.classed("faded", false);
+});
+
+// END CODE
+
+
+// #END TASK 4
+
+
+// ======================================================================
+// PROVIDED — legend scaffold. Do NOT change.
+// ======================================================================
+
+const legendX = margin.left + (width - margin.left - margin.right) + GLYPH_OFFSET + GLYPH_W + 40;
+const legend = svg.append("g").attr("transform", `translate(${legendX},${margin.top})`);
+
+legend.append("text").attr("y", 0).style("font-size", "12px").style("font-weight", 600).text("Family");
+
+legend.append("text").attr("y", 70).style("font-size", "12px").style("font-weight", 600).text("Bar glyph");
+legend.append("text").attr("y", 86).style("font-size", "10.5px").style("fill", "#666")
+  .text("8 bars per species. One for each");
+legend.append("text").attr("y", 100).style("font-size", "10.5px").style("fill", "#666")
+  .text("state/territory, ordered from left-to-right:");
+legend.append("text").attr("y", 114).style("font-size", "10.5px").style("fill", "#666")
+  .text("WA · SA · VIC · TAS");
+legend.append("text").attr("y", 128).style("font-size", "10.5px").style("fill", "#666")
+  .text("ACT · NSW · QLD · NT");
+legend.append("text").attr("y", 146).style("font-size", "10.5px").style("fill", "#666")
+  .text("Height = share of species' records");
+legend.append("text").attr("y", 164).style("font-size", "10.5px").style("fill", "#666")
+  .text("(normalised per species)");
+
+const sizeLegY = 196;
+legend.append("text").attr("y", sizeLegY).style("font-size", "12px").style("font-weight", 600).text("Number of observations");
+
+
+// ======================================================================
+// #TASK 5 — Complete the legend
+//
+// The scaffold has set up a legend with headings for "Family" and
+// "Number of observations". Your job is to add the visual entries
+// beneath each heading so the legend reflects your design choices.
+//
+// 5.1  Under "Family", add entries showing the colour you used for
+//      each family in Task 1.2, with a label identifying the family.
+
+// YOUR CODE HERE
+
+// Family legend entries — compact enough to fit before the scaffold's "Bar glyph" heading at y=70
+const familyEntries = [
+  { label: "Cacatuidae (cockatoos)",           colour: FAMILY_COLOURS["Cacatuidae"] },
+  { label: "Psittacidae (parrots & lorikeets)", colour: FAMILY_COLOURS["Psittacidae"] },
+  { label: "Psittaciformes (order root)",       colour: "#888" },
+];
+familyEntries.forEach((entry, i) => {
+  const y = 16 + i * 15;
+  legend.append("circle")
+    .attr("cx", 6)
+    .attr("cy", y)
+    .attr("r", 5)
+    .attr("fill", entry.colour);
+  legend.append("text")
+    .attr("x", 16)
+    .attr("y", y)
+    .attr("dy", "0.35em")
+    .style("font-size", "11px")
+    .style("fill", "#444")
+    .text(entry.label);
+});
+
+// END CODE
+
+
+// 5.2  Under "Number of observations", add sample circles at a few
+//      representative sizes so the reader can gauge the node-size
+//      scale you built in Task 1.3.
+
+// YOUR CODE HERE
+
+// Show sample circles at representative observation counts
+// Endpoints drawn from actual data min/max; middle values are representative round numbers
+const sampleCounts = [d3.min(allObs), 10000, 100000, d3.max(allObs)];
+let xCursor = 10;  // track horizontal position so circles don't overlap
+sampleCounts.forEach((count, i) => {
+  const r = rScale(count);
+  const cy = sizeLegY + 28 + 14;  // vertical centre for the row
+  xCursor += r;  // move right by the radius before drawing
+  legend.append("circle")
+    .attr("cx", xCursor)
+    .attr("cy", cy)
+    .attr("r", r)
+    .attr("fill", "#aaa")
+    .attr("stroke", "#888")
+    .attr("stroke-width", 0.5);
+  legend.append("text")
+    .attr("x", xCursor)
+    .attr("y", cy + r + 12)
+    .attr("text-anchor", "middle")
+    .style("font-size", "9px")
+    .style("fill", "#555")
+    .text(count >= 1e6 ? (count / 1e6).toFixed(1) + "M" : count >= 1e3 ? Math.round(count / 1e3) + "k" : count);
+  xCursor += r + 12;  // move past the circle plus spacing
+});
+
+// END CODE
+
+// #END TASK 5
+
+
+// Data source footer: do not edit
+svg.append("text")
+  .attr("x", margin.left)
+  .attr("y", height - 6)
+  .style("font-size", "10px")
+  .style("fill", "#999")
+  .text(`Data: Atlas of Living Australia · ${PE3_DATA.meta.species_count} species · ${PE3_DATA.meta.total_observations.toLocaleString()} observations (2004–2024, Australia, non-specimen)`);
+</script>
+</body>
+</html>

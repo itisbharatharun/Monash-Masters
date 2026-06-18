@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sheet 4 – FDS – Bharath Arun Gandhimani</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  @page { size: A4 portrait; margin: 8mm 8mm 8mm 8mm; }
+
+  html, body {
+    width: 100%; height: 100%;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 7px; background: #fff; color: #111;
+  }
+
+  .page {
+    width: 100%;
+    height: calc(297mm - 16mm);
+    max-height: calc(297mm - 16mm);
+    display: flex; flex-direction: column; gap: 2mm;
+    overflow: hidden;
+  }
+
+  .header {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 2px solid #111; padding-bottom: 1.5mm;
+    flex-shrink: 0;
+  }
+  .header-left { font-size: 14px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  .header-right { display:flex; align-items:center; gap:8px; }
+  .header-meta { font-size: 8px; color:#333; text-align:right; line-height:1.6; }
+  .badge { background:#111; color:#fff; font-size:8.5px; font-weight:700; padding:3px 8px; border-radius:2px; }
+
+  .sec-label {
+    font-size: 8.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; border-left: 3px solid #111;
+    padding-left: 4px; margin-bottom: 1.5mm;
+    flex-shrink: 0;
+  }
+
+  .info-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2mm;
+    flex-shrink: 0;
+  }
+  .info-box { border: 0.7px solid #999; border-radius: 3px; padding: 3px 5px; background: #f7f7f7; }
+  .info-title { font-size: 6.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #555; border-bottom: 0.4px solid #ccc; padding-bottom: 1.5px; margin-bottom: 2px; }
+  .info-text { font-size: 6px; line-height: 1.5; color: #222; }
+  .info-text strong { font-weight: 700; }
+
+  /* LAYOUT SECTION */
+  .layout-section { flex-shrink: 0; }
+  .layout-wireframe { border: 1px solid #333; border-radius: 3px; padding: 3px; background: #fafafa; }
+
+  /* OPS */
+  .ops-section { flex-shrink: 0; }
+  .ops-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2mm; }
+  .op-box { border: 0.6px solid #ccc; border-radius: 3px; padding: 2.5px 3.5px; background: #fafafa; }
+  .op-action { font-size: 6px; font-weight: 700; color: #111; line-height: 1.35; }
+  .op-arrow { font-size: 6px; color: #c00; margin: 1px 0; }
+  .op-result { font-size: 5.8px; line-height: 1.45; color: #333; }
+
+  /* FOCUS */
+  .focus-section { flex-shrink: 0; }
+  .focus-body { display: flex; gap: 2.5mm; }
+  .focus-left { flex: 1; border: 1px solid #333; border-radius: 3px; padding: 3px; }
+  .focus-right { width: 52mm; flex-shrink: 0; display: flex; flex-direction: column; gap: 1.5mm; }
+  .focus-note { font-size: 5.8px; line-height: 1.45; color: #555; border-top: 0.4px solid #ccc; padding-top: 2px; margin-top: 2px; }
+
+  /* DISCUSSION */
+  .discussion { border-top: 1.5px solid #111; padding-top: 2mm; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .disc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2mm; flex: 1; min-height: 0; }
+  .disc-box { border: 0.5px solid #ccc; border-radius: 3px; padding: 3px 4px; background: #fafafa; display: flex; flex-direction: column; }
+  .disc-title { font-size: 6.5px; font-weight: 700; color: #111; border-bottom: 0.4px solid #ccc; padding-bottom: 1.5px; margin-bottom: 2px; flex-shrink: 0; }
+  .disc-text { font-size: 5.8px; line-height: 1.55; color: #333; flex: 1; }
+  .disc-text li { margin-left: 7px; margin-bottom: 1.5px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div class="header-left">Sheet 4 — Design C: Martini Glass</div>
+  <div class="header-right">
+    <div class="header-meta">Bharath Arun Gandhimani &nbsp;|&nbsp; FIT5147 DVP &nbsp;|&nbsp; 13 / 05 / 2026 (revised 02 / 06 / 2026)</div>
+    <div class="badge">FDS</div>
+  </div>
+</div>
+
+<div class="info-row">
+  <div class="info-box">
+    <div class="info-title">Information</div>
+    <div class="info-text">
+      <strong>Title:</strong> Design C — Martini Glass &nbsp;|&nbsp; <strong>Sheet No:</strong> Sheet #4<br>
+      <strong>Author:</strong> Bharath Arun Gandhimani &nbsp;|&nbsp; <strong>Date:</strong> 13/05/2026<br>
+      <strong>Description:</strong> Interactive narrative visualisation communicating findings about educational infrastructure investment, socioeconomic equity and household travel behaviour in Victoria to policymakers and transport planners. A two-state structure: State A delivers a guided scroll through four sequential narrative panels [P1–P4], each pairing a bold headline claim with a small embedded chart. A [D] button transitions the reader to State B, where filters [F1–F4] drive a live chart zone [G3] for open exploration.
+    </div>
+  </div>
+  <div class="info-box">
+    <div class="info-title">Design Rationale</div>
+    <div class="info-text">
+      The martini glass structure gives policymakers the narrative framing they need before exploration — author controls the story entry, reader controls the exit. Chart types are chosen to be fully distinct from Sheets 2 and 3 in both chart family AND analytical task — geographic/categorical (Sheet 2) vs distributional/bivariate (Sheet 3) vs strip/ranking/paired (Sheet 4): <strong>dot strip plot</strong> (investment dispersion across LGAs, Q3), <strong>bump chart</strong> (mode share rank shift across investment tiers, Q1), and <strong>connected dot plot with 95% CI error bars</strong> (vehicle ownership by income band, Q2). [F1] Metric dropdown switches the chart type in [G3] — a mode share metric renders a connected dot plot, a duration metric renders a violin+box plot, a vehicle ownership metric renders a connected dot plot with CI bars.
+    </div>
+  </div>
+</div>
+
+<div class="layout-section">
+  <div class="sec-label">Layout</div>
+  <div class="layout-wireframe">
+    <svg width="100%" height="268" viewBox="0 0 780 268">
+
+      <rect x="2" y="2" width="374" height="12" rx="2" fill="#222"/>
+      <text x="189" y="10" font-size="6.5" fill="#fff" text-anchor="middle" font-weight="700">[A] State A — Guided Scroll</text>
+
+      <line x1="378" y1="8" x2="780" y2="8" stroke="#bbb" stroke-width="0.8" stroke-dasharray="4,3"/>
+      <text x="580" y="6" font-size="5.5" fill="#999" text-anchor="middle">[B3] Session Break</text>
+
+      <rect x="378" y="12" width="400" height="12" rx="2" fill="#555"/>
+      <text x="578" y="20" font-size="6.5" fill="#fff" text-anchor="middle" font-weight="700">[B] State B — Open Exploration</text>
+
+      <rect x="4" y="17" width="182" height="54" rx="2" fill="#f7f7f7" stroke="#bbb" stroke-width="0.7"/>
+      <text x="12" y="27" font-size="5.5" fill="#111" font-weight="700">[P1] Q3: Investment broadly follows households</text>
+      <rect x="12" y="30" width="55" height="34" rx="1" fill="#eee" stroke="#ccc" stroke-width="0.5"/>
+      <line x1="22" y1="30" x2="22" y2="64" stroke="#bbb" stroke-width="0.5"/>
+      <circle cx="28" cy="37" r="1.5" fill="#555"/><circle cx="32" cy="40" r="1.5" fill="#555"/>
+      <circle cx="35" cy="35" r="1.5" fill="#555"/><circle cx="29" cy="43" r="1.5" fill="#555"/>
+      <circle cx="38" cy="48" r="1.5" fill="#555"/><circle cx="42" cy="44" r="1.5" fill="#555"/>
+      <circle cx="45" cy="51" r="1.5" fill="#555"/><circle cx="48" cy="38" r="1.5" fill="#333"/>
+      <circle cx="52" cy="55" r="1.5" fill="#333"/><circle cx="55" cy="42" r="1.5" fill="#333"/>
+      <circle cx="60" cy="58" r="1.5" fill="#333"/><circle cx="63" cy="34" r="1.5" fill="#333"/>
+      <text x="35" y="68" font-size="4.5" fill="#888" text-anchor="middle">Dot Strip — LGA Investment</text>
+      <rect x="72" y="30" width="108" height="3.5" rx="0.5" fill="#ccc"/>
+      <rect x="72" y="36" width="105" height="3" rx="0.5" fill="#ddd"/>
+      <rect x="72" y="42" width="108" height="3" rx="0.5" fill="#ddd"/>
+      <rect x="72" y="48" width="95" height="3" rx="0.5" fill="#ddd"/>
+      <rect x="72" y="54" width="100" height="3" rx="0.5" fill="#ddd"/>
+      <rect x="72" y="60" width="80" height="3" rx="0.5" fill="#ddd"/>
+
+      <rect x="4" y="74" width="182" height="54" rx="2" fill="#f7f7f7" stroke="#bbb" stroke-width="0.7"/>
+      <text x="12" y="84" font-size="5.5" fill="#111" font-weight="700">[P2] Q1: Higher investment LGAs show more car use</text>
+      <rect x="12" y="87" width="55" height="34" rx="1" fill="#eee" stroke="#ccc" stroke-width="0.5"/>
+      <line x1="22" y1="89" x2="22" y2="119" stroke="#bbb" stroke-width="0.5"/>
+      <line x1="36" y1="89" x2="36" y2="119" stroke="#bbb" stroke-width="0.5"/>
+      <line x1="50" y1="89" x2="50" y2="119" stroke="#bbb" stroke-width="0.5"/>
+      <line x1="62" y1="89" x2="62" y2="119" stroke="#bbb" stroke-width="0.5"/>
+      <path d="M22,93 C29,93 29,97 36,97 C43,97 43,101 50,101 C56,101 56,105 62,105" fill="none" stroke="#333" stroke-width="1.4"/>
+      <path d="M22,101 C29,101 29,95 36,95 C43,95 43,91 50,91 C56,91 56,93 62,93" fill="none" stroke="#777" stroke-width="1.4"/>
+      <path d="M22,109 C29,109 29,111 36,111 C43,111 43,113 50,113 C56,113 56,115 62,115" fill="none" stroke="#bbb" stroke-width="1.2"/>
+      <circle cx="22" cy="93" r="2" fill="#333"/><circle cx="36" cy="97" r="2" fill="#333"/>
+      <circle cx="50" cy="101" r="2" fill="#333"/><circle cx="62" cy="105" r="2" fill="#333"/>
+      <circle cx="22" cy="101" r="2" fill="#777"/><circle cx="36" cy="95" r="2" fill="#777"/>
+      <circle cx="50" cy="91" r="2" fill="#777"/><circle cx="62" cy="93" r="2" fill="#777"/>
+      <text x="35" y="125" font-size="4.5" fill="#888" text-anchor="middle">Bump — Mode Rank × Tier</text>
+      <rect x="72" y="87" width="108" height="3.5" rx="0.5" fill="#ccc"/>
+      <rect x="72" y="93" width="105" height="3" rx="0.5" fill="#ddd"/>
+      <rect x="72" y="99" width="108" height="3" rx="0.5" fill="#ddd"/>
+      <rect x="72" y="105" width="95" height="3" rx="0.5" fill="#ddd"/>
+      <rect x="72" y="111" width="100" height="3" rx="0.5" fill="#ddd"/>
+      <rect x="72" y="117" width="80" height="3" rx="0.5" fill="#ddd"/>
+
+      <rect x="4" y="131" width="182" height="54" rx="2" fill="#f7f7f7" stroke="#bbb" stroke-width="0.7"/>
+      <text x="12" y="141" font-size="5.5" fill="#111" font-weight="700">[P3] Q2: Wealthier neighbourhoods own more vehicles</text>
+      <rect x="12" y="144" width="55" height="34" rx="1" fill="#eee" stroke="#ccc" stroke-width="0.5"/>
+      <line x1="22" y1="146" x2="22" y2="176" stroke="#bbb" stroke-width="0.5"/>
+      <line x1="22" y1="150" x2="60" y2="150" stroke="#ddd" stroke-width="0.4"/>
+      <line x1="22" y1="156" x2="60" y2="156" stroke="#ddd" stroke-width="0.4"/>
+      <line x1="22" y1="162" x2="60" y2="162" stroke="#ddd" stroke-width="0.4"/>
+      <line x1="22" y1="168" x2="60" y2="168" stroke="#ddd" stroke-width="0.4"/>
+      <line x1="22" y1="174" x2="60" y2="174" stroke="#ddd" stroke-width="0.4"/>
+      <line x1="32" y1="148" x2="32" y2="152" stroke="#555" stroke-width="0.8"/>
+      <circle cx="32" cy="150" r="1.8" fill="#333"/>
+      <line x1="38" y1="154" x2="38" y2="158" stroke="#555" stroke-width="0.8"/>
+      <circle cx="38" cy="156" r="1.8" fill="#333"/>
+      <line x1="44" y1="160" x2="44" y2="164" stroke="#555" stroke-width="0.8"/>
+      <circle cx="44" cy="162" r="1.8" fill="#333"/>
+      <line x1="50" y1="166" x2="50" y2="170" stroke="#555" stroke-width="0.8"/>
+      <circle cx="50" cy="168" r="1.8" fill="#333"/>
+      <line x1="56" y1="172" x2="56" y2="176" stroke="#555" stroke-width="0.8"/>
+      <circle cx="56" cy="174" r="1.8" fill="#333"/>
+      <path d="M32,150 L38,156 L44,162 L50,168 L56,174" fill="none" stroke="#555" stroke-width="0.9" stroke-dasharray="2,1"/>
+      <text x="35" y="182" font-size="4.5" fill="#888" text-anchor="middle">Connected Dot + CI</text>
+      <rect x="72" y="144" width="108" height="3.5" rx="0.5" fill="#ccc"/>
+      <rect x="72" y="150" width="105" height="3" rx="0.5" fill="#ddd"/>
+      <rect x="72" y="156" width="108" height="3" rx="0.5" fill="#ddd"/>
+      <rect x="72" y="162" width="95" height="3" rx="0.5" fill="#ddd"/>
+      <rect x="72" y="168" width="100" height="3" rx="0.5" fill="#ddd"/>
+      <rect x="72" y="174" width="80" height="3" rx="0.5" fill="#ddd"/>
+
+      <rect x="4" y="188" width="182" height="36" rx="2" fill="#fff8e8" stroke="#aaa" stroke-width="0.8" stroke-dasharray="3,2"/>
+      <text x="12" y="198" font-size="5.5" fill="#555" font-weight="700">[P4] Now explore the evidence yourself</text>
+      <rect x="12" y="201" width="108" height="3" rx="0.5" fill="#ddd"/>
+      <rect x="12" y="206" width="98" height="3" rx="0.5" fill="#ddd"/>
+      <rect x="12" y="212" width="80" height="9" rx="2" fill="#333"/>
+      <text x="52" y="218.5" font-size="5.5" fill="#fff" text-anchor="middle">[D] Jump to Explore →</text>
+
+      <text x="100" y="219" font-size="5" fill="#777">[H] Source ↗</text>
+
+      <line x1="1" y1="17" x2="1" y2="224" stroke="#333" stroke-width="1.5"/>
+      <circle cx="1" cy="17" r="2.5" fill="#333"/>
+      <circle cx="1" cy="74" r="2" fill="#888"/>
+      <circle cx="1" cy="131" r="2" fill="#888"/>
+      <circle cx="1" cy="188" r="2" fill="#888"/>
+
+      <rect x="378" y="26" width="108" height="238" rx="2" fill="#f5f5f5" stroke="#bbb" stroke-width="0.7"/>
+      <text x="432" y="37" font-size="6" fill="#333" text-anchor="middle" font-weight="700">Filters Active</text>
+      <line x1="384" y1="41" x2="480" y2="41" stroke="#ddd" stroke-width="0.5"/>
+
+      <text x="384" y="50" font-size="5.5" fill="#555" font-weight="700">[F1] Metric</text>
+      <rect x="384" y="53" width="96" height="11" rx="2" fill="#fff" stroke="#bbb" stroke-width="0.6"/>
+      <text x="389" y="60.5" font-size="5" fill="#555">Mode Share</text>
+      <text x="474" y="61" font-size="7" fill="#777">▾</text>
+      <text x="384" y="69" font-size="4.8" fill="#aaa" font-style="italic">→ changes chart type in [G3]</text>
+
+      <text x="384" y="78" font-size="5.5" fill="#555" font-weight="700">[F2] Trip Purpose</text>
+      <rect x="384" y="81" width="96" height="11" rx="2" fill="#fff" stroke="#bbb" stroke-width="0.6"/>
+      <text x="389" y="88.5" font-size="5" fill="#555">All (Work + Edu)</text>
+      <text x="474" y="89" font-size="7" fill="#777">▾</text>
+      <text x="384" y="97" font-size="4.8" fill="#aaa" font-style="italic">→ re-renders [G3]</text>
+
+      <text x="384" y="106" font-size="5.5" fill="#555" font-weight="700">[F3] Investment Tier</text>
+      <rect x="384" y="109" width="7" height="7" rx="1" fill="#333"/>
+      <text x="394" y="115" font-size="5" fill="#333">None</text>
+      <rect x="384" y="118" width="7" height="7" rx="1" fill="#333"/>
+      <text x="394" y="124" font-size="5" fill="#333">Low</text>
+      <rect x="384" y="127" width="7" height="7" rx="1" fill="#333"/>
+      <text x="394" y="133" font-size="5" fill="#333">Medium</text>
+      <rect x="384" y="136" width="7" height="7" rx="1" fill="#333"/>
+      <text x="394" y="142" font-size="5" fill="#333">High</text>
+      <text x="384" y="150" font-size="4.8" fill="#aaa" font-style="italic">→ compares with other filters</text>
+
+      <text x="384" y="159" font-size="5.5" fill="#555" font-weight="700">[F4] IRSD Range</text>
+      <text x="384" y="167" font-size="4.8" fill="#aaa">Decile 2 ←——→ 10</text>
+      <rect x="384" y="170" width="96" height="5" rx="2.5" fill="#ddd"/>
+      <rect x="384" y="170" width="72" height="5" rx="2.5" fill="#888"/>
+      <circle cx="456" cy="172.5" r="4" fill="#333"/>
+      <text x="384" y="182" font-size="4.8" fill="#aaa" font-style="italic">→ removes/greys points outside range</text>
+
+      <line x1="384" y1="186" x2="480" y2="186" stroke="#ddd" stroke-width="0.5"/>
+      <text x="384" y="194" font-size="5" fill="#777" font-weight="700">Hover on [G3] →</text>
+      <text x="384" y="201" font-size="5" fill="#777">value, group label,</text>
+      <text x="384" y="208" font-size="5" fill="#777">ranking, tier, n trips</text>
+
+      <rect x="382" y="215" width="102" height="46" rx="2" fill="#fff8f0" stroke="#aaa" stroke-width="0.7" stroke-dasharray="3,2"/>
+      <text x="433" y="225" font-size="5.5" fill="#c00" text-anchor="middle" font-weight="700">⚠ VISTA Coverage Gap</text>
+      <text x="433" y="233" font-size="4.8" fill="#666" text-anchor="middle">29 LGAs: investment</text>
+      <text x="433" y="240" font-size="4.8" fill="#666" text-anchor="middle">recorded, no VISTA data</text>
+      <text x="433" y="247" font-size="4.8" fill="#888" text-anchor="middle">Shown as grey stripes</text>
+      <text x="433" y="254" font-size="4.8" fill="#888" text-anchor="middle">in [G3] when relevant</text>
+
+      <rect x="492" y="26" width="284" height="238" rx="2" fill="#fff" stroke="#bbb" stroke-width="0.7"/>
+      <rect x="492" y="26" width="284" height="14" rx="2" fill="#f0f0f0"/>
+      <text x="634" y="35" font-size="6" fill="#111" text-anchor="middle" font-weight="700">[G3] Chart Renders Here</text>
+      <text x="768" y="35" font-size="5" fill="#aaa" text-anchor="end">chart title updates per [F1]</text>
+
+      <line x1="520" y1="252" x2="768" y2="252" stroke="#ccc" stroke-width="0.6"/>
+      <line x1="520" y1="252" x2="520" y2="52" stroke="#ccc" stroke-width="0.6"/>
+
+      <line x1="520" y1="220" x2="768" y2="220" stroke="#f0f0f0" stroke-width="0.5"/>
+      <line x1="520" y1="188" x2="768" y2="188" stroke="#f0f0f0" stroke-width="0.5"/>
+      <line x1="520" y1="156" x2="768" y2="156" stroke="#f0f0f0" stroke-width="0.5"/>
+      <line x1="520" y1="124" x2="768" y2="124" stroke="#f0f0f0" stroke-width="0.5"/>
+      <line x1="520" y1="92" x2="768" y2="92" stroke="#f0f0f0" stroke-width="0.5"/>
+
+      <path d="M540,210 L580,205 L620,200 L660,188 L700,176 L740,160" fill="none" stroke="#333" stroke-width="1.6"/>
+      <path d="M540,230 L580,228 L620,226 L660,225 L700,224 L740,222" fill="none" stroke="#777" stroke-width="1.4"/>
+      <path d="M540,240 L580,237 L620,230 L660,220 L700,205 L740,182" fill="none" stroke="#aaa" stroke-width="1.4"/>
+
+      <circle cx="540" cy="210" r="3.5" fill="#333"/><circle cx="580" cy="205" r="3.5" fill="#333"/>
+      <circle cx="620" cy="200" r="3.5" fill="#333"/><circle cx="660" cy="188" r="3.5" fill="#333"/>
+      <circle cx="700" cy="176" r="3.5" fill="#333"/><circle cx="740" cy="160" r="3.5" fill="#333"/>
+      <circle cx="540" cy="230" r="3" fill="#777"/><circle cx="580" cy="228" r="3" fill="#777"/>
+      <circle cx="620" cy="226" r="3" fill="#777"/><circle cx="660" cy="225" r="3" fill="#777"/>
+      <circle cx="700" cy="224" r="3" fill="#777"/><circle cx="740" cy="222" r="3" fill="#777"/>
+      <circle cx="540" cy="240" r="3" fill="#aaa"/><circle cx="580" cy="237" r="3" fill="#aaa"/>
+      <circle cx="620" cy="230" r="3" fill="#aaa"/><circle cx="660" cy="220" r="3" fill="#aaa"/>
+      <circle cx="700" cy="205" r="3" fill="#aaa"/><circle cx="740" cy="182" r="3" fill="#aaa"/>
+
+      <text x="540" y="258" font-size="4.5" fill="#777" text-anchor="middle">R2</text>
+      <text x="580" y="258" font-size="4.5" fill="#777" text-anchor="middle">R3</text>
+      <text x="620" y="258" font-size="4.5" fill="#777" text-anchor="middle">R6</text>
+      <text x="660" y="258" font-size="4.5" fill="#777" text-anchor="middle">R7</text>
+      <text x="700" y="258" font-size="4.5" fill="#777" text-anchor="middle">R8</text>
+      <text x="740" y="258" font-size="4.5" fill="#777" text-anchor="middle">R10</text>
+      <text x="634" y="264" font-size="5" fill="#777" text-anchor="middle">IRSD Neighbourhood Ranking (low → high)</text>
+
+      <text x="516" y="214" font-size="4.5" fill="#777" text-anchor="end">20%</text>
+      <text x="516" y="182" font-size="4.5" fill="#777" text-anchor="end">40%</text>
+      <text x="516" y="150" font-size="4.5" fill="#777" text-anchor="end">60%</text>
+      <text x="516" y="118" font-size="4.5" fill="#777" text-anchor="end">80%</text>
+      <text x="505" y="160" font-size="4.5" fill="#777" text-anchor="middle" transform="rotate(-90,505,160)">Mode Share (%)</text>
+
+      <line x1="540" y1="52" x2="540" y2="252" stroke="#e8c0a0" stroke-width="0.8" stroke-dasharray="2,2"/>
+      <text x="540" y="66" font-size="4.5" fill="#c77" text-anchor="middle">Gap</text>
+
+      <rect x="648" y="156" width="80" height="22" rx="2" fill="#222"/>
+      <polygon points="680,178 675,183 685,183" fill="#222"/>
+      <text x="688" y="165" font-size="5" fill="#fff" text-anchor="middle">R7 — High Tier</text>
+      <text x="688" y="173" font-size="4.8" fill="#bbb" text-anchor="middle">PV 87% | n=1,204 trips</text>
+
+      <line x1="500" y1="268" x2="512" y2="268" stroke="#333" stroke-width="1.8"/><circle cx="516" cy="268" r="2.5" fill="#333"/><text x="521" y="271" font-size="5" fill="#555">Private Vehicle</text>
+      <line x1="576" y1="268" x2="588" y2="268" stroke="#777" stroke-width="1.5"/><circle cx="592" cy="268" r="2" fill="#777"/><text x="597" y="271" font-size="5" fill="#555">Public Transport</text>
+      <line x1="654" y1="268" x2="666" y2="268" stroke="#aaa" stroke-width="1.4"/><circle cx="670" cy="268" r="2" fill="#aaa"/><text x="675" y="271" font-size="5" fill="#555">Active Travel</text>
+
+      <rect x="492" y="255" width="100" height="9" rx="1.5" fill="#f5f5f5" stroke="#aaa" stroke-width="0.5"/>
+      <text x="542" y="261" font-size="5" fill="#555" text-anchor="middle">← Back to narrative</text>
+
+      <text x="2" y="276" font-size="4.5" fill="#aaa">[A] State A Guided Scroll &nbsp;[B] State B Open Exploration &nbsp;[D] Jump to Explore &nbsp;[F1] Metric &nbsp;[F2] Trip Purpose &nbsp;[F3] Tier &nbsp;[F4] IRSD Range &nbsp;[G3] Chart Zone &nbsp;[H] Source</text>
+    </svg>
+  </div>
+</div>
+
+<div class="ops-section">
+  <div class="sec-label">Operations</div>
+  <div class="ops-grid">
+    <div class="op-box">
+      <div class="op-action">[A] Scroll / natural read through [P1–P3]</div>
+      <div class="op-arrow">⇒</div>
+      <div class="op-result">Reader moves through three authored panels in sequence. Each panel is a fixed layout: chart thumbnail (left) + headline claim + narrative text (right). No interaction required — author controls the evidence order. [P4] bridge panel appears at the bottom of the scroll.</div>
+    </div>
+    <div class="op-box">
+      <div class="op-action">[D] Click "Jump to Explore"</div>
+      <div class="op-arrow">⇒</div>
+      <div class="op-result">Transitions from State A to State B. Left narrative column [P1–P3] is replaced by the filter panel [F1–F4]. Filters activate from greyed state. [G3] renders with default settings: F1 = Mode Share, F2 = All, F3 = All tiers checked, F4 = full IRSD range. A "← Back to narrative" link stays visible.</div>
+    </div>
+    <div class="op-box">
+      <div class="op-action">[F1] Change Metric dropdown</div>
+      <div class="op-arrow">⇒</div>
+      <div class="op-result">[G3] chart type changes: Mode Share → connected dot plot; Trip Duration → violin + box plot; Vehicle Ownership → connected dot plot with 95% CI error bars. Chart title in [G3] updates accordingly. All other active filters [F2–F4] remain applied.</div>
+    </div>
+    <div class="op-box">
+      <div class="op-action">[F2] Change Trip Purpose dropdown</div>
+      <div class="op-arrow">⇒</div>
+      <div class="op-result">[G3] re-renders for selected purpose subset (Work / Education / Both). Compares with [F1] and [F3] simultaneously. Chart title updates to reflect selected purpose.</div>
+    </div>
+    <div class="op-box">
+      <div class="op-action">[F3] Change Investment Tier checkboxes</div>
+      <div class="op-arrow">⇒</div>
+      <div class="op-result">[G3] re-renders for selected tier(s) only. Unchecked tiers are removed from view. Chart title updates. Compounds with other active filters [F1] and [F2].</div>
+    </div>
+    <div class="op-box">
+      <div class="op-action">[F4] Drag IRSD Range slider</div>
+      <div class="op-arrow">⇒</div>
+      <div class="op-result">Data points outside selected IRSD decile range are removed or greyed out in [G3]. Compounds with other filters. Hover on any point in [G3] → tooltip: value, group label, ranking, tier, n trips. [H] data source link always accessible.</div>
+    </div>
+  </div>
+</div>
+
+<div class="focus-section">
+  <div class="sec-label">Focus / Parti — Two-State Transition</div>
+  <div class="focus-body">
+    <div class="focus-left">
+      <svg width="100%" height="82" viewBox="0 0 520 82">
+
+        <rect x="2" y="4" width="168" height="74" rx="3" fill="#f7f7f7" stroke="#999" stroke-width="0.8"/>
+        <text x="86" y="14" font-size="6" fill="#555" text-anchor="middle" font-weight="700">State A — Guided Scroll</text>
+        <line x1="8" y1="18" x2="162" y2="18" stroke="#eee" stroke-width="0.5"/>
+        <rect x="10" y="22" width="150" height="12" rx="1" fill="#eee" stroke="#ddd" stroke-width="0.5"/>
+        <text x="85" y="30" font-size="5" fill="#888" text-anchor="middle">[P1] Dot Strip — Investment/LGA</text>
+        <rect x="10" y="37" width="150" height="12" rx="1" fill="#eee" stroke="#ddd" stroke-width="0.5"/>
+        <text x="85" y="45" font-size="5" fill="#888" text-anchor="middle">[P2] Bump — Mode Rank × Tier</text>
+        <rect x="10" y="52" width="150" height="12" rx="1" fill="#eee" stroke="#ddd" stroke-width="0.5"/>
+        <text x="85" y="60" font-size="5" fill="#888" text-anchor="middle">[P3] Connected Dot+CI — Vehicle Own.</text>
+        <text x="86" y="73" font-size="5" fill="#c00" text-anchor="middle">[P4] Bridge: "Explore the data yourself"</text>
+
+        <text x="196" y="36" font-size="6" fill="#333" text-anchor="middle" font-weight="700">Click [D]</text>
+        <text x="196" y="45" font-size="5" fill="#555" text-anchor="middle">one-way</text>
+        <line x1="178" y1="50" x2="210" y2="50" stroke="#555" stroke-width="0.9"/>
+        <polygon points="225,44 210,48 210,40" fill="#555"/>
+        <text x="196" y="60" font-size="5" fill="#888" text-anchor="middle">Filters unlock</text>
+        <text x="196" y="68" font-size="5" fill="#888" text-anchor="middle">from grey state</text>
+        <line x1="210" y1="62" x2="178" y2="62" stroke="#aaa" stroke-width="0.8" stroke-dasharray="2,1.5"/>
+        <polygon points="175,59 175,65 185,62" fill="#aaa"/>
+        <text x="196" y="74" font-size="4.5" fill="#aaa" text-anchor="middle">← Back always available</text>
+
+        <rect x="228" y="4" width="168" height="74" rx="3" fill="#f7f7f7" stroke="#999" stroke-width="0.8"/>
+        <text x="312" y="14" font-size="6" fill="#555" text-anchor="middle" font-weight="700">State B — Open Exploration</text>
+        <line x1="234" y1="18" x2="390" y2="18" stroke="#eee" stroke-width="0.5"/>
+        <text x="234" y="27" font-size="5" fill="#888">[F1] Metric → changes chart type in [G3]</text>
+        <text x="234" y="35" font-size="5" fill="#888">[F2] Trip Purpose → re-renders [G3]</text>
+        <text x="234" y="43" font-size="5" fill="#888">[F3] Invest. Tier → filter [G3] points</text>
+        <text x="234" y="51" font-size="5" fill="#888">[F4] IRSD Range → grey/remove points</text>
+        <line x1="234" y1="55" x2="390" y2="55" stroke="#eee" stroke-width="0.5"/>
+        <text x="234" y="63" font-size="4.8" fill="#c00">Filters have separate drop boxes</text>
+        <text x="234" y="71" font-size="4.8" fill="#888">Hover [G3] → tooltip always on</text>
+
+        <rect x="412" y="2" width="106" height="78" rx="3" fill="#fff8e8" stroke="#bbb" stroke-width="0.7"/>
+        <text x="465" y="12" font-size="5.5" fill="#555" text-anchor="middle" font-weight="700">Parti Note</text>
+        <text x="418" y="21" font-size="4.8" fill="#666">Narrative first, exploration</text>
+        <text x="418" y="29" font-size="4.8" fill="#666">second — author decides</text>
+        <text x="418" y="37" font-size="4.8" fill="#666">what evidence matters,</text>
+        <text x="418" y="45" font-size="4.8" fill="#666">reader decides depth.</text>
+        <line x1="418" y1="50" x2="512" y2="50" stroke="#ddd" stroke-width="0.5"/>
+        <text x="418" y="58" font-size="4.8" fill="#888">3 chart types, none</text>
+        <text x="418" y="66" font-size="4.8" fill="#888">repeated from Sheets 2/3</text>
+        <text x="418" y="74" font-size="4.8" fill="#c00">[F1] switches type in [G3]</text>
+      </svg>
+      <div class="focus-note">State A enforces the narrative arc: investment geography (Q3) → mode share consequence (Q1) → socioeconomic mechanism (Q2). State B hands control to a reader who has already absorbed the argument. The [D] transition is one-way by default; "← Back to narrative" restores State A if the reader needs context again. Chart types across all three panels are entirely distinct from Sheets 2 and 3 — dot strip plot, bump chart, and connected dot plot with 95% CI are used here for the first time in the FDS sequence.</div>
+    </div>
+    <div class="focus-right">
+      <div class="op-box">
+        <div class="op-action">Chart Type per [F1] Metric</div>
+        <div class="op-result" style="margin-top:2px;">
+          Mode Share → Connected dot plot<br>
+          Trip Duration → Violin + box plot<br>
+          Vehicle Ownership → Connected dot + 95% CI
+        </div>
+      </div>
+      <div class="op-box">
+        <div class="op-action">Label Reference</div>
+        <div class="op-result" style="margin-top:2px;">
+          [A] State A Guided Scroll<br>
+          [B] State B Open Exploration<br>
+          [D] Jump to Explore button<br>
+          [F1] Metric dropdown<br>
+          [F2] Trip Purpose dropdown<br>
+          [F3] Investment Tier checkboxes<br>
+          [F4] IRSD Range slider<br>
+          [G3] Chart Render Zone<br>
+          [H] Data Source link<br>
+          [P1–P4] Narrative panels
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="discussion">
+  <div class="sec-label">Discussion</div>
+  <div class="disc-grid">
+    <div class="disc-box">
+      <div class="disc-title">Pros</div>
+      <div class="disc-text">
+        <ul>
+          <li>Policymakers receive a structured evidence briefing before controls are handed over — they understand the argument before they can challenge it.</li>
+          <li>Small, paired chart-text accumulation in [P1–P3] is cognitively natural: one claim, one chart, one reading at a time.</li>
+          <li>[D] gives immediate access to experienced policymakers wanting to explore the data without sitting through the full narrative.</li>
+          <li>[P4] makes it clear to readers that they have finished reading and are entering a different mode — reducing the ambiguity of the transition.</li>
+          <li>"← Back to narrative" link enables users to come back to the guided mode without losing exploration state.</li>
+          <li>Three chart types in [P1–P3] — dot strip plot, bump chart, and connected dot plot — each belong to a different visual grammar family (strip/dispersion, ranking/trajectory, paired comparison). None appear in Sheets 2 or 3. This ensures the three alternative designs address different perceptual tasks and satisfy the FDS requirement for structurally distinct alternatives.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="disc-box">
+      <div class="disc-title">Cons</div>
+      <div class="disc-text">
+        <ul>
+          <li>For experienced policymakers, the static narrative guided mode may feel slow — they may jump to [D] immediately, bypassing the intended framing.</li>
+          <li>Placing the exploration zone on the right side in State B may make the reader think there is an exploration mode before even reading the guided version.</li>
+          <li>Four stacked narrative panels make the left column long — readers on small screens face significant scrolling before reaching the [D] bridge panel and exploration mode.</li>
+          <li>[F1] switching the chart type in [G3] changes the visual encoding significantly — a reader who has not read the panel descriptions may be confused by the sudden appearance of a violin plot rather than a dot plot.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

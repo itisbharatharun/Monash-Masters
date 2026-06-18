@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sheet 5 – FDS – Bharath Arun Gandhimani</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  @page { size: A4 portrait; margin: 8mm 8mm 8mm 8mm; }
+
+  html, body {
+    width: 100%; height: 100%;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 7px; background: #fff; color: #111;
+  }
+
+  .page {
+    width: 100%;
+    min-height: calc(297mm - 16mm);
+    display: flex; flex-direction: column; gap: 2mm;
+  }
+
+  .header {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 2px solid #111; padding-bottom: 2mm;
+    flex-shrink: 0;
+  }
+  .header-left { font-size: 14px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  .header-right { display:flex; align-items:center; gap:8px; }
+  .header-meta { font-size: 8px; color:#333; text-align:right; line-height:1.6; }
+  .badge { background:#111; color:#fff; font-size:8.5px; font-weight:700; padding:3px 8px; border-radius:2px; }
+
+  .sec-label {
+    font-size: 8.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; border-left: 3px solid #111;
+    padding-left: 4px; margin-bottom: 1.5mm;
+    flex-shrink: 0;
+  }
+
+  .info-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2mm;
+    flex-shrink: 0;
+  }
+  .info-box { border: 0.7px solid #999; border-radius: 3px; padding: 3.5px 5.5px; background: #f7f7f7; }
+  .info-title { font-size: 6.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #555; border-bottom: 0.4px solid #ccc; padding-bottom: 1.5px; margin-bottom: 2.5px; }
+  .info-text { font-size: 6px; line-height: 1.5; color: #222; }
+  .info-text strong { font-weight: 700; }
+
+  .layout-wireframe { border: 1px solid #333; border-radius: 3px; padding: 4px; background: #fafafa; flex-shrink: 0; }
+
+  .details-box { border: 0.7px solid #aaa; border-radius: 3px; padding: 4.5px 6px; background: #fafafa; }
+  .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+  .details-col { font-size: 6px; line-height: 1.6; color: #222; }
+  .details-col ul { margin-left: 8px; margin-top: 1.5px; }
+  .details-col li { margin-bottom: 2px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div class="header-left">Sheet 5 — Realisation: Author-Driven Story with Contextualisation</div>
+  <div class="header-right">
+    <div class="header-meta">Bharath Arun Gandhimani &nbsp;|&nbsp; FIT5147 DVP &nbsp;|&nbsp; 17 / 05 / 2026 — Revised post DVP Part 1: 02 / 06 / 2026</div>
+    <div class="badge">REALISATION</div>
+  </div>
+</div>
+
+<div class="info-row">
+  <div class="info-box">
+    <div class="info-title">Product Description</div>
+    <div class="info-text">
+      <strong>Title:</strong> Realised System — Narrative Storytelling with Suburb Personalisation &nbsp;|&nbsp; <strong>Sheet No:</strong> Sheet #5<br>
+      <strong>Author:</strong> Bharath Arun Gandhimani &nbsp;|&nbsp; <strong>Date:</strong> 17/05/2026<br>
+      <strong>Description:</strong> A fully implemented R Shiny application delivering a cohesive, author-driven narrative on educational infrastructure investment and travel equity in Victoria. Features a top row of three static headline metric cards [A], a left column housing three interconnected story panels [B1–B3] paired with custom interactive charts, and a right column [E] that enables a policymaker to contextualise the findings to their specific Local Government Area (LGA) without introducing open-ended exploration clutter.
+    </div>
+  </div>
+  <div class="info-box">
+    <div class="info-title">Design Lineage &amp; DVP Part 1 Response</div>
+    <div class="info-text">
+      <strong>Changes made in response to DVP Part 1 feedback (Michael Niemann):</strong><br>
+(1) Designs A–C were restructured to use non-overlapping chart families: geographic/categorical (Sheet 2), distributional+bivariate (Sheet 3), strip+ranking+paired (Sheet 4). (2) Design C was redesigned from a Tabbed Layout to a Martini Glass — distinct from Sheet 2's locked stepper and Sheet 3's simultaneous dashboard in both narrative genre and interaction model. (3) All sheets were redrawn digitally with typed content. (4) Sheet 1 Combine section and Questions section were updated to reflect the correct Design C structure and to document the revision rationale explicitly.<br><br>Synthesises across all prior sheets. Draws its foundational author-driven narrative genre directly from Sheet 4 (Design C), retaining the three core sequential questions. It builds upon Sheet 2 (Design A) by embedding a dedicated geographic and localized element. Chart encodings are fully refined from the ideation in Sheet 1: [B1] matches Idea #5 (scatter plot), [B2] captures Idea #1 (ordered discrete line chart), and [B3] extends Idea #11 (dual-axis structured comparison charts).
+    </div>
+  </div>
+</div>
+
+<div class="sec-label">Realised User Interface Wireframe</div>
+<div class="layout-wireframe">
+  <svg width="100%" height="280" viewBox="0 0 760 280">
+    
+    <rect x="2" y="2" width="756" height="15" rx="2" fill="#111"/>
+    <text x="12" y="11" font-size="6.5" fill="#fff" font-weight="700">Victorian Education Infrastructure Investment &amp; Household Travel Equity</text>
+    <text x="748" y="11" font-size="5" fill="#aaa" text-anchor="end">R Shiny Production System ↗</text>
+
+    <rect x="2" y="21" width="120" height="24" rx="2" fill="#fff" stroke="#aaa" stroke-width="0.7"/>
+    <text x="8" y="32" font-size="10" fill="#111" font-weight="700">15 LGAs</text>
+    <text x="8" y="41" font-size="4.8" fill="#555">Received Zero Infrastructure Capital Spend</text>
+    <text x="114" y="31" font-size="6" fill="#aaa" text-anchor="end">ℹ</text>
+
+    <rect x="126" y="21" width="120" height="24" rx="2" fill="#fff" stroke="#aaa" stroke-width="0.7"/>
+    <text x="132" y="32" font-size="10" fill="#c00" font-weight="700">89.4%</text>
+    <text x="132" y="41" font-size="4.8" fill="#555">Trips in Zero-Spend Areas Use Private Cars</text>
+    <text x="238" y="31" font-size="6" fill="#aaa" text-anchor="end">ℹ</text>
+
+    <rect x="250" y="21" width="120" height="24" rx="2" fill="#fff" stroke="#aaa" stroke-width="0.7"/>
+    <text x="256" y="32" font-size="10" fill="#111" font-weight="700">6.3×</text>
+    <text x="256" y="41" font-size="4.8" fill="#555">Higher PT Share in Top-Tier vs Zero-Tier</text>
+    <text x="362" y="31" font-size="6" fill="#aaa" text-anchor="end">ℹ</text>
+
+    <rect x="374" y="21" width="384" height="24" rx="2" fill="#fffcf0" stroke="#c93" stroke-width="0.7" stroke-dasharray="3,2"/>
+    <text x="382" y="32" font-size="5.5" fill="#960" font-weight="700">⚠ Data Coverage Note (VISTA Survey Gap)</text>
+    <text x="382" y="41" font-size="5" fill="#444">29 regional LGAs have documented investment data but no VISTA household travel survey entries. These areas are cleanly marked as grey gaps across all charts.</text>
+
+    <rect x="2" y="49" width="368" height="228" rx="2" fill="#fff" stroke="#333" stroke-width="1"/>
+    
+    <rect x="6" y="53" width="360" height="54" rx="2" fill="#fafafa" stroke="#bbb" stroke-width="0.6"/>
+    <text x="12" y="63" font-size="5.5" fill="#111" font-weight="700">[B1] Q3: Does investment scale with household population density?</text>
+    <rect x="12" y="66" width="65" height="36" rx="1" fill="#fff" stroke="#ccc" stroke-width="0.5"/>
+    <line x1="20" y1="96" x2="72" y2="96" stroke="#aaa" stroke-width="0.4"/>
+    <line x1="20" y1="96" x2="20" y2="70" stroke="#aaa" stroke-width="0.4"/>
+    <circle cx="28" cy="92" r="1.5" fill="#bbb"/><circle cx="35" cy="88" r="1.5" fill="#999"/>
+    <circle cx="42" cy="85" r="1.5" fill="#666"/><circle cx="52" cy="78" r="2" fill="#222"/>
+    <circle cx="64" cy="74" r="2" fill="#222"/>
+    <line x1="22" y1="94" x2="70" y2="72" stroke="#444" stroke-width="0.7" stroke-dasharray="2,1"/>
+    <text x="82" y="72" font-size="4.8" fill="#111" font-weight="700">Finding: Capital follows base volumes, leaving outer fringes thin.</text>
+    <rect x="82" y="76" width="280" height="3" rx="0.5" fill="#ddd"/>
+    <rect x="82" y="81" width="280" height="3" rx="0.5" fill="#ddd"/>
+    <rect x="82" y="86" width="260" height="3" rx="0.5" fill="#ddd"/>
+    <rect x="82" y="91" width="270" height="3" rx="0.5" fill="#ddd"/>
+
+    <rect x="6" y="111" width="360" height="54" rx="2" fill="#fafafa" stroke="#bbb" stroke-width="0.6"/>
+    <text x="12" y="121" font-size="5.5" fill="#111" font-weight="700">[B2] Q1: How does trip travel behaviour shift across investment tiers?</text>
+    <rect x="12" y="124" width="65" height="36" rx="1" fill="#fff" stroke="#ccc" stroke-width="0.5"/>
+    <line x1="20" y1="154" x2="72" y2="154" stroke="#aaa" stroke-width="0.4"/>
+    <path d="M24,132 L36,134 L48,138 L64,146" fill="none" stroke="#222" stroke-width="1"/>
+    <path d="M24,150 L36,148 L48,144 L64,134" fill="none" stroke="#777" stroke-width="1"/>
+    <circle cx="24" cy="132" r="1.5" fill="#222"/><circle cx="64" cy="146" r="1.5" fill="#222"/>
+    <circle cx="24" cy="150" r="1.5" fill="#777"/><circle cx="64" cy="134" r="1.5" fill="#777"/>
+    <text x="82" y="130" font-size="4.8" fill="#111" font-weight="700">Finding: Sustainable mode shares unlock only at high-density thresholds.</text>
+    <rect x="82" y="134" width="280" height="3" rx="0.5" fill="#ddd"/>
+    <rect x="82" y="139" width="280" height="3" rx="0.5" fill="#ddd"/>
+    <rect x="82" y="144" width="250" height="3" rx="0.5" fill="#ddd"/>
+    <rect x="82" y="149" width="270" height="3" rx="0.5" fill="#ddd"/>
+
+    <rect x="6" y="169" width="360" height="104" rx="2" fill="#fafafa" stroke="#bbb" stroke-width="0.6"/>
+    <text x="12" y="179" font-size="5.5" fill="#111" font-weight="700">[B3] Q2: Is infrastructure investment equitably distributed across socio-economic groups?</text>
+    
+    <rect x="12" y="184" width="65" height="34" rx="1" fill="#fff" stroke="#ccc" stroke-width="0.5"/>
+    <rect x="18" y="202" width="7" height="12" fill="#777"/>
+    <rect x="28" y="198" width="7" height="16" fill="#777"/>
+    <rect x="38" y="194" width="7" height="20" fill="#222"/>
+    <rect x="48" y="190" width="7" height="24" fill="#222"/>
+    <rect x="58" y="186" width="7" height="28" fill="#222"/>
+    <line x1="14" y1="214" x2="68" y2="214" stroke="#aaa" stroke-width="0.4"/>
+    <text x="44" y="222" font-size="4.2" fill="#555" text-anchor="middle">Spend by IRSD Decile Group</text>
+
+    <rect x="84" y="184" width="65" height="34" rx="1" fill="#fff" stroke="#ccc" stroke-width="0.5"/>
+    <line x1="90" y1="212" x2="142" y2="190" stroke="#444" stroke-width="1"/>
+    <circle cx="90" cy="212" r="1.5" fill="#444"/><circle cx="103" cy="206" r="1.5" fill="#444"/>
+    <circle cx="116" cy="202" r="1.5" fill="#444"/><circle cx="129" cy="195" r="1.5" fill="#444"/>
+    <circle cx="142" cy="190" r="1.5" fill="#444"/>
+    <line x1="88" y1="214" x2="144" y2="214" stroke="#aaa" stroke-width="0.4"/>
+    <text x="116" y="222" font-size="4.2" fill="#555" text-anchor="middle">Car Own. vs Income Band</text>
+
+    <text x="156" y="189" font-size="4.8" fill="#111" font-weight="700">Finding: Capital concentrates in affluent deciles.</text>
+    <rect x="156" y="193" width="206" height="3" rx="0.5" fill="#ddd"/>
+    <rect x="156" y="198" width="206" height="3" rx="0.5" fill="#ddd"/>
+    <rect x="156" y="203" width="190" height="3" rx="0.5" fill="#ddd"/>
+    <rect x="156" y="208" width="200" height="3" rx="0.5" fill="#ddd"/>
+    <rect x="156" y="213" width="180" height="3" rx="0.5" fill="#ddd"/>
+    <rect x="156" y="218" width="195" height="3" rx="0.5" fill="#ddd"/>
+    
+    <text x="12" y="268" font-size="5" fill="#777" font-style="italic">Note: Hovering on points in any narrative plot highlights linked records instantly across all three panels via shared reactive data state.</text>
+
+
+    <rect x="374" y="49" width="384" height="228" rx="2" fill="#fff" stroke="#333" stroke-width="1"/>
+    <rect x="374" y="49" width="384" height="15" rx="2" fill="#f0f0f0"/>
+    <text x="382" y="59" font-size="6.5" fill="#111" font-weight="700">[E] Local Government Area (LGA) Personalisation Panel</text>
+
+    <text x="382" y="74" font-size="5.5" fill="#222" font-weight="700">Select Your LGA to Contextualise Findings:</text>
+    <rect x="382" y="77" width="160" height="12" rx="2" fill="#fff" stroke="#111" stroke-width="0.8"/>
+    <text x="388" y="85" font-size="5.5" fill="#111" font-weight="700">Casey (City)</text>
+    <text x="534" y="86" font-size="7" fill="#333">▾</text>
+    <text x="548" y="85" font-size="5" fill="#666" font-style="italic">← Updates crosshairs [F] and stats [G]</text>
+
+    <path d="M374,83 C300,105 100,105 52,82" fill="none" stroke="#c00" stroke-width="0.6" stroke-dasharray="3,2"/>
+    <path d="M374,83 C300,135 100,135 48,141" fill="none" stroke="#c00" stroke-width="0.6" stroke-dasharray="3,2"/>
+    <circle cx="52" cy="82" r="3" fill="none" stroke="#c00" stroke-width="1"/>
+    <circle cx="48" cy="141" r="3" fill="none" stroke="#c00" stroke-width="1"/>
+
+    <rect x="382" y="95" width="368" height="174" rx="2" fill="#fcfcfc" stroke="#bbb" stroke-width="0.7"/>
+    <text x="390" y="107" font-size="6" fill="#111" font-weight="700">[G] Personalised Profile: Casey (City)</text>
+    <line x1="390" y1="111" x2="742" y2="111" stroke="#ccc" stroke-width="0.5"/>
+
+    <rect x="390" y="116" width="112" height="32" rx="1.5" fill="#fff" stroke="#ddd" stroke-width="0.5"/>
+    <text x="394" y="125" font-size="4.5" fill="#666" font-weight="700">TOTAL CAPITAL SPEND</text>
+    <text x="394" y="136" font-size="8" fill="#111" font-weight="700">$48.2 Million</text>
+    <text x="394" y="144" font-size="4.2" fill="#888">Ranked #4 of 79 LGAs</text>
+
+    <rect x="506" y="116" width="112" height="32" rx="1.5" fill="#fff" stroke="#ddd" stroke-width="0.5"/>
+    <text x="510" y="125" font-size="4.5" fill="#666" font-weight="700">INVESTMENT TIER</text>
+    <text x="510" y="136" font-size="8" fill="#c00" font-weight="700">High Tier Group</text>
+    <text x="510" y="144" font-size="4.2" fill="#888">Top 10% Spend Bracket</text>
+
+    <rect x="622" y="116" width="112" height="32" rx="1.5" fill="#fff" stroke="#ddd" stroke-width="0.5"/>
+    <text x="626" y="125" font-size="4.5" fill="#666" font-weight="700">SOCIO-ECONOMIC INDEX</text>
+    <text x="626" y="136" font-size="8" fill="#111" font-weight="700">IRSD Decile 4</text>
+    <text x="626" y="144" font-size="4.2" fill="#888">Mid-Low Disadvantage</text>
+
+    <text x="390" y="160" font-size="5" fill="#111" font-weight="700">Local Travel Mode Share vs State Benchmarks:</text>
+    
+    <text x="390" y="171" font-size="4.5" fill="#333">Private Car Share</text>
+    <rect x="450" y="167" width="180" height="5" rx="1" fill="#ddd"/>
+    <rect x="450" y="167" width="154" height="5" rx="1" fill="#333"/>
+    <text x="634" y="171.5" font-size="4.5" fill="#111" font-weight="700">85.6% <tspan fill="#888" font-weight="400">(State Avg: 74.2%)</tspan></text>
+
+    <text x="390" y="181" font-size="4.5" fill="#333">Public Transport</text>
+    <rect x="450" y="177" width="180" height="5" rx="1" fill="#ddd"/>
+    <rect x="450" y="177" width="18" height="5" rx="1" fill="#777"/>
+    <text x="634" y="181.5" font-size="4.5" fill="#111" font-weight="700">10.1% <tspan fill="#888" font-weight="400">(State Avg: 18.5%)</tspan></text>
+
+    <text x="390" y="191" font-size="4.5" fill="#333">Active Travel (Walk/Bike)</text>
+    <rect x="450" y="187" width="180" height="5" rx="1" fill="#ddd"/>
+    <rect x="450" y="187" width="8" height="5" rx="1" fill="#bbb"/>
+    <text x="634" y="191.5" font-size="4.5" fill="#111" font-weight="700">4.3% <tspan fill="#888" font-weight="400">(State Avg: 7.3%)</tspan></text>
+
+    <rect x="390" y="200" width="352" height="64" rx="1" fill="#f0f4f8" stroke="#cbd5e1" stroke-width="0.5"/>
+    <text x="396" y="209" font-size="4.8" fill="#1e3a8a" font-weight="700">Contextual Interpretation Brief for Casey:</text>
+    <text x="396" y="217" font-size="4.5" fill="#334155">· Despite Casey belonging to the High Investment Tier ($48.2M total infrastructure capital injected),</text>
+    <text x="396" y="224" font-size="4.5" fill="#334155">  private car dependence remains substantially elevated (+11.4%) relative to the Victorian average.</text>
+    <text x="396" y="231" font-size="4.5" fill="#334155">· This aligns with the narrative thesis in [B2]: high baseline population density forces long-distance</text>
+    <text x="396" y="238" font-size="4.5" fill="#334155">  commuting patterns before public transport availability can expand to act as a viable alternative.</text>
+    <text x="396" y="245" font-size="4.5" fill="#334155">· Casey’s mid-low socio-economic status (Decile 4) confirms that outer-suburban high growth corridors</text>
+    <text x="396" y="252" font-size="4.5" fill="#334155">  receive significant raw investment chunks, but structural car lock-in persists due to historical lag.</text>
+
+    <text x="4" y="278" font-size="4" fill="#aaa">[A] Headline Summary Cards &nbsp; [B1–B3] Author-Driven Structured Story Panels &nbsp; [C] VISTA Survey Gap Callout &nbsp; [E] LGA Personalisation Dropdown Pick Box &nbsp; [F] Highlight Crosshair Sync &nbsp; [G] Profile Card Dashboard</text>
+  </svg>
+</div>
+
+<div class="sec-label">Production System Implementation Details</div>
+<div class="details-box">
+  <div class="details-grid">
+    <div class="details-col">
+      <strong>Technical Architecture &amp; Execution Framework:</strong>
+      <ul>
+        <li><strong>Runtime Environment:</strong> Monolithic R Shiny application containerised on Shiny Server Open Source. Reactive core architectured entirely without external JavaScript dependencies to safeguard performance on standard government-issued intranet hardware.</li>
+        <li><strong>Reactive Dependencies:</strong> Driven by standard <code>reactive()</code> data expressions. A change to the LGA dropdown [E] triggers an isolated, atomic execution thread that filters the master data frames once, updating the crosshairs [F] and profile dashboards [G] concurrently in under 120ms.</li>
+        <li><strong>Plotting Engine:</strong> Rendered via <code>ggplot2</code> wrapper functions packaged into production-grade HTML widgets through <code>plotly::ggplotly()</code>. Custom SVG rendering paths map the complex layouts stably.</li>
+        <li><strong>State Synchronisation:</strong> Shared cross-widget interactions utilize Plotly’s native <code>event_data("plotly_hover")</code> channel. Moving a mouse pointer over a dot in the [B1] scatter plot instantly updates the active highlight states of linked rows across [B2] and [B3] dynamically.</li>
+      </ul>
+    </div>
+    <div class="details-col">
+      <strong>Development Metrics, Scope, &amp; Deviations:</strong>
+      <ul>
+        <li><strong>Development Effort Track:</strong> Data clean + structure: 9 hr &nbsp;·&nbsp; Base ggplot charts: 4 hr &nbsp;·&nbsp; Right panel [E]+[F]+[G]: 4 hr &nbsp;·&nbsp; State A/B toggle + shinyjs: 5 hr &nbsp;·&nbsp; [A] headline stats + [C] callout: 2 hr &nbsp;·&nbsp; Styling + debug: 5 hr &nbsp;·&nbsp; <strong>Total ≈ 32 hr</strong></li>
+        <li><strong>Hardware / Data Specifications:</strong> Validated on Chrome 120+, Firefox 120+. Total source asset payload size &lt;50 MB. Zero external hardware acceleration or GPU compute layers required. Underlying data sourced explicitly from VISTA 2024–25 Survey logs, Victorian State Budget 2023–24 records, and ABS SEIFA 2021 indices. Optimized for minimum screen layouts of 1280 px.</li>
+        <li><strong>Deviations from Sheet 4:</strong>
+          <ul>
+            <li>Filters [F1–F4] (metric dropdown, trip purpose, tier checkboxes, IRSD slider) <strong>removed</strong> — filter-driven exploration places analytical burden on a policymaker audience inappropriate for the communication goal. <em>This change also addressed DVP Part 1 feedback: the filter-rich exploration zone made Design C structurally similar to the filter-driven Design B (Sheet 3), reducing distinctness across the three alternatives.</em></li>
+            <li>Right zone redesigned as LGA personalisation panel — single dropdown [E] contextualises the already-delivered narrative finding to a specific suburb rather than enabling open exploration.</li>
+            <li>[P2] slope chart (parallel axes) redesigned as connected line chart with consistent investment tier x-axis — more legible for four discrete ordered tiers.</li>
+            <li>[P3] extended to two sub-charts (by investment tier + by IRSD decile) to address Q2 within the narrative, removing need for right-zone filter-driven exploration.</li>
+            <li>Three headline stat boxes [A] (15 / 89% / 6×) added at header to establish an absolute baseline anchor before the user engages with the core text panels.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

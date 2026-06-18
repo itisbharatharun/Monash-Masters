@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Sheet 3 – FDS – Bharath Arun Gandhimani</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  @page { size: A4 portrait; margin: 8mm 8mm 8mm 8mm; }
+
+  html, body {
+    width: 100%; height: 100%;
+    font-family: 'Inter', Arial, sans-serif;
+    font-size: 7px; background: #fff; color: #111;
+  }
+
+  .page {
+    width: 100%;
+    height: calc(297mm - 16mm);
+    max-height: calc(297mm - 16mm);
+    display: flex; flex-direction: column; gap: 2.2mm;
+    overflow: hidden;
+  }
+
+  .header {
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 2px solid #111; padding-bottom: 1.5mm;
+    flex-shrink: 0;
+  }
+  .header-left { font-size: 14px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+  .header-right { display:flex; align-items:center; gap:8px; }
+  .header-meta { font-size: 8px; color:#333; text-align:right; line-height:1.6; }
+  .badge { background:#111; color:#fff; font-size:8.5px; font-weight:700; padding:3px 8px; border-radius:2px; }
+
+  .sec-label {
+    font-size: 8.5px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.1em; border-left: 3px solid #111;
+    padding-left: 4px; margin-bottom: 1.5mm;
+    flex-shrink: 0;
+  }
+
+  .info-row {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 2mm;
+    flex-shrink: 0;
+  }
+  .info-box { border: 0.7px solid #999; border-radius: 3px; padding: 3px 5px; background: #f7f7f7; }
+  .info-title { font-size: 6.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #555; border-bottom: 0.4px solid #ccc; padding-bottom: 1.5px; margin-bottom: 2px; }
+  .info-text { font-size: 6px; line-height: 1.5; color: #222; }
+  .info-text strong { font-weight: 700; }
+
+  .layout-section { flex-shrink: 0; }
+  .layout-wireframe { border: 1px solid #333; border-radius: 3px; padding: 3px; background: #fafafa; }
+
+  .ops-section { flex-shrink: 0; }
+  .ops-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2mm; }
+  .op-box { border: 0.6px solid #ccc; border-radius: 3px; padding: 2.5px 3.5px; background: #fafafa; }
+  .op-action { font-size: 6px; font-weight: 700; color: #111; line-height: 1.35; }
+  .op-arrow { font-size: 6px; color: #c00; margin: 1px 0; }
+  .op-result { font-size: 5.8px; line-height: 1.45; color: #333; }
+
+  .focus-section { flex-shrink: 0; }
+  .focus-body { display: flex; gap: 2.5mm; }
+  .focus-left { flex: 1; border: 1px solid #333; border-radius: 3px; padding: 3px; }
+  .focus-right { width: 52mm; flex-shrink: 0; display: flex; flex-direction: column; gap: 1.5mm; }
+  .focus-note { font-size: 5.8px; line-height: 1.45; color: #555; border-top: 0.4px solid #ccc; padding-top: 2px; margin-top: 2px; }
+
+  .discussion { border-top: 1.5px solid #111; padding-top: 2mm; flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  .disc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2mm; flex: 1; min-height: 0; }
+  .disc-box { border: 0.5px solid #ccc; border-radius: 3px; padding: 4px 5px; background: #fafafa; display: flex; flex-direction: column; }
+  .disc-title { font-size: 6.5px; font-weight: 700; color: #111; border-bottom: 0.4px solid #ccc; padding-bottom: 1.5px; margin-bottom: 2.5px; flex-shrink: 0; }
+  .disc-text { font-size: 6px; line-height: 1.6; color: #333; flex: 1; }
+  .disc-text li { margin-left: 7px; margin-bottom: 2px; }
+</style>
+</head>
+<body>
+<div class="page">
+
+<div class="header">
+  <div class="header-left">Sheet 3 — Design B: Question-Answer Dashboard</div>
+  <div class="header-right">
+    <div class="header-meta">Bharath Arun Gandhimani &nbsp;|&nbsp; FIT5147 DVP &nbsp;|&nbsp; 13 / 05 / 2026 (revised 02 / 06 / 2026)</div>
+    <div class="badge">FDS</div>
+  </div>
+</div>
+
+<div class="info-row">
+  <div class="info-box">
+    <div class="info-title">Information</div>
+    <div class="info-text">
+      <strong>Title:</strong> Design B — Question-Answer Dashboard &nbsp;|&nbsp; <strong>Sheet No:</strong> Sheet #3<br>
+      <strong>Author:</strong> Bharath Arun Gandhimani &nbsp;|&nbsp; <strong>Date:</strong> 13/05/2026<br>
+      <strong>Description:</strong> Fully reader-driven dashboard communicating findings about educational infrastructure investment, socioeconomic equity, and household travel behaviour in Victoria to policymakers. Three chart panels are visible simultaneously — each poses an explicit question and answers it with a distinct encoding. A left-side filter panel scopes each filter to specific panels only.
+    </div>
+  </div>
+  <div class="info-box">
+    <div class="info-title">Design Rationale</div>
+    <div class="info-text">
+      Each panel uses a different encoding matched to its analytical task: scatter plot (bivariate investment-vs-household relationship), violin plots (distribution shape across investment tiers), and small multiples (faceted mode share by IRSD decile). Chart types drawn from Sheet 1 Ideas #5 (scatter), #4 (violin), #11 (small multiples). Filters are intentionally scoped — [B1] affects [C] only, [B2] affects [E] only, [B3] affects [C] and [E] — to prevent unintended cross-panel interference. [D] is deliberately unfiltered so the reader always has a stable distributional reference. No chart type in this design (scatter, violin, small multiples) appears in Design A or Design C — the three designs collectively cover geographic, distributional, bivariate, faceted, strip, ranking, and paired-comparison encodings across Sheets 2–4.
+    </div>
+  </div>
+</div>
+
+<div class="layout-section">
+  <div class="sec-label">Layout</div>
+  <div class="layout-wireframe">
+    <svg width="100%" height="252" viewBox="0 0 760 252">
+
+      <rect x="2" y="2" width="756" height="16" rx="2" fill="#222"/>
+      <text x="378" y="13" font-size="7.5" fill="#fff" text-anchor="middle" font-weight="700">[A] Victorian Education Investment &amp; Travel Equity</text>
+      <text x="748" y="13" font-size="6" fill="#aaa" text-anchor="end">Data Source ↗</text>
+
+      <rect x="2" y="22" width="118" height="226" rx="2" fill="#f5f5f5" stroke="#bbb" stroke-width="0.8"/>
+      <text x="61" y="33" font-size="6.5" fill="#333" text-anchor="middle" font-weight="700">[B] Filter Panel</text>
+      <line x1="8" y1="37" x2="114" y2="37" stroke="#ddd" stroke-width="0.5"/>
+
+      <text x="8" y="47" font-size="5.5" fill="#555" font-weight="700">[B1] Trip Purpose</text>
+      <rect x="8" y="50" width="104" height="12" rx="2" fill="#fff" stroke="#bbb" stroke-width="0.6"/>
+      <text x="13" y="58" font-size="5.5" fill="#555">Work / Education / Both</text>
+      <text x="108" y="59" font-size="7" fill="#777">▾</text>
+      <text x="8" y="68" font-size="5" fill="#aaa" font-style="italic">→ updates [C] only</text>
+
+      <text x="8" y="78" font-size="5.5" fill="#555" font-weight="700">[B2] IRSD Range Slider</text>
+      <text x="8" y="86" font-size="5" fill="#aaa">Decile 2 ←——→ 10</text>
+      <rect x="8" y="89" width="104" height="5" rx="2.5" fill="#ddd"/>
+      <rect x="8" y="89" width="78" height="5" rx="2.5" fill="#888"/>
+      <circle cx="86" cy="91.5" r="4" fill="#333"/>
+      <text x="8" y="101" font-size="5" fill="#aaa" font-style="italic">→ updates [E] only</text>
+
+      <text x="8" y="111" font-size="5.5" fill="#555" font-weight="700">[B3] Investment Tier</text>
+      <rect x="8" y="114" width="7" height="7" rx="1" fill="#333"/>
+      <text x="18" y="120" font-size="5.5" fill="#333">None</text>
+      <rect x="8" y="124" width="7" height="7" rx="1" fill="#333"/>
+      <text x="18" y="130" font-size="5.5" fill="#333">Low</text>
+      <rect x="8" y="134" width="7" height="7" rx="1" fill="#333"/>
+      <text x="18" y="140" font-size="5.5" fill="#333">Medium</text>
+      <rect x="8" y="144" width="7" height="7" rx="1" fill="#333"/>
+      <text x="18" y="150" font-size="5.5" fill="#333">High</text>
+      <text x="8" y="160" font-size="5" fill="#aaa">(All checked by default)</text>
+      <text x="8" y="168" font-size="5" fill="#aaa" font-style="italic">→ updates [C] + [E]</text>
+
+      <line x1="8" y1="173" x2="114" y2="173" stroke="#ddd" stroke-width="0.5"/>
+      <text x="8" y="182" font-size="5.5" fill="#555" font-weight="700">Filter Scope</text>
+      <text x="8" y="190" font-size="5" fill="#777">B1 → [C] only</text>
+      <text x="8" y="197" font-size="5" fill="#777">B2 → [E] only</text>
+      <text x="8" y="204" font-size="5" fill="#777">B3 → [C] + [E]</text>
+      <text x="8" y="211" font-size="5" fill="#aaa">[D] unaffected by any filter</text>
+
+      <rect x="5" y="217" width="110" height="28" rx="2" fill="#fff8f0" stroke="#aaa" stroke-width="0.7" stroke-dasharray="3,2"/>
+      <text x="60" y="226" font-size="5.5" fill="#c00" text-anchor="middle" font-weight="700">⚠ [G] VISTA Coverage Gap</text>
+      <text x="60" y="234" font-size="4.8" fill="#666" text-anchor="middle">29 LGAs: investment recorded,</text>
+      <text x="60" y="241" font-size="4.8" fill="#666" text-anchor="middle">no VISTA survey data</text>
+
+      <rect x="126" y="22" width="296" height="114" rx="2" fill="#fff" stroke="#bbb" stroke-width="0.7"/>
+      <rect x="126" y="22" width="296" height="16" rx="2" fill="#f0f0f0"/>
+      <text x="274" y="32.5" font-size="6" fill="#111" text-anchor="middle" font-weight="700">[C] Does investment follow households?</text>
+      <rect x="340" y="24" width="76" height="9" rx="1" fill="#e8e8e8" stroke="#bbb" stroke-width="0.4"/>
+      <text x="378" y="30" font-size="4.8" fill="#888" text-anchor="middle">Filters: B1 — Purpose | B3 — Tier</text>
+
+      <line x1="152" y1="124" x2="414" y2="124" stroke="#ccc" stroke-width="0.6"/>
+      <line x1="152" y1="124" x2="152" y2="46" stroke="#ccc" stroke-width="0.6"/>
+      <text x="283" y="133" font-size="5" fill="#777" text-anchor="middle">State Budget Investment per LGA ($M)</text>
+      <text x="143" y="88" font-size="5" fill="#777" text-anchor="middle" transform="rotate(-90,143,88)">VISTA Households</text>
+
+      <circle cx="168" cy="118" r="2.5" fill="#ddd" stroke="#aaa" stroke-width="0.4"/>
+      <circle cx="178" cy="113" r="2.5" fill="#ddd" stroke="#aaa" stroke-width="0.4"/>
+      <circle cx="188" cy="111" r="2.5" fill="#ddd" stroke="#aaa" stroke-width="0.4"/>
+      <circle cx="205" cy="104" r="3" fill="#aaa" stroke="#888" stroke-width="0.4"/>
+      <circle cx="218" cy="97" r="3" fill="#aaa" stroke="#888" stroke-width="0.4"/>
+      <circle cx="232" cy="101" r="3" fill="#aaa" stroke="#888" stroke-width="0.4"/>
+      <circle cx="248" cy="86" r="3.5" fill="#666" stroke="#444" stroke-width="0.4"/>
+      <circle cx="264" cy="80" r="3.5" fill="#666" stroke="#444" stroke-width="0.4"/>
+      <circle cx="278" cy="74" r="3.5" fill="#666" stroke="#444" stroke-width="0.4"/>
+      <circle cx="295" cy="68" r="4" fill="#222" stroke="#000" stroke-width="0.4"/>
+      <circle cx="312" cy="62" r="4" fill="#222" stroke="#000" stroke-width="0.4"/>
+      <circle cx="328" cy="56" r="4" fill="#222" stroke="#000" stroke-width="0.4"/>
+      <circle cx="344" cy="64" r="4" fill="#222" stroke="#000" stroke-width="0.4"/>
+      <circle cx="360" cy="52" r="4" fill="#222" stroke="#000" stroke-width="0.4"/>
+      <line x1="158" y1="122" x2="400" y2="48" stroke="#555" stroke-width="0.9" stroke-dasharray="3,2"/>
+
+      <rect x="300" y="34" width="72" height="18" rx="2" fill="#222"/>
+      <polygon points="328,52 323,54 333,54" fill="#222"/>
+      <text x="336" y="42" font-size="4.8" fill="#fff" text-anchor="middle">Casey — High Tier</text>
+      <text x="336" y="49" font-size="4.5" fill="#bbb" text-anchor="middle">$48M | 12,400 HH</text>
+
+      <circle cx="134" cy="137" r="2.5" fill="#ddd" stroke="#aaa" stroke-width="0.4"/><text x="140" y="140" font-size="5" fill="#555">None</text>
+      <circle cx="164" cy="137" r="2.5" fill="#aaa" stroke="#888" stroke-width="0.4"/><text x="170" y="140" font-size="5" fill="#555">Low</text>
+      <circle cx="194" cy="137" r="3" fill="#666" stroke="#444" stroke-width="0.4"/><text x="200" y="140" font-size="5" fill="#555">Medium</text>
+      <circle cx="234" cy="137" r="3.5" fill="#222" stroke="#000" stroke-width="0.4"/><text x="240" y="140" font-size="5" fill="#555">High</text>
+
+      <rect x="428" y="22" width="330" height="114" rx="2" fill="#fff" stroke="#bbb" stroke-width="0.7"/>
+      <rect x="428" y="22" width="330" height="16" rx="2" fill="#f0f0f0"/>
+      <text x="593" y="32.5" font-size="6" fill="#111" text-anchor="middle" font-weight="700">[D] Does investment relate to travel behaviour?</text>
+      <rect x="700" y="24" width="52" height="9" rx="1" fill="#e8e8e8" stroke="#bbb" stroke-width="0.4"/>
+      <text x="726" y="30" font-size="4.8" fill="#888" text-anchor="middle">No filter applied</text>
+
+      <line x1="452" y1="124" x2="750" y2="124" stroke="#ccc" stroke-width="0.6"/>
+      <line x1="452" y1="124" x2="452" y2="46" stroke="#ccc" stroke-width="0.6"/>
+      <text x="601" y="133" font-size="5" fill="#777" text-anchor="middle">Investment Tier</text>
+      <text x="444" y="88" font-size="5" fill="#777" text-anchor="middle" transform="rotate(-90,444,88)">Trip Duration (min)</text>
+
+      <ellipse cx="490" cy="94" rx="12" ry="24" fill="none" stroke="#ccc" stroke-width="1"/>
+      <ellipse cx="490" cy="94" rx="5" ry="12" fill="none" stroke="#ccc" stroke-width="0.6"/>
+      <line x1="480" y1="92" x2="500" y2="92" stroke="#555" stroke-width="1.8"/>
+      <text x="490" y="130" font-size="5.5" fill="#777" text-anchor="middle">None</text>
+
+      <ellipse cx="553" cy="91" rx="13" ry="27" fill="none" stroke="#999" stroke-width="1"/>
+      <ellipse cx="553" cy="91" rx="6" ry="13" fill="none" stroke="#999" stroke-width="0.6"/>
+      <line x1="543" y1="89" x2="563" y2="89" stroke="#555" stroke-width="1.8"/>
+      <text x="553" y="130" font-size="5.5" fill="#777" text-anchor="middle">Low</text>
+
+      <ellipse cx="618" cy="84" rx="15" ry="31" fill="none" stroke="#666" stroke-width="1"/>
+      <ellipse cx="618" cy="84" rx="7" ry="15" fill="none" stroke="#666" stroke-width="0.6"/>
+      <line x1="607" y1="82" x2="629" y2="82" stroke="#555" stroke-width="1.8"/>
+      <text x="618" y="130" font-size="5.5" fill="#777" text-anchor="middle">Medium</text>
+
+      <ellipse cx="683" cy="97" rx="13" ry="22" fill="none" stroke="#333" stroke-width="1"/>
+      <ellipse cx="683" cy="97" rx="6" ry="11" fill="none" stroke="#333" stroke-width="0.6"/>
+      <line x1="673" y1="95" x2="693" y2="95" stroke="#555" stroke-width="1.8"/>
+      <text x="683" y="130" font-size="5.5" fill="#777" text-anchor="middle">High</text>
+
+      <line x1="436" y1="138" x2="446" y2="138" stroke="#555" stroke-width="1.8"/><text x="450" y="141" font-size="5" fill="#555">Median</text>
+      <ellipse cx="486" cy="138" rx="5" ry="3" fill="none" stroke="#555" stroke-width="0.7"/><text x="494" y="141" font-size="5" fill="#555">IQR</text>
+      <text x="520" y="141" font-size="4.8" fill="#aaa" font-style="italic">Hover: tier, n trips, median, IQR</text>
+
+      <rect x="126" y="142" width="632" height="104" rx="2" fill="#fff" stroke="#bbb" stroke-width="0.7"/>
+      <rect x="126" y="142" width="632" height="16" rx="2" fill="#f0f0f0"/>
+      <text x="442" y="152.5" font-size="6" fill="#111" text-anchor="middle" font-weight="700">[E] Who actually travels differently? — Mode Share by IRSD Decile Group</text>
+      <rect x="672" y="144" width="80" height="9" rx="1" fill="#e8e8e8" stroke="#bbb" stroke-width="0.4"/>
+      <text x="712" y="150" font-size="4.8" fill="#888" text-anchor="middle">Filters: B2 — IRSD | B3 — Tier</text>
+
+      <text x="131" y="204" font-size="5" fill="#777" text-anchor="middle" transform="rotate(-90,131,204)">Mode Share (%)</text>
+
+      <text x="186" y="171" font-size="5.5" fill="#555" text-anchor="middle" font-weight="700">Deciles 1–2</text>
+      <text x="308" y="171" font-size="5.5" fill="#555" text-anchor="middle" font-weight="700">Deciles 3–4</text>
+      <text x="430" y="171" font-size="5.5" fill="#555" text-anchor="middle" font-weight="700">Deciles 5–6</text>
+      <text x="552" y="171" font-size="5.5" fill="#555" text-anchor="middle" font-weight="700">Deciles 7–8</text>
+      <text x="674" y="171" font-size="5.5" fill="#555" text-anchor="middle" font-weight="700">Deciles 9–10</text>
+      <text x="148" y="171" font-size="4.8" fill="#aaa">(Lowest)</text>
+      <text x="718" y="171" font-size="4.8" fill="#aaa">(Highest)</text>
+
+      <rect x="142" y="174" width="88" height="58" rx="1" fill="#fafafa" stroke="#e0e0e0" stroke-width="0.5"/>
+      <line x1="154" y1="228" x2="224" y2="228" stroke="#ccc" stroke-width="0.5"/>
+      <line x1="154" y1="228" x2="154" y2="180" stroke="#ccc" stroke-width="0.5"/>
+      <rect x="160" y="192" width="14" height="36" fill="#333"/>
+      <rect x="179" y="204" width="14" height="24" fill="#777"/>
+      <rect x="198" y="220" width="14" height="8" fill="#bbb"/>
+      <text x="167" y="235" font-size="4.5" fill="#888" text-anchor="middle">PV</text>
+      <text x="186" y="235" font-size="4.5" fill="#888" text-anchor="middle">PT</text>
+      <text x="205" y="235" font-size="4.5" fill="#888" text-anchor="middle">Act</text>
+
+      <rect x="264" y="174" width="88" height="58" rx="1" fill="#fafafa" stroke="#e0e0e0" stroke-width="0.5"/>
+      <line x1="276" y1="228" x2="346" y2="228" stroke="#ccc" stroke-width="0.5"/>
+      <line x1="276" y1="228" x2="276" y2="180" stroke="#ccc" stroke-width="0.5"/>
+      <rect x="282" y="195" width="14" height="33" fill="#333"/>
+      <rect x="301" y="203" width="14" height="25" fill="#777"/>
+      <rect x="320" y="219" width="14" height="9" fill="#bbb"/>
+      <text x="289" y="235" font-size="4.5" fill="#888" text-anchor="middle">PV</text>
+      <text x="308" y="235" font-size="4.5" fill="#888" text-anchor="middle">PT</text>
+      <text x="327" y="235" font-size="4.5" fill="#888" text-anchor="middle">Act</text>
+
+      <rect x="386" y="174" width="88" height="58" rx="1" fill="#fafafa" stroke="#e0e0e0" stroke-width="0.5"/>
+      <line x1="398" y1="228" x2="468" y2="228" stroke="#ccc" stroke-width="0.5"/>
+      <line x1="398" y1="228" x2="398" y2="180" stroke="#ccc" stroke-width="0.5"/>
+      <rect x="404" y="197" width="14" height="31" fill="#333"/>
+      <rect x="423" y="202" width="14" height="26" fill="#777"/>
+      <rect x="442" y="217" width="14" height="11" fill="#bbb"/>
+      <text x="411" y="235" font-size="4.5" fill="#888" text-anchor="middle">PV</text>
+      <text x="430" y="235" font-size="4.5" fill="#888" text-anchor="middle">PT</text>
+      <text x="449" y="235" font-size="4.5" fill="#888" text-anchor="middle">Act</text>
+
+      <rect x="508" y="174" width="88" height="58" rx="1" fill="#fafafa" stroke="#e0e0e0" stroke-width="0.5"/>
+      <line x1="520" y1="228" x2="590" y2="228" stroke="#ccc" stroke-width="0.5"/>
+      <line x1="520" y1="228" x2="520" y2="180" stroke="#ccc" stroke-width="0.5"/>
+      <rect x="526" y="200" width="14" height="28" fill="#333"/>
+      <rect x="545" y="200" width="14" height="28" fill="#777"/>
+      <rect x="564" y="216" width="14" height="12" fill="#bbb"/>
+      <text x="533" y="235" font-size="4.5" fill="#888" text-anchor="middle">PV</text>
+      <text x="552" y="235" font-size="4.5" fill="#888" text-anchor="middle">PT</text>
+      <text x="571" y="235" font-size="4.5" fill="#888" text-anchor="middle">Act</text>
+
+      <rect x="630" y="174" width="88" height="58" rx="1" fill="#fafafa" stroke="#e0e0e0" stroke-width="0.5"/>
+      <line x1="642" y1="228" x2="712" y2="228" stroke="#ccc" stroke-width="0.5"/>
+      <line x1="642" y1="228" x2="642" y2="180" stroke="#ccc" stroke-width="0.5"/>
+      <rect x="648" y="202" width="14" height="26" fill="#333"/>
+      <rect x="667" y="197" width="14" height="31" fill="#777"/>
+      <rect x="686" y="215" width="14" height="13" fill="#bbb"/>
+      <text x="655" y="235" font-size="4.5" fill="#888" text-anchor="middle">PV</text>
+      <text x="674" y="235" font-size="4.5" fill="#888" text-anchor="middle">PT</text>
+      <text x="693" y="235" font-size="4.5" fill="#888" text-anchor="middle">Act</text>
+
+      <rect x="148" y="241" width="8" height="5" fill="#333"/><text x="159" y="246" font-size="5" fill="#555">Private Vehicle (PV)</text>
+      <rect x="244" y="241" width="8" height="5" fill="#777"/><text x="255" y="246" font-size="5" fill="#555">Public Transport (PT)</text>
+      <rect x="348" y="241" width="8" height="5" fill="#bbb"/><text x="359" y="246" font-size="5" fill="#555">Active Travel (Act)</text>
+      <text x="460" y="246" font-size="4.8" fill="#aaa" font-style="italic">Hover: IRSD group, mode, share %, investment tier, LGA count</text>
+
+      <text x="4" y="249" font-size="4.5" fill="#aaa">[A] Title Bar &nbsp;[B] Filter Panel &nbsp;[B1] Trip Purpose &nbsp;[B2] IRSD Slider &nbsp;[B3] Tier Checkboxes &nbsp;[C] Scatter &nbsp;[D] Violin &nbsp;[E] Small Multiples &nbsp;[G] VISTA Gap</text>
+
+    </svg>
+  </div>
+</div>
+
+<div class="ops-section">
+  <div class="sec-label">Operations</div>
+  <div class="ops-grid">
+    <div class="op-box">
+      <div class="op-action">[B1] Select Trip Purpose dropdown</div>
+      <div class="op-arrow">⇒</div>
+      <div class="op-result">[C] scatter updates to trips matching selected purpose (Work / Education / Both). [D] and [E] unchanged — purpose-level breakdown not available at LGA-level for violin or faceted mode share.</div>
+    </div>
+    <div class="op-box">
+      <div class="op-action">[B2] Drag IRSD Range Slider</div>
+      <div class="op-arrow">⇒</div>
+      <div class="op-result">[E] small multiples grey out facets outside selected decile range — highlights relevant band without removing context. [C] and [D] unchanged.</div>
+    </div>
+    <div class="op-box">
+      <div class="op-action">[B3] Uncheck Investment Tier</div>
+      <div class="op-arrow">⇒</div>
+      <div class="op-result">[C] removes points for unchecked tier and re-draws trend line. [E] removes bars for that tier within each facet. [D] unaffected — violin shows full distribution regardless of tier.</div>
+    </div>
+    <div class="op-box">
+      <div class="op-action">Hover on point in [C] scatter</div>
+      <div class="op-arrow">⇒</div>
+      <div class="op-result">Tooltip: LGA name, tier, spend ($M), household count, trip purpose. Hovered point highlighted; all others dim to 30% opacity.</div>
+    </div>
+    <div class="op-box">
+      <div class="op-action">Hover on violin body in [D]</div>
+      <div class="op-arrow">⇒</div>
+      <div class="op-result">Tooltip: tier label, median duration (min), IQR range, n trips. Median and IQR markers always visible statically — hover supplements, does not replace.</div>
+    </div>
+    <div class="op-box">
+      <div class="op-action">Hover on bar in [E] small multiples</div>
+      <div class="op-arrow">⇒</div>
+      <div class="op-result">Tooltip: IRSD decile group, mode type, share (%), n LGAs in facet. Same mode bar highlights across all visible facets simultaneously for cross-facet comparison.</div>
+    </div>
+  </div>
+</div>
+
+<div class="focus-section">
+  <div class="sec-label">Focus / Parti — Filter Coordination Flow</div>
+  <div class="focus-body">
+    <div class="focus-left">
+      <svg width="100%" height="84" viewBox="0 0 520 84">
+
+        <rect x="2" y="18" width="86" height="48" rx="3" fill="#f7f7f7" stroke="#999" stroke-width="0.8"/>
+        <text x="45" y="30" font-size="6" fill="#555" text-anchor="middle" font-weight="700">[B] Filter Panel</text>
+        <text x="45" y="40" font-size="5.5" fill="#333" text-anchor="middle">B1  B2  B3</text>
+        <text x="10" y="50" font-size="5" fill="#888">B1: Trip Purpose</text>
+        <text x="10" y="58" font-size="5" fill="#888">B2: IRSD Range</text>
+        <text x="10" y="66" font-size="5" fill="#888">B3: Investment Tier</text>
+
+        <line x1="88" y1="32" x2="156" y2="28" stroke="#333" stroke-width="1"/>
+        <polygon points="156,25 151,28 156,31" fill="#333"/>
+        <text x="122" y="26" font-size="4.8" fill="#333">B1 →</text>
+
+        <line x1="88" y1="58" x2="156" y2="68" stroke="#555" stroke-width="1"/>
+        <polygon points="156,65 151,68 156,71" fill="#555"/>
+        <text x="112" y="70" font-size="4.8" fill="#555">B2 →</text>
+
+        <line x1="88" y1="46" x2="156" y2="38" stroke="#777" stroke-width="1" stroke-dasharray="2,1.5"/>
+        <polygon points="156,35 151,38 156,41" fill="#777"/>
+        <line x1="88" y1="48" x2="156" y2="60" stroke="#777" stroke-width="1" stroke-dasharray="2,1.5"/>
+        <polygon points="156,57 151,60 156,63" fill="#777"/>
+        <text x="108" y="46" font-size="4.8" fill="#777">B3 → both</text>
+
+        <rect x="161" y="16" width="95" height="30" rx="3" fill="#f0f0f0" stroke="#888" stroke-width="0.8"/>
+        <text x="208" y="27" font-size="5.5" fill="#111" text-anchor="middle" font-weight="700">[C] Scatter Plot</text>
+        <text x="208" y="36" font-size="5" fill="#777" text-anchor="middle">Invest. vs Households</text>
+        <text x="208" y="43" font-size="4.8" fill="#aaa" text-anchor="middle">Affected: B1 + B3</text>
+
+        <rect x="161" y="52" width="95" height="30" rx="3" fill="#f0f0f0" stroke="#888" stroke-width="0.8"/>
+        <text x="208" y="63" font-size="5.5" fill="#111" text-anchor="middle" font-weight="700">[D] Violin Plots</text>
+        <text x="208" y="72" font-size="5" fill="#777" text-anchor="middle">Trip Duration × Tier</text>
+        <text x="208" y="79" font-size="4.8" fill="#c00" text-anchor="middle">No filter applied</text>
+
+        <rect x="278" y="34" width="105" height="30" rx="3" fill="#f0f0f0" stroke="#888" stroke-width="0.8"/>
+        <text x="330" y="45" font-size="5.5" fill="#111" text-anchor="middle" font-weight="700">[E] Small Multiples</text>
+        <text x="330" y="54" font-size="5" fill="#777" text-anchor="middle">Mode Share × IRSD Decile</text>
+        <text x="330" y="61" font-size="4.8" fill="#aaa" text-anchor="middle">Affected: B2 + B3</text>
+
+        <line x1="256" y1="46" x2="278" y2="52" stroke="#777" stroke-width="0.8" stroke-dasharray="2,1.5"/>
+
+        <rect x="398" y="2" width="118" height="80" rx="3" fill="#fff8e8" stroke="#bbb" stroke-width="0.7"/>
+        <text x="457" y="13" font-size="5.5" fill="#555" text-anchor="middle" font-weight="700">Parti note</text>
+        <text x="404" y="23" font-size="4.8" fill="#666">3 questions → 3 encodings</text>
+        <text x="404" y="31" font-size="4.8" fill="#666">Scatter: bivariate relationship</text>
+        <text x="404" y="39" font-size="4.8" fill="#666">Violin: distribution shape</text>
+        <text x="404" y="47" font-size="4.8" fill="#666">Small mult: faceted comparison</text>
+        <line x1="404" y1="52" x2="510" y2="52" stroke="#ddd" stroke-width="0.5"/>
+        <text x="404" y="61" font-size="4.8" fill="#888">[D] unfiltered — stable</text>
+        <text x="404" y="69" font-size="4.8" fill="#888">distributional reference</text>
+        <text x="404" y="77" font-size="4.8" fill="#c00">[E] not affected by B1</text>
+
+      </svg>
+      <div class="focus-note">Three questions, three completely different encodings — no chart type is reused across panels. Filter scope is asymmetric by design: each filter targets only the panel where it is analytically meaningful. [D] is permanently unfiltered to give readers a stable distributional baseline regardless of how they interact with [B1] or [B3].</div>
+    </div>
+    <div class="focus-right">
+      <div class="op-box">
+        <div class="op-action">Panel Summary</div>
+        <div class="op-result" style="margin-top:2px;">
+          [C] Scatter: X = Budget spend/LGA, Y = VISTA HH, Colour = Tier<br>
+          [D] Violin: X = Tier (4 groups), Y = Trip duration (min), Overlay = median+IQR<br>
+          [E] Sm. Multiples: Facet = IRSD decile (5), X = Mode, Y = Share (%)
+        </div>
+      </div>
+      <div class="op-box">
+        <div class="op-action">Label Reference</div>
+        <div class="op-result" style="margin-top:2px;">
+          [A] Title Bar &nbsp; [B] Filter Panel<br>
+          [B1] Trip Purpose Dropdown<br>
+          [B2] IRSD Range Slider<br>
+          [B3] Investment Tier Checkboxes<br>
+          [C] Scatter Plot Panel<br>
+          [D] Violin Plots Panel<br>
+          [E] Small Multiples Panel<br>
+          [G] VISTA Coverage Gap Callout
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="discussion">
+  <div class="sec-label">Discussion</div>
+  <div class="disc-grid">
+    <div class="disc-box">
+      <div class="disc-title">Pros</div>
+      <div class="disc-text">
+        <ul>
+          <li>A policymaker can navigate directly to the question most relevant to their brief — no compulsory sequence to sit through before reaching the panel they care about.</li>
+          <li>Each panel uses a distinct encoding matched to its analytical task: scatter for bivariate relationship, violin for distribution shape, small multiples for faceted comparison. No chart type is repeated across panels — each question gets its own visual language.</li>
+          <li>Asymmetric filter scoping prevents cross-panel noise — each filter only acts where it is analytically valid, reducing reader confusion from unexpected changes.</li>
+          <li>[D] violin plots are permanently unfiltered, giving the reader a stable distributional reference that does not change as they experiment with [B1] or [B3] — useful as an anchor point.</li>
+          <li>Small multiples in [E] let the IRSD decile gradient emerge visually across all five facets simultaneously without any interaction needed — the pattern is visible at a glance.</li>
+          <li>R Shiny implementation is straightforward: three independent renderPlotly() outputs, each reactive only to its scoped inputs, avoiding unnecessary re-renders.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="disc-box">
+      <div class="disc-title">Cons</div>
+      <div class="disc-text">
+        <ul>
+          <li>All three panels are visible at once with no guided entry point — a policymaker unfamiliar with the topic may not know where to start and may engage only one panel, missing the full argument.</li>
+          <li>There is no narrative thread connecting the three questions. A reader who engages only with [C] or [D] misses the socioeconomic equity dimension that [E] communicates.</li>
+          <li>The VISTA gap callout [G] sits at the bottom of the filter panel and is easy to overlook for a reader whose attention is drawn immediately to the larger chart panels on the right.</li>
+          <li>Asymmetric scoping (B1 → [C] only, B2 → [E] only, B3 → [C] + [E]) requires orientation time — a first-time reader may apply a filter and be confused when not all panels update.</li>
+          <li>[C] and [E] both involve investment tier as a variable but from different angles — without accompanying explanatory text, this could be perceived as redundant or contradictory rather than complementary.</li>
+          <li>Unlike Design A (Sheet 2), there is no closing policy implication step — the reader must draw their own conclusions from the three panels, which may be unreliable for a non-expert audience.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+</body>
+</html>

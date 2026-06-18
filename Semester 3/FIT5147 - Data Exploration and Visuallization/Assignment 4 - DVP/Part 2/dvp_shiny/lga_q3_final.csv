@@ -1,0 +1,63 @@
+lga_standard,project_count,lat_mean,long_mean,investment_tier,investment_tier_order,hh_count,in_vista
+Ararat,1,-37.28580057,142.9219953,Low (1-2),1,0,False
+Ballarat,2,-37.561459345,143.874889,Low (1-2),1,0,False
+Banyule,2,-37.748060875,145.05490175,Low (1-2),1,44,True
+Bass Coast,2,-38.565567834999996,145.4784057,Low (1-2),1,0,False
+Baw Baw,1,-38.14549496,145.8511538,Low (1-2),1,0,False
+Bayside,3,-37.92906127333333,145.00919546666668,Medium (3-5),2,55,True
+Boroondara,1,-37.83259883,145.0580524,Low (1-2),1,83,True
+Brimbank,6,-37.746148416666664,144.79544886666665,High (6+),3,57,True
+Campaspe,1,-36.3592806,144.7013814,Low (1-2),1,0,False
+Cardinia,3,-38.02232377666667,145.47110363333334,Medium (3-5),2,51,True
+Casey,15,-38.073074328666664,145.29122734,High (6+),3,144,True
+Central Goldfields,1,-37.04836282,143.7363608,Low (1-2),1,0,False
+Colac Otway,2,-38.338394905,143.58429285,Low (1-2),1,0,False
+Corangamite,2,-38.13930775,143.20252915,Low (1-2),1,0,False
+Darebin,3,-37.73404129,145.00495176666666,Medium (3-5),2,81,True
+East Gippsland,2,-37.89363934,147.85451325,Low (1-2),1,0,False
+Frankston,7,-38.13397700428572,145.1442384142857,High (6+),3,59,True
+Glen Eira,3,-37.90318314333334,145.03910466666665,Medium (3-5),2,90,True
+Glenelg,1,-38.36110991,141.6049159,Low (1-2),1,0,False
+Golden Plains,1,-37.86559885,143.8193982,Low (1-2),1,7,True
+Greater Bendigo,4,-36.707032995,144.2942338,Medium (3-5),2,0,False
+Greater Dandenong,4,-37.98599653,145.19066195,Medium (3-5),2,52,True
+Greater Geelong,8,-38.158210615,144.4055360625,High (6+),3,263,True
+Greater Shepparton,1,-36.38237128,145.4047938,Low (1-2),1,0,False
+Hepburn,1,-37.41925594,143.8933208,Low (1-2),1,0,False
+Hobsons Bay,1,-37.86708,144.82262,Low (1-2),1,49,True
+Horsham,1,-36.71725057,142.2081971,Low (1-2),1,0,False
+Hume,10,-37.610098662,144.85996072,High (6+),3,81,True
+Indigo,1,-36.34716382,146.6905829,Low (1-2),1,0,False
+Kingston,3,-37.96830207,145.09240506666666,Medium (3-5),2,82,True
+Knox,6,-37.877966486666665,145.26130306666667,High (6+),3,77,True
+Latrobe,4,-38.1969898025,146.386378225,Medium (3-5),2,0,False
+Loddon,1,-36.30098105,143.8032022,Low (1-2),1,0,False
+Macedon Ranges,1,-37.4979964,144.5849638,Low (1-2),1,7,True
+Maribyrnong,2,-37.7805624,144.8837491,Low (1-2),1,31,True
+Maroondah,2,-37.81316371,145.25965580000002,Low (1-2),1,60,True
+Melbourne,2,-37.793412875,144.94790645,Low (1-2),1,43,True
+Melton,8,-37.69009491875,144.589998125,High (6+),3,65,True
+Merri-bek,4,-37.710844987499996,144.957363425,Medium (3-5),2,62,True
+Mildura,3,-34.55268959,141.82260396666666,Medium (3-5),2,0,False
+Mitchell,3,-37.19552963,145.06994236666665,Medium (3-5),2,19,True
+Moira,1,-36.08577722,145.4398208,Low (1-2),1,0,False
+Monash,5,-37.892782904,145.12962480000002,Medium (3-5),2,100,True
+Moonee Valley,3,-37.75207223333333,144.90111090000002,Medium (3-5),2,56,True
+Moorabool,1,-37.67235263,144.4358698,Low (1-2),1,16,True
+Mornington Peninsula,5,-38.310303886,145.0304379,Medium (3-5),2,76,True
+Mount Alexander,1,-37.06311,144.21898,Low (1-2),1,0,False
+Murrindindi,1,-37.23415398,145.9071121,Low (1-2),1,0,False
+Nillumbik,3,-37.71203837666667,145.1635536,Medium (3-5),2,38,True
+Northern Grampians,1,-37.06554637,142.7713931,Low (1-2),1,0,False
+Port Phillip,2,-37.840138370000005,144.94110285,Low (1-2),1,58,True
+South Gippsland,2,-38.56529179,146.08164065,Low (1-2),1,0,False
+Swan Hill,1,-35.33123297,143.5460737,Low (1-2),1,0,False
+Towong,1,-36.2147589,147.1741745,Low (1-2),1,0,False
+Wangaratta,2,-36.35138909,146.31195294999998,Low (1-2),1,0,False
+Warrnambool,2,-38.37865016,142.49807090000002,Low (1-2),1,0,False
+West Wimmera,1,-37.03290115,141.2987275,Low (1-2),1,0,False
+Whitehorse,4,-37.824559827499996,145.154565625,Medium (3-5),2,82,True
+Whittlesea,5,-37.60531328,145.06340828,Medium (3-5),2,103,True
+Wyndham,6,-37.89009044666667,144.70936186666665,High (6+),3,118,True
+Yarra,4,-37.80564624,144.986211175,Medium (3-5),2,45,True
+Yarriambiack,1,-36.62296412,142.4752779,Low (1-2),1,0,False
