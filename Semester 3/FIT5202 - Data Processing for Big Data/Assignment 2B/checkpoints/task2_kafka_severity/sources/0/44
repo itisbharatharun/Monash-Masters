@@ -1,0 +1,4 @@
+v1
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00000-8b312467-7f4a-4a65-aa45-48ddb0a1baa5-c000.snappy.parquet","timestamp":1781504363855,"batchId":44}
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00090-1d444658-2fef-4e1d-aaf8-c62e6743f0ff-c000.snappy.parquet","timestamp":1781504365800,"batchId":44}
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00167-5d02dc37-5eac-4ae5-8b3a-277db0431e05-c000.snappy.parquet","timestamp":1781504367380,"batchId":44}

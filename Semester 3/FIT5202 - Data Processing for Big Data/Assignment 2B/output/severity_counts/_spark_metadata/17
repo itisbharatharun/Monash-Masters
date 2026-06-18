@@ -1,0 +1,7 @@
+v1
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00000-a0a4e5a8-d599-46c2-bf14-fd84f683bf9d-c000.snappy.parquet","size":1477,"isDir":false,"modificationTime":1781503555683,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00063-97a090c1-085e-4844-97ef-53ce593167f5-c000.snappy.parquet","size":1478,"isDir":false,"modificationTime":1781503556829,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00101-f2f7643c-defa-413a-a8cf-514eeaa221fa-c000.snappy.parquet","size":1497,"isDir":false,"modificationTime":1781503557486,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00166-3aa3fbf8-9524-4762-a1c6-1f5d3061d661-c000.snappy.parquet","size":1499,"isDir":false,"modificationTime":1781503558514,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00172-e0d8cd0d-bfbd-467a-9d38-10328f176847-c000.snappy.parquet","size":1476,"isDir":false,"modificationTime":1781503558690,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00188-cde7055a-3bb8-477d-b452-d10e0267e869-c000.snappy.parquet","size":1498,"isDir":false,"modificationTime":1781503558996,"blockReplication":1,"blockSize":33554432,"action":"add"}

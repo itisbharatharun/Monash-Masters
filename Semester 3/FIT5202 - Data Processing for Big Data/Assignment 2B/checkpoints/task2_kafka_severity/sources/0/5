@@ -1,0 +1,13 @@
+v1
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00000-e7949202-3dc9-4bbf-855f-aefcc6135c69-c000.snappy.parquet","timestamp":1781503302349,"batchId":5}
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00021-3027f85a-5b54-4a5c-9339-8d6dfab64167-c000.snappy.parquet","timestamp":1781503302961,"batchId":5}
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00044-c910feef-a0a1-4907-bf80-bd7fbe1aebf3-c000.snappy.parquet","timestamp":1781503303726,"batchId":5}
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00106-1f16800f-e256-454b-9795-7dba817c23fa-c000.snappy.parquet","timestamp":1781503305247,"batchId":5}
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00111-74b8d8a3-2c88-4321-98e2-ca686d5566e9-c000.snappy.parquet","timestamp":1781503305366,"batchId":5}
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00128-9de91af9-81b0-457b-8ccb-c27b26affb20-c000.snappy.parquet","timestamp":1781503305761,"batchId":5}
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00132-3567a75c-1da5-4704-9d9b-bd679b87cf72-c000.snappy.parquet","timestamp":1781503305819,"batchId":5}
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00142-962d02ca-2b6c-49e0-a203-c4feaa263bc2-c000.snappy.parquet","timestamp":1781503305970,"batchId":5}
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00144-17029f38-c2e5-4526-9776-9fb276d3cb4e-c000.snappy.parquet","timestamp":1781503306078,"batchId":5}
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00168-5523aebc-9de3-4b8d-bb0e-4868986c1803-c000.snappy.parquet","timestamp":1781503306675,"batchId":5}
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00172-3dfaab49-e321-4a83-b3fc-33fc485d315b-c000.snappy.parquet","timestamp":1781503306749,"batchId":5}
+{"path":"file:///home/student/Assignment%202B/output/severity_counts/part-00177-caf90f30-c988-4e1e-80b9-f5d29739b080-c000.snappy.parquet","timestamp":1781503306844,"batchId":5}

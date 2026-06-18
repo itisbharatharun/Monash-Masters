@@ -1,0 +1,3 @@
+v1
+{"path":"file:///home/student/Assignment%202B/output/high_severity/part-00000-40ca2c92-89ba-4775-b4aa-4e471a3467fd-c000.snappy.parquet","size":827,"isDir":false,"modificationTime":1781503146157,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///home/student/Assignment%202B/output/high_severity/part-00022-61c22444-6f9a-4784-9720-ca281868facb-c000.snappy.parquet","size":1917,"isDir":false,"modificationTime":1781503146828,"blockReplication":1,"blockSize":33554432,"action":"add"}
