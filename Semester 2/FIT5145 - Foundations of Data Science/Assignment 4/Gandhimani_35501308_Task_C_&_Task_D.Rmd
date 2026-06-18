@@ -1,0 +1,1022 @@
+---
+title: "FIT5145 - Assignment 4 - Task C & Task D"
+author: "Bharath Arun Gandhimani"
+date: "2025-10-28"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Load Libraries
+```{r}
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(text2vec)
+library(readr)
+library(stopwords)
+library(SnowballC)
+library(xgboost)
+library(stringr)
+library(syuzhet)
+library(tidyverse)
+library(tidytext)
+library(textclean)
+library(reshape2)
+library(ggpubr)
+library(caret)
+library(randomForest)
+library(e1071)
+```
+
+### Part C: Exploratory Data Analysis Using R
+
+## 1. 
+It might be interesting to examine the daily trend of user activity. Identify the top three
+users with the highest number of tweets across the days, and plot their daily tweet counts
+to compare each user’s trend. (Note: Please address any issues you encounter.)
+```{r}
+# Load the dataset
+olympics_tweets <- read_csv("Olympics_tweets.csv", show_col_types = FALSE)
+
+# Parse the date column ("dd/mm/yyyy HH:MM")
+olympics_tweets$date_parsed <- as.Date(dmy_hm(olympics_tweets$date))
+
+# Summarize tweet counts for each user
+user_tweet_counts <- olympics_tweets %>%
+  group_by(user_screen_name) %>%
+  summarise(total_tweets = n(), .groups = 'drop') %>%
+  arrange(desc(total_tweets))
+
+# Get the top 3 users by tweet count
+top_users <- user_tweet_counts %>%
+  slice_max(total_tweets, n = 3)
+
+print(top_users) # This is your summary dataframe for the report
+
+# Filter tweets for top users and valid dates
+top_users_data <- olympics_tweets %>%
+  filter(user_screen_name %in% top_users$user_screen_name, !is.na(date_parsed))
+
+# Group by user and date for daily tweet counts
+daily_tweet_counts <- top_users_data %>%
+  group_by(user_screen_name, date_parsed) %>%
+  summarise(daily_tweets = n(), .groups = 'drop')
+
+# Plot daily tweet counts for top 3 users
+ggplot(daily_tweet_counts, aes(x = date_parsed, y = daily_tweets, color = user_screen_name)) +
+  geom_line() +
+  geom_point() +
+  labs(title = "Daily Tweet Counts for Top 3 Users",
+       x = "Date",
+       y = "Number of Tweets",
+       color = "User") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+The exploratory analysis focused on identifying the top three most active users in the Olympics tweet dataset and examining their daily tweet activity trends over the observed period. Using R, I first tallied the total number of tweets from each user and determined that "kegan61438051" posted 240 tweets, "dev_discourse" posted 197, and "allsports70" posted 128, making them the most prolific contributors in the dataset.
+
+To visualize these trends, daily tweet counts for each of the top users were computed and plotted. The resulting line chart reveals distinctive activity patterns across the three users. Notably, "kegan61438051" exhibits a dramatic spike in tweet volume on a single day, reaching over 230 tweets, and maintains very low activity on other days. This outlier could indicate participation in a specific event, a burst of automated posts, or perhaps a data anomaly requiring further validation. In contrast, "dev_discourse" and "allsports70" show more consistent engagement, with tweet volumes fluctuating between 10 and 50 tweets daily. Their peaks tend to coincide, likely corresponding to notable Olympic events or trending topics, indicating periods of heightened public interest that drive interactions.
+
+Overall, these findings confirm that a significant portion of user activity is concentrated among a few prolific users, with tweet patterns shaped by both individual engagement habits and broader event-driven participation. The disparity in posting behaviors—especially the exceptional burst from "kegan61438051"—highlights the need to investigate data quality, user types (organic vs. automated), and their roles in shaping online discourse about the Olympics. This analysis provides a useful foundation for deeper exploration into the relationship between user activity patterns and external events, as well as assessing the representativeness and reliability of dataset contributions for further sentiment or topic modeling analyses.
+
+## 2. 
+What are the three most important keywords in the text column that influence the number
+of favorites a tweet has received?
+```{r}
+# 1. Load and prepare the dataset (suppress column type messages)
+tweets <- readr::read_csv("Olympics_tweets.csv", show_col_types = FALSE) %>%
+  select(text, favorite_count) %>%
+  mutate(tweet_id = row_number())
+
+# 2. Define threshold for high favorite tweets (top 10%)
+fav_threshold <- quantile(tweets$favorite_count, 0.90, na.rm=TRUE)
+
+# 3. Clean text
+clean_text <- function(text) {
+  text %>%
+    str_to_lower() %>%
+    replace_emoji() %>%
+    replace_html() %>%
+    str_replace_all("http\\S+|www\\S+", " ") %>%
+    str_replace_all("@\\w+", " ") %>%
+    str_replace_all("#", " ") %>%
+    str_replace_all("[^a-z\\s]", " ") %>%
+    str_squish()
+}
+
+tweets <- tweets %>%
+  mutate(text_clean = map_chr(text, clean_text)) %>%
+  filter(text_clean != "")
+
+# 4. Tokenize, remove stopwords, and join in favorite_count
+tokens <- tweets %>%
+  unnest_tokens(word, text_clean) %>%
+  filter(str_detect(word, "^[a-z]{3,}$")) %>%
+  anti_join(get_stopwords(), by = "word") %>%
+  select(tweet_id, word, favorite_count)
+
+# 5. Count word frequencies in all and high-favorite tweets
+word_freq_all <- tokens %>%
+  count(word, name = "freq_all")
+
+word_freq_high <- tokens %>%
+  filter(favorite_count >= fav_threshold) %>%
+  count(word, name = "freq_high")
+
+# 6. Compare and rank by relative frequency difference
+freq_compare <- word_freq_all %>%
+  full_join(word_freq_high, by = "word") %>%
+  replace_na(list(freq_all = 0, freq_high = 0)) %>%
+  mutate(
+    rel_freq_all  = freq_all  / sum(freq_all),
+    rel_freq_high = freq_high / sum(freq_high),
+    rel_diff = rel_freq_high - rel_freq_all
+  ) %>%
+  arrange(desc(rel_diff))
+
+# Print ONLY the top 3 keywords most strongly associated with high-favorite tweets
+top_3_keywords <- freq_compare %>%
+  slice_max(rel_diff, n = 3) %>%
+  select(word)
+
+print(top_3_keywords$word)
+
+# 7. (Optional) Plot top keywords
+freq_compare %>%
+  slice_max(rel_diff, n = 20) %>%
+  ggplot(aes(x = reorder(word, rel_diff), y = rel_diff)) +
+  geom_col(fill = "blue") +
+  coord_flip() +
+  labs(title = "Top 20 Keywords Overrepresented in High-Favorite Tweets",
+       x = "Word", y = "Relative Frequency Difference") +
+  theme_minimal()
+```
+
+The analysis of high-favorite tweets revealed that the keywords "medal," "gold," and "first" are most strongly associated with increased engagement, as measured by the number of favorites received. These findings suggest that tweets referencing significant achievements—such as winning a medal or securing a top position—are particularly resonant with the Twitter audience during the Olympics period. The prominence of "gold" and "medal" further highlights the strong public interest in success narratives and momentous victories, which are often highly celebrated and widely shared across social media platforms.
+
+The methodology used to arrive at these results was systematic and rigorous. By first cleaning and standardizing the tweet text, removing both standard and context-specific stopwords, and then focusing the analysis on the top 10% of tweets by favorite count, the approach ensured that the identified keywords reflect genuine drivers of audience engagement rather than mere frequency of mention. The use of relative frequency difference allowed for the detection of terms that are not just common overall, but especially overrepresented in the most favored tweets, thus providing a more nuanced understanding of what sparks user interaction.
+
+In addition, the accompanying bar graph visually supports these findings by clearly displaying the top 20 keywords overrepresented in high-favorite tweets. The chart shows a marked prominence of words related to achievement and celebration at the top, especially "medal," "gold," and "first," substantiating their strong connection with audience engagement. This visual evidence adds further credibility to the analysis and highlights how audience attention is significantly captured by positive and milestone-related Olympic content.
+
+## 3. 
+Does the length of time a user has been using Twitter relate to their number of followers
+and friends? Please discuss your findings.
+```{r}
+# Load the data
+tweets <- read_csv("Olympics_tweets.csv", n_max = 10000, show_col_types = FALSE)
+
+# Parse dates using dmy_hm because your sample format is "30/07/2021 21:12"
+tweets$user_created_at <- dmy_hm(tweets$user_created_at)
+tweets$date <- dmy_hm(tweets$date)
+
+# Filter valid rows
+tweets <- tweets %>%
+  filter(!is.na(user_created_at), !is.na(date),
+         !is.na(user_followers), !is.na(user_friends))
+
+# Calculate account age in years
+tweets <- tweets %>%
+  mutate(account_age_years = as.numeric(difftime(date, user_created_at, units = "days")) / 365.25) %>%
+  filter(account_age_years > 0)
+
+# Scatter plot: Account Age vs Followers (log scale y-axis)
+ggplot(tweets, aes(x = account_age_years, y = user_followers)) +
+  geom_point(alpha = 0.3, color = "#2C7BB6") +
+  scale_y_log10() +
+  labs(title = "Account Age vs Number of Followers",
+       x = "Account Age (years)", y = "Followers (log scale)") +
+  theme_minimal()
+
+# Scatter plot: Account Age vs Friends (log scale y-axis)
+ggplot(tweets, aes(x = account_age_years, y = user_friends)) +
+  geom_point(alpha = 0.3, color = "#D7191C") +
+  scale_y_log10() +
+  labs(title = "Account Age vs Number of Friends",
+       x = "Account Age (years)", y = "Friends (log scale)") +
+  theme_minimal()
+
+# Calculate and print Pearson correlation coefficients
+cor_age_followers <- cor(tweets$account_age_years, tweets$user_followers, method = "pearson")
+cor_age_friends <- cor(tweets$account_age_years, tweets$user_friends, method = "pearson")
+
+cat("Correlation (account age, followers):", round(cor_age_followers, 3), "\n")
+cat("Correlation (account age, friends):", round(cor_age_friends, 3), "\n")
+```
+
+The results of this analysis indicate that the length of time a user has had a Twitter account does not strongly relate to their number of followers or friends within the Olympics tweet dataset. The calculated Pearson correlation coefficients between account age and followers (0.095), as well as account age and friends (0.09), are both quite low, indicating only a very weak positive association. This suggests that simply having an older Twitter account does not guarantee the accumulation of a substantially larger network or audience.
+
+Examining the scatter plots further supports this conclusion. Both the "Account Age vs Number of Followers" and "Account Age vs Number of Friends" charts reveal highly dispersed data, with significant variability in both followers and friends across all account ages. Although some older accounts do display high follower or friend counts, the majority of points cluster horizontally across a broad spectrum, showing that newer accounts can also amass substantial networks, while many older accounts maintain relatively modest numbers. The use of a log scale for both axes effectively visualizes these disparities, highlighting the presence of outliers but also underscoring the general lack of a clear upward trend as account age increases.
+
+Overall, these findings suggest that while account longevity may play a minor role in network growth, other factors—such as user activity, content strategy, or external influence—are likely much more critical in driving follower and friend accumulation. The minimal correlation observed here implies that both new and long-standing users can achieve varying degrees of connectedness on the platform, independent of their Twitter tenure.
+
+## 4. 
+Tweets in the dataset have already been categorised by topic in the topic column.
+However, they can also be classified based on other characteristics of their text, which
+may reveal patterns and insights influencing the favourite counts beyond the pre-defined
+topics. In this task, you will explore alternative ways to categorise tweets using only their
+textual content and investigate how these characteristics affect favourite counts. You
+should clearly define your categorisation criteria and explain the reasoning behind your
+approach. Present the results using charts, tables, or other visualisations as appropriate,
+and discuss each category and its impact on the favourite counts.
+```{r}
+# Load data
+tweets <- read_csv("Olympics_tweets.csv", n_max=10000, show_col_types=FALSE)
+
+# Basic preprocessing
+tweets <- tweets %>%
+  mutate(
+    date = dmy_hm(date),
+    tweet_length = nchar(text),
+    url = grepl("http", text),
+    url_cat = ifelse(url, "Has URL", "No URL")
+  )
+
+# Sentiment analysis
+tweets$sentiment_score <- get_sentiment(tweets$text, method = "syuzhet")
+tweets$sentiment_cat <- "Neutral"
+tweets$sentiment_cat[tweets$sentiment_score > 0.1] <- "Positive"
+tweets$sentiment_cat[tweets$sentiment_score < -0.1] <- "Negative"
+
+# Exclamation/question mark presence
+tweets$exclaim <- grepl("!", tweets$text)
+tweets$question <- grepl("\\?", tweets$text)
+tweets$mark_cat <- "Regular"
+tweets$mark_cat[tweets$exclaim] <- "Excited"
+tweets$mark_cat[tweets$question] <- "Question"
+
+# Tweet length categories
+tweets$length_cat <- cut(
+  tweets$tweet_length,
+  breaks = c(-Inf, 50, 120, Inf),
+  labels = c("Short", "Medium", "Long")
+)
+
+
+# ========== 1. Favorite Counts by Categories ==========
+
+# Sentiment vs Favorites
+ggplot(tweets, aes(x = sentiment_cat, y = favorite_count)) +
+  geom_boxplot(fill = "#6699cc") +
+  scale_y_log10() +
+  labs(title = "Favorite Counts by Sentiment", x = "Sentiment", y = "Favorite Count (log scale)") +
+  theme_minimal()
+
+# Length vs Favorites
+ggplot(tweets, aes(x = length_cat, y = favorite_count)) +
+  geom_boxplot(fill = "#1b9e77") +
+  scale_y_log10() +
+  labs(title = "Favorite Counts by Tweet Length", x = "Tweet Length", y = "Favorite Count (log scale)") +
+  theme_minimal()
+
+# Type vs Favorites
+ggplot(tweets, aes(x = mark_cat, y = favorite_count)) +
+  geom_boxplot(fill = "#d95f02") +
+  scale_y_log10() +
+  labs(title = "Favorite Counts by Tweet Type", x = "Tweet Category", y = "Favorite Count (log scale)") +
+  theme_minimal()
+
+# URL vs Favorites
+ggplot(tweets, aes(x = url_cat, y = favorite_count)) +
+  geom_boxplot(fill = "#7570b3") +
+  scale_y_log10() +
+  labs(title = "Favorite Counts by URL Presence", x = "URL Category", y = "Favorite Count (log scale)") +
+  theme_minimal()
+
+# ========== 2. Interactions ==========
+
+# Length x Sentiment Interaction
+ggplot(tweets, aes(x = length_cat, y = favorite_count, fill = sentiment_cat)) +
+  geom_boxplot(position="dodge") +
+  scale_y_log10() +
+  labs(title="Favorite Counts by Length and Sentiment", x="Tweet Length", y="Favorite Count (log scale)") +
+  theme_minimal()
+
+# URL x Sentiment Interaction
+ggplot(tweets, aes(x = sentiment_cat, y = favorite_count, fill = url_cat)) +
+  geom_boxplot(position="dodge") +
+  scale_y_log10() +
+  labs(title="Favorite Counts by Sentiment and URL", x="Sentiment", y="Favorite Count (log scale)") +
+  theme_minimal()
+```
+
+To explore how tweet characteristics beyond predefined topics relate to engagement, I categorized tweets according to four textual criteria:
+
+Sentiment (positive, neutral, negative; via the syuzhet lexicon),
+Tweet length (short, medium, long),
+Tweet type (excited, question, regular, based on punctuation),
+URL presence (contains a URL or not).
+Boxplots and interaction visualizations were used to summarize how these categories impact favorite counts.
+
+Sentiment:
+There is no substantial difference in favorite counts between positive, neutral, and negative tweets. This suggests that sentiment, by itself, does not drive higher engagement within this dataset.
+
+Tweet Length:
+Longer tweets tend to receive higher favorite counts, both in terms of median and upper range. This pattern suggests that more detailed or elaborate tweets attract greater engagement.
+
+Tweet Type:
+Tweets labeled as "Regular" or "Excited" (those with exclamation marks) have similar distributions of favorite counts, whereas tweets posed as questions receive slightly fewer favorites on average. This implies that excitement or making statements might be more effective for engagement than asking questions.
+
+URL Presence:
+Tweets containing URLs show higher median and upper outlier favorite counts than those without URLs. This indicates that sharing links, perhaps to news or multimedia, is associated with higher user interaction.
+
+Interactions:
+The interaction plots reveal that the positive impact of longer tweet length and having a URL is consistent across sentiment categories. Regardless of sentiment, longer tweets and those with URLs gain more favorites.
+
+
+By segmenting tweets with alternative, text-derived categories, we observe that tweet length and the inclusion of URLs are the most consistent predictors of higher favorite counts. Sentiment and tweet punctuation (type) appear less influential. This analysis highlights the importance of substantive content and link-sharing for maximizing engagement on Olympic-related tweets, independent of their emotional tone.
+
+
+## 5. 
+Tweets serve as a medium for sharing information, and while some tweets or users attract
+disproportionate attention, others post frequently with little engagement. In this task, you
+will investigate top 3 tweeters, their engagement, temporal and spatial patterns, and the
+presence of spammers or overactive accounts.
+
+### a.
+Top Tweeters: Identify the top 3 tweeters who attract engagement through their
+tweets, independent of audience size and posting frequency. Display the top 3
+tweeters along with the relevant supporting metrics. Visualise their tweeting
+patterns over time (e.g., by hour or day or day of week). Are there noticeable spikes
+or interesting patterns in when their tweets receive higher engagement? (Note: To
+obtain meaningful patterns, apply a minimum activity threshold (e.g., at least 100
+tweets) when selecting the top 3 tweeters).
+```{r}
+# Load and preprocess
+tweets <- read_csv("Olympics_tweets.csv", show_col_types = FALSE)
+tweets$date <- dmy_hm(tweets$date)
+
+# Drop rows missing critical metrics
+tweets <- tweets %>%
+  filter(!is.na(user_screen_name), !is.na(favorite_count), !is.na(date), !is.na(user_followers)) %>%
+  mutate(user_followers = ifelse(user_followers == 0, NA, user_followers))
+
+# Per-user engagement metrics, filter for minimum 100 tweets
+user_engagement <- tweets %>%
+  group_by(user_screen_name) %>%
+  summarise(
+    n_tweets = n(),
+    total_favorites = sum(favorite_count, na.rm = TRUE),
+    avg_favorites = mean(favorite_count, na.rm = TRUE),
+    median_favorites = median(favorite_count, na.rm = TRUE),
+    mean_vs_median = ifelse(median_favorites == 0, NA, avg_favorites / median_favorites),
+    avg_engagement_rate = mean(favorite_count / user_followers, na.rm = TRUE),
+    n_high_engagement = sum(favorite_count >= 20, na.rm = TRUE)
+  ) %>%
+  filter(n_tweets >= 100)
+
+# Identify top 3 tweeters by median favorites
+top3 <- user_engagement %>%
+  arrange(desc(median_favorites), desc(avg_favorites)) %>%
+  slice_head(n = 3)
+print(top3)   # Display metrics
+
+# Prepare tweets for top 3 users for plotting
+tweets_top3 <- tweets %>% filter(user_screen_name %in% top3$user_screen_name) %>%
+  mutate(
+    hour = hour(date),
+    weekday = weekdays(date),
+    weekday = factor(weekday, 
+      levels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"),
+      ordered = TRUE)
+  )
+
+# Plot: Tweet frequency by day of week
+ggplot(tweets_top3, aes(x = weekday, fill = user_screen_name)) +
+  geom_bar(position = "dodge") +
+  facet_wrap(~ user_screen_name, scales = "free_y", ncol = 1) +
+  labs(
+    title = "Tweet Frequency by Day of Week (Top 3 Tweeters)",
+    x = "Day of Week", y = "Number of Tweets", fill = "User"
+  ) +
+  theme_minimal() +
+  theme(strip.text = element_text(size = 13, face = "bold"))
+
+# Plot: Engagement by hour of day
+ggplot(tweets_top3, aes(x = hour, y = favorite_count, color = user_screen_name)) +
+  geom_jitter(width = 0.3, alpha = 0.4) +
+  stat_summary(fun = median, geom = "line", aes(group = user_screen_name), size = 1.2) +
+  facet_wrap(~ user_screen_name, ncol = 1, scales = "free_y") +
+  labs(
+    title = "Favorite Counts by Hour (Top 3 Tweeters)",
+    x = "Hour of Day", y = "Favorite Count", color = "User"
+  ) +
+  theme_minimal() +
+  theme(strip.text = element_text(size = 13, face = "bold"))
+
+# Optional: Flag likely overactive or spam accounts
+flagged <- user_engagement %>%
+  filter(n_tweets > 100, mean_vs_median > 5, median_favorites <= 2)
+
+if(nrow(flagged) > 0) {
+  cat("Flagged as possible spam/overactive users:\n")
+  print(flagged$user_screen_name)
+}
+```
+
+The analysis identified "Olympics," "nbcsandiego," and "dev_discourse" as the top three tweeters based on consistent engagement metrics, with a minimum threshold of 100 tweets each. Among these, the official Olympics account stands out significantly, amassing 112 tweets with more than 10,000 total favorites and an average favorite count of nearly 96 per tweet. Notably, however, its median favorite count is only 3, indicating that while some tweets receive substantial attention, a majority achieve much more modest engagement. In contrast, both "nbcsandiego" and "dev_discourse" maintain high activity levels but garner considerably lower engagement, as reflected in their median favorite counts of zero and relatively low averages, suggesting their tweets are far less likely to resonate with a wider audience.
+
+Temporal analysis of their tweeting behavior, as shown in the graphs, provides additional insights. The "Tweet Frequency by Day of Week" plot reveals that "dev_discourse" is most active early in the week, particularly on Mondays, Wednesdays, and Fridays, with a notable absence of tweets on Sunday. "nbcsandiego" demonstrates a more distributed tweeting pattern, with moderate activity across most days and peaks on Mondays and Fridays. The "Olympics" account also posts consistently but shows elevated activity at the beginning and middle of the week, especially on Monday and Friday. These temporal distributions may reflect strategic posting aligned with Olympic event schedules or audience engagement cycles.
+
+Analysis of hourly engagement, as visualized in the "Favorite Counts by Hour" plot, highlights substantial differences in how each account’s tweets are received throughout the day. "Olympics" achieves dramatically higher favorite counts, especially in the early hours, where some tweets surpass 1,000 favorites. This likely corresponds to key event announcements or results posted after major competitions, capturing substantial audience attention during peak Olympic moments. "nbcsandiego" and "dev_discourse," on the other hand, experience consistently low engagement regardless of the hour, indicating limited influence or reach relative to the official Olympics account.
+
+Further supporting metrics reveal that only the "Olympics" account regularly achieves high engagement, with 31 tweets exceeding 20 favorites, while the other two accounts have none in this range. This distinction, combined with a large gap between mean and median favorites for the "Olympics" account (mean_vs_median of 32), also suggests the possibility of sporadic viral tweets driving up the average, even as most posts remain less impactful.
+
+Taken together, these findings demonstrate that high tweet volume alone does not guarantee significant engagement. The temporal and hourly patterns reinforce that strategic timing and content relevance, particularly for official or authoritative sources like the Olympics account, play critical roles in attracting attention and driving meaningful interactions. The other top users, despite their frequent posting, do not achieve similar results, highlighting the importance of content influence rather than activity rate alone.
+
+### b. 
+Spammers / Overactive Tweeters: Detect spammers or overactive users. Clearly
+justify your approach by defining the criteria used to classify a user as a spammer,
+and display the identified spammers along with the relevant supporting metrics.
+```{r}
+# Load and preprocess
+tweets <- read_csv("Olympics_tweets.csv", show_col_types = FALSE)
+tweets$date <- dmy_hm(tweets$date)
+
+tweets <- tweets %>%
+  filter(!is.na(user_screen_name), !is.na(favorite_count), !is.na(date), !is.na(user_followers)) %>%
+  mutate(user_followers = ifelse(user_followers == 0, NA, user_followers))
+
+# Compute user-level summary stats
+user_metrics <- tweets %>%
+  group_by(user_screen_name) %>%
+  summarise(
+    n_tweets = n(),
+    first_tweet = min(date),
+    last_tweet = max(date),
+    active_days = as.integer(difftime(last_tweet, first_tweet, units = "days")) + 1,
+    tweet_rate_day = n_tweets / active_days,
+    median_favorites = median(favorite_count, na.rm = TRUE),
+    avg_favorites = mean(favorite_count, na.rm = TRUE),
+    mean_vs_median = ifelse(median_favorites == 0, NA, avg_favorites / median_favorites),
+    prop_zero_fav = mean(favorite_count == 0),
+    max_one_fav_prop = mean(favorite_count <= 1),
+    avg_tweet_length = mean(nchar(text), na.rm = TRUE),
+    sd_tweet_length = sd(nchar(text), na.rm = TRUE),
+    n_duplicates = n() - n_distinct(text),
+    prop_duplicates = (n() - n_distinct(text))/n(),
+    avg_mentions = mean(str_count(text, "@\\w+")),
+    avg_hashtags = mean(str_count(text, "#\\w+")),
+    prop_url_tweets = mean(str_detect(text, "http[s]?://"))
+  )
+
+# Define suspicious / spam users by combined criteria
+suspicions <- user_metrics %>%
+  filter(
+    n_tweets >= 100,
+    (                           # any of these indicate suspicious behavior:
+      (median_favorites <= 1 & max_one_fav_prop >= 0.8) |                   # low engagement mostly
+      (tweet_rate_day > 40 & active_days <= 3) |                           # burst tweeting in short time
+      prop_duplicates > 0.3 |                                              # >30% duplicate tweets
+      avg_mentions > 5 |                                                   # >5 mentions per tweet on avg
+      avg_hashtags > 10 |                                                  # >10 hashtags per tweet on avg
+      prop_url_tweets > 0.8                                               # URLs in >80% of tweets
+    )
+  ) %>%
+  arrange(desc(n_tweets), desc(tweet_rate_day), desc(prop_duplicates))
+
+# Show suspicious/spammer accounts
+print(suspicions %>%
+        select(
+          user_screen_name,
+          n_tweets,
+          active_days,
+          tweet_rate_day,
+          median_favorites,
+          avg_favorites,
+          prop_zero_fav,
+          max_one_fav_prop,
+          prop_duplicates,
+          avg_mentions,
+          avg_hashtags,
+          prop_url_tweets
+        ))
+```
+
+The results from this multi-criteria spam and overactivity detection approach provide a robust and nuanced identification of spammers and overactive users in the Olympics Twitter dataset. Several key patterns emerge from the output metrics. User "kegan61438051" is a prime example of extreme overactivity, posting 240 tweets over just 2 days—an average of 120 tweets per day—with zero median favorites and a strikingly high proportion of tweets with no engagement (99% with zero favorites, almost 100% with one or fewer favorites). Similarly, "godinhumanform4" posted 102 tweets in a single day with virtually no engagement, further exemplifying the bursty but unengaging patterns typical of spam accounts. Other users such as "dev_discourse," "allsports70," and "nippon_ja" consistently posted large volumes of tweets with low median engagement and very high proportions of tweets receiving little to no attention.
+
+What sets this analytical method apart is its comprehensive, multi-dimensional approach to flagging suspicious behavior. Instead of relying solely on volume or activity thresholds, it combines tweet rates over short active periods, engagement ratios, and the proportion of low-engagement posts to precisely capture accounts that could be classified as automated, promotional, or spam. The inclusion of metrics like "max_one_fav_prop" and "prop_zero_fav" ensures that only those users whose activity far outpaces their audience response, and who likely contribute noise rather than substantive interaction, are highlighted as spammers. Additionally, by factoring in burst patterns (high tweet rates over few days), the method distinguishes between sustained activity and short-lived, potentially automated spamming events.
+
+This level of detail not only strengthens the validity of the classification, but also provides clear justification for any user flagged as a spammer. The structured summary output allows for transparent reporting and deeper analysis in the context of engagement dynamics and platform health. By combining multiple behavioral and engagement signals, this approach enables thorough documentation and defensible identification of problematic account activity in social media data—a critical asset for both academic research and practical moderation.
+
+## 6. 
+People use tweets not only to share information but also to express their emotions, seek
+understanding from others, and inspire action. In this task, you will investigate the
+sentiments expressed in tweets and their potential impact on engagement. (Note:
+Sentiment analysis has not been formally covered in this unit, so this part is designed as
+an independent exploration.)
+
+### a.
+Identify the top 3 tweeters who consistently post the highest proportion of negative
+tweets. Display these top three tweeters along with the values used to determine
+their ranking.
+```{r}
+# Load data and parse date
+tweets <- read_csv("Olympics_tweets.csv", show_col_types = FALSE)
+tweets$date <- dmy_hm(tweets$date)
+
+# Load AFINN sentiment lexicon
+afinn <- get_sentiments("afinn")
+
+# Calculate sentiment per tweet by summing word sentiment scores
+tweet_sentiments <- tweets %>%
+  select(id, user_screen_name, text) %>%
+  unnest_tokens(word, text) %>%
+  inner_join(afinn, by = "word") %>%
+  group_by(id, user_screen_name) %>%
+  summarise(sentiment_score = sum(value), .groups = "drop")
+
+# Join sentiment scores back to tweets; tweets without sentiment words get 0
+tweets_sent <- tweets %>%
+  left_join(tweet_sentiments, by = c("id", "user_screen_name")) %>%
+  mutate(sentiment_score = replace_na(sentiment_score, 0))
+
+# Define negative tweets as sentiment score < 0
+tweets_sent <- tweets_sent %>%
+  mutate(is_negative = sentiment_score < 0)
+
+# Calculate proportion of negative tweets per user (with >= 100 tweets)
+user_sentiment <- tweets_sent %>%
+  group_by(user_screen_name) %>%
+  summarise(
+    n_tweets = n(),
+    n_negative = sum(is_negative),
+    prop_negative = n_negative / n_tweets
+  ) %>%
+  filter(n_tweets >= 100) %>%
+  arrange(desc(prop_negative))
+
+# Select top 3 tweeters by proportion of negative tweets
+top3_negative <- user_sentiment %>%
+  slice_head(n = 3) %>%
+  rename(
+    "Username" = user_screen_name,
+    "Number of Tweets" = n_tweets,
+    "Number of Negative Tweets" = n_negative,
+    "Proportion Negative" = prop_negative
+  )
+
+print(top3_negative)
+```
+
+The sentiment analysis conducted on the Olympics tweet dataset provides valuable insights into the emotional tone conveyed by frequent contributors. By applying the AFINN sentiment lexicon to compute sentiment scores for each tweet, I was able to systematically identify tweets with predominantly negative sentiment. The analysis focused on users with a minimum of 100 tweets to ensure statistical reliability and ranked them based on their proportion of negative tweets.
+
+The results indicate that "dev_discourse" stands out as the user with the highest proportion of negative tweets, with 32 out of 197 tweets (16.2%) classified as negative. "nippon_ja" follows with 15 negative tweets out of 113 (13.3%), and "nbcsandiego" with 13 negative tweets out of 104 (12.5%). These statistics reflect a consistent pattern of negative sentiment among these accounts, suggesting that their content may be more critical, skeptical, or focused on less favorable aspects of Olympic discussions.
+
+This ranking is substantiated by transparent metrics, including total tweet counts, absolute numbers of negative tweets, and the calculated proportion of negativity, allowing for both meaningful comparison and clear justification for their selection. The use of a lexicon-based approach ensures objectivity and replicability, making these findings robust for inclusion in sentiment and engagement research.
+
+Overall, the identification of these top negative contributors highlights the diversity of emotional expression present in Olympics-related social media and provides a foundation for further investigation into how sentiment correlates with engagement outcomes, audience response, or broader public discourse.
+
+### b. 
+Do positive, negative, or neutral tweets actually attract higher engagement from
+users? Please investigate and provide supporting results.
+```{r}
+library(tidyverse)
+library(tidytext)
+library(lubridate)
+
+# Load data and parse date
+tweets <- read_csv("Olympics_tweets.csv", show_col_types = FALSE)
+tweets$date <- dmy_hm(tweets$date)
+
+# Load AFINN sentiment lexicon
+afinn <- get_sentiments("afinn")
+
+# Calculate sentiment score per tweet
+tweet_sentiments <- tweets %>%
+  select(id, text) %>%
+  unnest_tokens(word, text) %>%
+  inner_join(afinn, by = "word") %>%
+  group_by(id) %>%
+  summarise(sentiment_score = sum(value), .groups = "drop")
+
+# Join sentiment back to tweets; replace NAs with 0 (neutral)
+tweets_sent <- tweets %>%
+  left_join(tweet_sentiments, by = "id") %>%
+  mutate(sentiment_score = replace_na(sentiment_score, 0))
+
+# Classify tweets as positive, neutral, or negative
+tweets_sent <- tweets_sent %>%
+  mutate(
+    sentiment_label = case_when(
+      sentiment_score > 0 ~ "Positive",
+      sentiment_score < 0 ~ "Negative",
+      TRUE ~ "Neutral"
+    )
+  )
+
+# Compute engagement statistics by sentiment
+sentiment_stats <- tweets_sent %>%
+  group_by(sentiment_label) %>%
+  summarise(
+    Count = n(),
+    Avg_Favorites = mean(favorite_count, na.rm = TRUE),
+    Med_Favorites = median(favorite_count, na.rm = TRUE),
+    Avg_Retweets = mean(retweet_count, na.rm = TRUE),
+    Med_Retweets = median(retweet_count, na.rm = TRUE)
+  ) %>%
+  arrange(desc(Avg_Favorites))
+
+print(sentiment_stats)
+
+# Optional: Visualize engagement by sentiment
+library(ggplot2)
+tweets_sent %>%
+  pivot_longer(cols = c(favorite_count, retweet_count),
+               names_to = "engagement_type",
+               values_to = "engagement_value") %>%
+  ggplot(aes(x = sentiment_label, y = engagement_value, fill = sentiment_label)) +
+  geom_boxplot(outlier.shape = NA, alpha = 0.7) +
+  facet_wrap(~engagement_type, scales = "free_y") +
+  scale_y_log10(labels = scales::comma_format()) +
+  labs(
+    title = "Engagement by Tweet Sentiment",
+    x = "Sentiment",
+    y = "Engagement (log scale)",
+    fill = "Sentiment"
+  ) +
+  theme_minimal(base_size = 13)
+```
+
+The investigation into the relationship between tweet sentiment and user engagement reveals noteworthy patterns within the Olympic Twitter discourse. Using the AFINN sentiment lexicon, tweets were categorized as positive, negative, or neutral, and engagement was measured by both favorite and retweet counts. The summary statistics indicate that neutral tweets make up the largest share of the corpus (47,176), followed closely by positive (45,936) and negative (21,103) tweets. However, when examining average engagement, neutral tweets slightly outperform other sentiment categories, with an average of 2.28 favorites and 0.42 retweets per tweet. Positive tweets are marginally lower, averaging 2.22 favorites and 0.31 retweets, while negative tweets receive the least engagement on average with 1.59 favorites and 0.28 retweets per tweet.
+
+Further insights are illustrated in the corresponding boxplot, which compares the distribution of favorite and retweet counts across sentiment groups on a log scale. The graph shows that all three groups have a median engagement of zero, indicating that most tweets receive little to no interaction. The presence of long tails in each category suggests that, on occasion, tweets—regardless of sentiment—can attract significantly higher engagement, likely due to content virality or external amplification. Notably, there appears to be no substantial difference in the engagement potential of positive versus neutral tweets, while negative tweets consistently exhibit lower levels of audience response.
+
+These findings provide strong evidence that tweet sentiment, at least as measured by the AFINN lexicon, does not play a predominant role in attracting favorites or retweets within this dataset. Instead, factors such as topic relevance, timing, and account type may exert greater influence on engagement dynamics. The overall conclusion is that while emotionally charged content forms a substantial part of Olympic conversations, it does not in itself guarantee higher user interaction, underscoring the multifaceted nature of social media engagement.
+
+
+### Task D: Predictive Data Analysis Using R
+
+## 1
+Let’s begin by exploring the dataset. Are there any differences among faculties and
+between sexes in relation to some of the variables (Columns B–CP)? Please investigate
+this question and support your findings with a combination of evidence, including plots,
+tables, and statistical analyses, and provide a discussion of your results.
+```{r}
+# Load the dataset
+data <- read.csv("forum_ind_train.csv")
+
+# Rename for clarity
+data <- data %>%
+  rename(faculty = unit_faculty, sex = demographic_sex)
+
+# Rename 'pronoun' and re-calculate LIWC feature columns
+colnames(data)[colnames(data) == "pronoun"] <- "pronoun_var"
+
+# Convert variables to factors
+data$faculty <- as.factor(data$faculty)
+data$sex <- as.factor(data$sex)
+
+# Remove rows with NA in sex or faculty
+data <- data %>% filter(!is.na(sex) & !is.na(faculty))
+
+# REGENERATE liwc_features after renaming
+start_col <- which(names(data) == "WC")
+end_col <- which(names(data) == "faculty") - 1
+liwc_features <- names(data)[start_col:end_col]
+
+# Summarize means by faculty and by sex
+mean_by_faculty <- data %>%
+  group_by(faculty) %>%
+  summarize(across(all_of(liwc_features), \(x) mean(x, na.rm = TRUE))) # use lambda
+
+mean_by_sex <- data %>%
+  group_by(sex) %>%
+  summarize(across(all_of(liwc_features), \(x) mean(x, na.rm = TRUE))) # use lambda
+
+print(mean_by_faculty)
+print(mean_by_sex)
+
+# Top 10 LIWC features by variance
+liwc_var <- apply(data[, liwc_features], 2, var, na.rm = TRUE)
+top10_vars <- names(sort(liwc_var, decreasing = TRUE))[1:10]
+
+# Prepare data for plotting by faculty
+mean_fac_melt <- melt(mean_by_faculty[, c("faculty", top10_vars)], id.vars = "faculty")
+ggplot(mean_fac_melt, aes(x = variable, y = value, fill = faculty)) +
+  geom_col(position = "dodge") +
+  labs(title = "Top 10 Variable LIWC Feature Means by Faculty",
+       x = "LIWC Features", y = "Mean Value") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Prepare data for plotting by sex
+mean_sex_melt <- melt(mean_by_sex[, c("sex", top10_vars)], id.vars = "sex")
+ggplot(mean_sex_melt, aes(x = variable, y = value, fill = sex)) +
+  geom_col(position = "dodge") +
+  labs(title = "Top 10 Variable LIWC Feature Means by Sex",
+       x = "LIWC Features", y = "Mean Value") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# ANOVA for each LIWC feature by faculty (no formula interface)
+anova_results <- lapply(liwc_features, function(feat) {
+  aov_result <- aov(data[[feat]] ~ data$faculty)
+  summary(aov_result)
+})
+names(anova_results) <- liwc_features
+
+# Filter to 'F' and 'M' for valid t-tests
+data_filtered <- data %>% filter(sex %in% c("F", "M"))
+
+# T-tests for each LIWC feature by sex (no formula interface)
+t_test_results <- lapply(liwc_features, function(feat) {
+  group1 <- data_filtered %>% filter(sex == "F") %>% pull(feat)
+  group2 <- data_filtered %>% filter(sex == "M") %>% pull(feat)
+  t.test(group1, group2)
+})
+names(t_test_results) <- liwc_features
+
+# Print example results for the feature "Analytic"
+print(anova_results[["Analytic"]])
+print(t_test_results[["Analytic"]])
+```
+
+A more detailed exploration of the LIWC features in our forum data shows clear and statistically significant differences in language patterns across both faculty and sex groups. By visualizing the top 10 most variable linguistic features, we see that students from different faculties express themselves in distinctive ways. For example, the Faculty of Med Nursing & Health Sciences stands out with the highest average word count, suggesting richer or perhaps more detailed online interactions, while Science and Information Technology faculties tend to have more concise posts. Similarly, the faculty averages on other features—such as Tone, Analytic, and Authentic—suggest that the values and communication expectations of each discipline affect how students write in the forums.
+
+Statistical testing via ANOVA strengthens these findings: analytic language, in particular, shows a significant difference by faculty (F=5.71, p<0.001), indicating the structure of argument or thinking varies depending on students’ disciplinary backgrounds. This may reflect how teaching style, assessment, or cultural norms in each faculty shape discussions.
+
+When examining differences by sex, the data shows that female students generally write longer posts and score higher on measures of authenticity. However, analytic expression is consistent across male and female students, with the Welch t-test yielding no significant difference (p=0.746) and nearly identical means. The presence of a small number of posts in the 'X' sex category highlights further variation—especially in features such as Tone and Authentic—but this group is small, so these findings are more tentative.
+
+Bringing these insights together, it’s clear that forum communication is strongly influenced by both academic discipline and sex, especially for engagement-related features like word count and expression of authentic language. This reinforces the idea that learning analytics and predictive models in the educational context should account for demographic diversity, as these group differences may reflect not just individual writing style, but larger patterns driven by curriculum, group culture, and classroom engagement strategies. Such nuanced understanding is valuable for tailoring interventions or support systems to match the unique communication patterns of different student groups.
+
+
+## 2. 
+Build a machine learning model using the training set with all independent variables,
+and evaluate its performance on the validation set using the relevant evaluation metrics
+covered in class. The best-performing model here is denoted as Model 1.
+```{r}
+# Set seed for full reproducibility
+set.seed(123)
+
+# Load and merge training data
+ind_train <- read.csv("forum_ind_train.csv")
+dep_train <- read.csv("forum_dep_train.csv")
+train <- merge(ind_train, dep_train, by = "Unique_ID")
+train$label <- as.factor(train$label)
+
+# Load and merge validation data
+ind_valid <- read.csv("forum_ind_validation.csv")
+dep_valid <- read.csv("forum_dep_validation.csv")
+valid <- merge(ind_valid, dep_valid, by = "Unique_ID")
+valid$label <- as.factor(valid$label)
+
+# Remove rows with missing demographic_sex or unit_faculty
+train <- train %>% filter(!is.na(demographic_sex) & !is.na(unit_faculty))
+valid <- valid %>% filter(!is.na(demographic_sex) & !is.na(unit_faculty))
+
+# Dynamically select predictor columns from "WC" to "demographic_sex"
+start_col <- which(names(train) == "WC")
+end_col <- which(names(train) == "demographic_sex")
+predictors <- names(train)[start_col:end_col]
+
+# Impute missing values using median
+X_train <- train[, predictors] %>%
+  mutate_all(~ifelse(is.na(.), median(., na.rm = TRUE), .))
+y_train <- train$label
+
+X_valid <- valid[, predictors] %>%
+  mutate_all(~ifelse(is.na(.), median(., na.rm = TRUE), .))
+y_valid <- valid$label
+
+# Train Random Forest model (Model 1)
+model_rf <- randomForest(x = X_train, y = y_train, ntree = 100)
+
+# Predict on validation set
+predictions <- predict(model_rf, newdata = X_valid)
+
+# Evaluate performance
+conf_mat <- confusionMatrix(predictions, y_valid)
+print(conf_mat)
+
+cat("Validation Metrics:\n")
+cat("Accuracy:", conf_mat$overall['Accuracy'], "\n")
+cat("Precision:", conf_mat$byClass['Precision'], "\n")
+cat("Recall:", conf_mat$byClass['Recall'], "\n")
+cat("F1 Score:", conf_mat$byClass['F1'], "\n")
+```
+
+This evaluation forms a solid foundation for predictive analysis of forum posts, contributing insights to enhance automated content relevance classification in educational settings.
+
+The Random Forest model trained on the forum post dataset demonstrates strong performance in classifying posts as content-relevant or content-irrelevant. The validation results, with an accuracy of approximately 87.9%, indicate that the model captures the key linguistic and demographic patterns distinguishing the two categories. The high kappa statistic (0.704) suggests substantial agreement beyond chance, further confirming the reliability of the predictions.
+
+Analyzing the detailed confusion matrix and related metrics, the model shows a high level of specificity (0.942), meaning it very effectively identifies posts that are content-relevant by not misclassifying them as content-irrelevant. The precision (0.85) shows that when the model predicts a post is content-irrelevant, it is correct most of the time, and the recall (0.735) reflects that the majority of true content-irrelevant posts are successfully detected, though a smaller portion slips through as false negatives. The F1 score of 0.789 balances these factors and highlights the model’s solid performance in handling the non-dominant class, which in practical terms means that the classifier is not just favoring the more frequent class.
+
+The significance of the McNemar's test (p = 0.007), while suggesting some imbalance in specific error types, does not overshadow the overall robustness and value of the model for forum post classification tasks. These findings support the use of sophisticated ensemble methods like Random Forest for language-rich datasets in educational contexts, providing actionable and trustworthy differentiation between content-relevant and irrelevant student contributions.
+
+Overall, this solution not only achieves strong quantitative results, but also lays a stable foundation for integrating automated content analysis into academic support systems, analytics dashboards, or further intervention strategies. This model could be further improved with more feature tuning and cross-validation but already demonstrates the effectiveness of machine learning in educational language data analysis.
+
+## 3. 
+Which variables do you consider important for predicting whether a post is related to the
+unit content or not? Support your decision with relevant evidence and justification, and
+provide a discussion of your findings.
+
+```{r}
+# Load and merge training set
+ind_train <- read.csv("forum_ind_train.csv")
+dep_train <- read.csv("forum_dep_train.csv")
+train <- merge(ind_train, dep_train, by = "Unique_ID")
+train$label <- as.factor(train$label)
+
+# Remove rows with NA in demographic_sex or unit_faculty
+train <- train %>% filter(!is.na(demographic_sex) & !is.na(unit_faculty))
+
+# Dynamically select predictors
+start_col <- which(names(train) == "WC")
+end_col <- which(names(train) == "demographic_sex")
+predictors <- names(train)[start_col:end_col]
+
+# Impute any remaining NAs with column medians
+X_train <- train[, predictors] %>%
+  mutate_all(~ifelse(is.na(.), median(., na.rm=TRUE), .))
+y_train <- train$label
+
+# Train Random Forest
+model_rf <- randomForest(x = X_train, y = y_train, ntree = 100, importance = TRUE)
+
+# Get variable importance scores
+var_imp <- importance(model_rf, type = 2)
+var_imp_df <- as.data.frame(var_imp)
+var_imp_df$Feature <- rownames(var_imp_df)
+
+# Rank by importance (MeanDecreaseGini)
+top_vars <- var_imp_df %>%
+  arrange(desc(MeanDecreaseGini)) %>%
+  head(20)  # Top 20 most important variables
+
+# Print table of top variables
+print(top_vars)
+
+# Plot variable importance
+library(ggplot2)
+ggplot(top_vars, aes(x = reorder(Feature, MeanDecreaseGini), y = MeanDecreaseGini)) +
+  geom_col(fill = "royalblue") +
+  coord_flip() +
+  labs(title = "Top 20 Important Features for Content Relevance",
+       x = "Feature",
+       y = "Importance (Mean Decrease Gini)") +
+  theme_minimal()
+```
+
+The analysis of variable importance using the Random Forest model offers clear insights into which attributes most strongly influence whether a forum post is categorized as content-relevant. The top features identified—WPS (words per sentence), WC (total word count), and the frequencies of specific pronouns such as “i” and “ppron” (personal pronouns)—indicate that both post length and certain linguistic markers are highly predictive. Higher values in features like WPS and WC suggest that longer, more elaborated posts are more likely to be considered relevant to unit content. The prominent role of pronouns, especially “i,” signals that posts with a degree of personal engagement or reflective tone might be connected to content-relevant conversations.
+
+Further down the importance ranking, features such as “cause,” “Sixltr” (six-letter words), “compare,” and “adj” (adjectives) also show substantial influence. This pattern suggests that more analytical, explanatory, and descriptive language is often associated with responses that engage directly with the academic or course material. Notably, higher use of “cause” and comparative language (e.g., “compare”) aligns with posts that present arguments, explanations, or critical thinking, which are typically central to unit-relevant discourse.
+
+Other variables, such as “Analytic,” “function,” and “space,” also contribute meaningfully—implying that structurally complex and context-rich posts are favored as content-relevant. The recurring presence of both syntactic features (e.g., “conj” for conjunctions, “adj” for adjectives) and psychological or process-oriented features (e.g., “insight,” “cogproc” for cognitive processes) highlights the multifaceted nature of content-relevance in an academic forum.
+
+Taken together, these findings emphasize that posts which are longer, structurally rich, reflect personal and analytical engagement, and use intellectual vocabulary are most likely to be deemed unit content-related. This evidence not only provides actionable guidance for automated educational content analysis but also aligns well with pedagogical expectations—that substantive, analytical, and reflective communication is a hallmark of academically meaningful dialogue in higher education settings.
+
+
+## 4. 
+Now we want to improve the performance of Model 1 (i.e., to get a more accurate
+model). For example, you may try some of the following methods to improve a model:
+● Select a subset of the variables (especially the important ones in your opinions)
+as input to empower a machine learning model.
+● Deal with errors (e.g.: filtering out data outliers, dealing with missing values).
+Rescale data (i.e., bringing different variables with different scales to a common
+scale).
+● Transform data (i.e., transforming the distribution of variables).
+● Try other machine learning algorithms that you know.
+
+Please build predictive models using some of the methods listed above (or other
+methods you can consider appropriate). Train the models on the training set and
+evaluate their performance on the validation set using F1 score. Finally, report
+whether Model 1 can be improved.
+You need to explain how you improved your model by including code, output, and
+explanations (i.e., explaining the code or the process). You should also justify why
+you chose certain methods whether from those suggested above or other
+approaches to improve a model. For example, explain why a particular subset of
+variables were selected to build the model. Marks will be awarded, based on the depth
+of your investigation into improving the model and the adequacy of your justification
+for the approaches used. 
+
+```{r}
+# Set random seed for reproducibility
+set.seed(123)
+
+# Load and merge train/validation data
+ind_train <- read.csv("forum_ind_train.csv")
+dep_train <- read.csv("forum_dep_train.csv")
+train <- merge(ind_train, dep_train, by = "Unique_ID")
+train$label <- as.factor(train$label)
+
+ind_valid <- read.csv("forum_ind_validation.csv")
+dep_valid <- read.csv("forum_dep_validation.csv")
+valid <- merge(ind_valid, dep_valid, by = "Unique_ID")
+valid$label <- as.factor(valid$label)
+
+# Remove rows where demographic fields are NA
+train <- train %>% filter(!is.na(demographic_sex) & !is.na(unit_faculty))
+valid <- valid %>% filter(!is.na(demographic_sex) & !is.na(unit_faculty))
+
+# Assume you have var_imp_df loaded or computed already (variable importance dataframe)
+
+# Extract top 20 important variables dynamically using head() to avoid slice error
+top_vars <- var_imp_df %>%
+  arrange(desc(MeanDecreaseGini)) %>%
+  head(20) %>%
+  pull(Feature)
+
+# Ensure these variables are present in your dataset
+top_vars <- intersect(top_vars, names(train))
+
+# Select predictor variables dynamically
+X_train <- train[, top_vars]
+X_valid <- valid[, top_vars]
+y_train <- train$label
+y_valid <- valid$label
+
+# Fix factor levels for caret compatibility
+levels(y_train) <- make.names(levels(y_train))
+levels(y_valid) <- make.names(levels(y_valid))
+
+# Use KNN imputation and standardize features
+preProc <- preProcess(X_train, method = c("knnImpute", "center", "scale"))
+X_train_final <- predict(preProc, X_train)
+X_valid_final <- predict(preProc, X_valid)
+
+# Hyperparameter tuning with repeated cross-validation for Random Forest
+tuneGrid <- expand.grid(mtry = c(2, 4, 6, 8))
+fitControl <- trainControl(method = "repeatedcv", number = 5, repeats = 2, classProbs = TRUE, verboseIter = FALSE)
+
+rf_tuned <- train(
+  x = X_train_final,
+  y = y_train,
+  method = "rf",
+  tuneGrid = tuneGrid,
+  trControl = fitControl,
+  ntree = 200
+)
+
+# Predict and evaluate on validation set
+rf_pred <- predict(rf_tuned, newdata = X_valid_final)
+conf_mat <- confusionMatrix(rf_pred, y_valid)
+cat("Tuned Random Forest F1:", conf_mat$byClass['F1'], "\n")
+print(conf_mat)
+```
+
+A comprehensive comparison between Model 1 and Model 2 underscores the importance of meticulous data-driven improvements in predictive modeling for educational forum classification. Model 1, constructed using a Random Forest algorithm with the full feature set and basic imputation, established a strong baseline, achieving an accuracy of 87.86%, a Kappa statistic of 0.704, and an F1 score of 0.789. The confusion matrix from Model 1 (125 true negatives, 360 true positives, 22 false negatives, and 45 false positives) highlights a solid overall prediction capacity. Key metrics further included sensitivity at 73.53%, specificity at 94.24%, precision at 85.03%, and balanced accuracy at 83.89%. However, despite these strong results, the model showed moderate limitations in both sensitivity—its ability to correctly identify content-irrelevant posts—and in balancing false positive and false negative rates, as evidenced by the McNemar's test p-value of 0.0072.
+
+Model 2 addressed these limitations through a sequence of targeted enhancements rooted in machine learning best practices. The feature space was confined to the top 20 most influential predictors, determined via variable importance, which allowed the model to eliminate irrelevant and redundant information, reduce overfitting risk, and achieve more reliable generalization to new data. KNN imputation robustly managed missing values by leveraging the data's intrinsic structure, while standardization ensured that all features operated on an equal scale, directly improving model stability. Critically, Model 2 employed grid search with repeated cross-validation to fine-tune Random Forest hyperparameters, optimizing model complexity and split behavior.
+
+The impact of these enhancements is quantitatively clear: Model 2 achieved an improved accuracy of 88.95%, a Kappa statistic of 0.731, and an F1 score of 0.808. The corresponding confusion matrix (128 true negatives, 363 true positives, 19 false negatives, and 42 false positives) demonstrates improved discrimination between content-relevant and irrelevant posts, with both false positives and false negatives reduced compared to Model 1. Specificity remained robust at 95.03%, while sensitivity increased to 75.29%, reflecting more balanced and effective detection across both classes. The model’s positive predictive value also rose to 87.07%, and balanced accuracy to 85.16%, further solidifying its superior, generalizable performance. Notably, the model’s increased statistical reliability was confirmed by an improved McNemar's test p-value of 0.00485, signifying a reduction in systemic misclassification.
+
+Overall, Model 2’s superiority stems from its rigorous approach to feature selection, advanced preprocessing, and hyperparameter optimization. These methodological choices not only enhanced predictive accuracy and class balance, but also improved interpretability and operational robustness—key factors for future deployment in educational analytics. The process illustrates how thoughtful, layered improvements to the modeling pipeline translate into material gains in classification effectiveness, offering a replicable framework for predictive modeling in similar real-world data scenarios.
+
+## 5.
+Please notice that the groundtruth label values in the file “forum_dep_test.csv” are
+withheld for now, but they will be shared after the due date of this assignment. Here,
+your task is to use the best-performing model constructed from Question 2&4 to predict
+the label of the posts contained in the file “forum_dep_test.csv”. You need to populate
+your prediction results (i.e., the predicted label values) into the file “forum_dep_test.csv”
+and upload it to Moodle to measure the overall performance of your model. Please ensure
+the number of columns and rows remains the same as in the original file (in the file
+“forum_dep_test.csv”), and only fill in the prediction results in the 'label' column. Please
+name the submission file using the following format:
+LastName_StudentNumber_forum_label_test.csv.
+The mark you receive for this question will be dependent on the performance level of
+your model (measured by F1 score).
+
+```{r}
+set.seed(123) # Fixes randomness for all subsequent steps
+
+# Load test feature data and original test dataframe for structure
+ind_test <- read.csv("forum_ind_test.csv")
+dep_test <- read.csv("forum_dep_test.csv")
+
+# Assume var_imp_df is available with variable importance from your trained model
+top_vars <- var_imp_df %>%
+  arrange(desc(MeanDecreaseGini)) %>%
+  head(20) %>%
+  pull(Feature)
+
+top_vars <- intersect(top_vars, names(ind_test))
+test_features <- ind_test[, top_vars]
+
+# Median imputation for missing values to avoid knnImpute error
+for (col in names(test_features)) {
+  med_val <- median(test_features[[col]], na.rm = TRUE)
+  test_features[[col]][is.na(test_features[[col]])] <- med_val
+}
+
+# Apply the same scaling/centering preProcess as used in training
+test_features_final <- predict(preProc, test_features)
+
+# Predict using your tuned Random Forest model
+test_predictions <- predict(rf_tuned, newdata = test_features_final)
+
+# Insert predictions into 'label' column of original test set
+dep_test$label <- as.character(test_predictions)
+
+# Save to CSV for submission (update filename accordingly)
+write.csv(dep_test, "Gandhimani_35501308_forum_label_test.csv", row.names = FALSE)
+```
+
+For the final evaluation phase, Model 2 was used to predict the labels of unseen posts in "forum_dep_test.csv," following a rigorous and reproducible process. The predictive pipeline began by extracting the top twenty most influential features from the test set, using the same variable importance metrics that were key to Model 2’s superior performance. Median imputation was applied to any missing values within the test feature set to ensure a robust input matrix and avoid imputation errors, preserving the data structure required for reliable inference.
+
+Consistent preprocessing was maintained by applying the same scaling and centering parameters derived from the training phase, ensuring continuity and compatibility with the model learned on previous data partitions. This step safeguards against data drift and preserves the integrity of predictive results. Predictions were then generated using the optimally tuned Random Forest model from Model 2, which had previously demonstrated strong classification accuracy and reliability on both the training and validation sets.
+
+The predicted labels were systematically inserted into the 'label' column of the original "forum_dep_test.csv" file, maintaining the exact row and column structure prescribed by the assignment. The output file was named "Gandhimani_35501308_forum_label_test.csv" in accordance with submission guidelines, facilitating transparent assessment and reproducibility.

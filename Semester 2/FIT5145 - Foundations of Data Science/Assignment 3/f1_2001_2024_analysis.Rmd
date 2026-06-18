@@ -1,0 +1,466 @@
+---
+title: "F1 Analysis (2001–2024) — R/Tidyverse"
+author: "Your Name"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    df_print: paged
+---
+
+> **Note**: This RMD expects the Kaggle *Formula 1 World Championship* CSVs (Rao dataset) in the working directory:
+> `races.csv`, `results.csv`, `drivers.csv`, `constructors.csv`, `qualifying.csv`, `pit_stops.csv`, `status.csv`, `constructor_standings.csv`, `driver_standings.csv`, `circuits.csv`.
+> If you have a newer dataset (e.g., 1950–2024), the code will automatically include newer seasons.
+
+```{r setup, message=FALSE, warning=FALSE}
+library(readr)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(lubridate)
+library(ggplot2)
+library(forcats)
+library(scales)
+library(knitr)
+```
+
+## 1) Load data
+
+```{r load-data}
+# Change path if your CSVs are stored elsewhere
+races            <- read_csv("races.csv", show_col_types = FALSE)
+results          <- read_csv("results.csv", show_col_types = FALSE)
+drivers          <- read_csv("drivers.csv", show_col_types = FALSE)
+constructors     <- read_csv("constructors.csv", show_col_types = FALSE)
+qualifying       <- suppressWarnings(read_csv("qualifying.csv", show_col_types = FALSE))
+pit_stops        <- suppressWarnings(read_csv("pit_stops.csv", show_col_types = FALSE))
+status           <- read_csv("status.csv", show_col_types = FALSE)
+constructor_stds <- read_csv("constructor_standings.csv", show_col_types = FALSE)
+driver_stds      <- read_csv("driver_standings.csv", show_col_types = FALSE)
+circuits         <- read_csv("circuits.csv", show_col_types = FALSE)
+
+# Harmonise dates
+races <- races %>% mutate(raceDate = ymd(date))
+drivers <- drivers %>% mutate(dob = ymd(dob))
+
+# Identify available season range
+season_min <- min(races$year, na.rm = TRUE)
+season_max <- max(races$year, na.rm = TRUE)
+season_min; season_max
+```
+
+### Filter analysis window
+
+```{r filter-window}
+# Focus window inspired by the referenced Kaggle notebook
+analysis_start <- 2001
+analysis_end   <- min(2024, season_max)  # handle whatever the dataset provides
+races_win      <- races %>% filter(year >= analysis_start, year <= analysis_end)
+
+# Handy joins
+results_full <- results %>%
+  inner_join(races %>% select(raceId, year, round, raceDate, circuitId, name), by = "raceId") %>%
+  left_join(drivers %>% mutate(driverName = str_squish(paste(forename, surname))), by = "driverId") %>%
+  left_join(constructors %>% rename(constructorName = name), by = "constructorId") %>%
+  left_join(status, by = "statusId") %>%
+  left_join(circuits %>% select(circuitId, circuitName = name, country), by = "circuitId")
+
+# Helper: winner & podium flags
+results_full <- results_full %>%
+  mutate(
+    is_win   = positionOrder == 1,
+    is_podium= positionOrder %in% 1:3
+  ) %>%
+  filter(year >= analysis_start, year <= analysis_end)
+```
+
+## 2) Season-level views
+
+### 2.1 Top drivers by wins (2001–present)
+
+```{r top-drivers-wins, fig.width=8, fig.height=5}
+top_drivers <- results_full %>%
+  filter(is_win) %>%
+  count(driverName, sort = TRUE) %>%
+  slice_head(n = 15) %>%
+  mutate(driverName = fct_reorder(driverName, n))
+
+ggplot(top_drivers, aes(x = driverName, y = n)) +
+  geom_col() +
+  coord_flip() +
+  labs(title = "Top 15 Drivers by Wins", x = NULL, y = "Wins since 2001")
+```
+
+### 2.2 Constructor dominance by season (wins per season)
+
+```{r constructor-dominance, fig.width=9, fig.height=5}
+constructor_wins_by_season <- results_full %>%
+  filter(is_win) %>%
+  count(year, constructorName)
+
+ggplot(constructor_wins_by_season, aes(x = year, y = n, fill = constructorName)) +
+  geom_col(position = "stack") +
+  labs(title = "Constructor Wins per Season", x = "Season", y = "Wins") +
+  theme(legend.position = "bottom")
+```
+
+### 2.3 Podium share by constructor (stacked %)
+
+```{r podium-share, fig.width=9, fig.height=5}
+podium_share <- results_full %>%
+  filter(is_podium) %>%
+  count(year, constructorName) %>%
+  group_by(year) %>%
+  mutate(pct = n / sum(n))
+
+ggplot(podium_share, aes(x = year, y = pct, fill = constructorName)) +
+  geom_col(position = "fill") +
+  scale_y_continuous(labels = percent) +
+  labs(title = "Podium Share by Constructor", x = "Season", y = "Share of Podiums") +
+  theme(legend.position = "bottom")
+```
+
+## 3) Qualifying vs Race: how much does grid matter?
+
+```{r grid-finish-heat, fig.width=8, fig.height=6}
+grid_finish <- results_full %>%
+  filter(!is.na(grid), grid >= 0, !is.na(positionOrder)) %>%
+  mutate(grid_cut = case_when(
+    grid <= 3  ~ "P1–P3",
+    grid <= 6  ~ "P4–P6",
+    grid <= 10 ~ "P7–P10",
+    grid <= 15 ~ "P11–P15",
+    TRUE       ~ "P16+"
+  ),
+  finish_cut = case_when(
+    positionOrder <= 3  ~ "P1–P3",
+    positionOrder <= 6  ~ "P4–P6",
+    positionOrder <= 10 ~ "P7–P10",
+    positionOrder <= 15 ~ "P11–P15",
+    TRUE                ~ "P16+"
+  )) %>%
+  count(grid_cut, finish_cut) %>%
+  group_by(grid_cut) %>%
+  mutate(pct = n/sum(n))
+
+ggplot(grid_finish, aes(x = grid_cut, y = finish_cut, fill = pct)) +
+  geom_tile() +
+  scale_fill_continuous(labels = percent) +
+  labs(title = "Grid Position vs Finish — Heatmap", x = "Grid (buckets)", y = "Finish (buckets)", fill = "Share")
+```
+
+### Position change distribution
+
+```{r position-change, fig.width=8, fig.height=5}
+pos_change <- results_full %>%
+  filter(grid >= 0, !is.na(positionOrder)) %>%
+  mutate(delta = grid - positionOrder)
+
+ggplot(pos_change, aes(x = delta)) +
+  geom_histogram(binwidth = 1, boundary = 0) +
+  labs(title = "Race Position Change (Grid - Finish)", x = "Positions Gained (+) / Lost (−)", y = "Count")
+```
+
+## 4) Reliability: DNF trends over time
+
+```{r dnf-trends, fig.width=9, fig.height=5}
+dnf_status_terms <- c("Accident","Collision","Engine","Gearbox","Hydraulics","Electrical","Brakes","Suspension","Transmission",
+                      "Puncture","Overheating","Fuel","Mechanical","Clutch","Turbo","Driveshaft","Oil","Power Unit","DNF","Did not finish","Withdrew","Water pump")
+dnf_by_year <- results_full %>%
+  mutate(is_dnf = case_when(
+    str_detect(tolower(status), "finished") ~ FALSE,
+    str_detect(tolower(status), "lap") ~ FALSE, # finished but lapped
+    TRUE ~ TRUE
+  )) %>%
+  group_by(year) %>%
+  summarise(dnf_rate = mean(is_dnf, na.rm = TRUE))
+
+ggplot(dnf_by_year, aes(x = year, y = dnf_rate)) +
+  geom_line() + geom_point() +
+  scale_y_continuous(labels = percent) +
+  labs(title = "DNF Rate by Season", x = "Season", y = "DNF Rate")
+```
+
+## 5) Pit stops: how fast are they getting?
+
+```{r pit-stops, fig.width=9, fig.height=5}
+if (exists("pit_stops") && nrow(pit_stops) > 0) {
+  pit_join <- pit_stops %>%
+    left_join(races %>% select(raceId, year, raceDate), by = "raceId") %>%
+    filter(year >= analysis_start, year <= analysis_end) %>%
+    mutate(duration_ms = ifelse(!is.na(milliseconds), milliseconds, as.numeric(ms(duration))),
+           duration_s = duration_ms / 1000)
+
+  pit_summary <- pit_join %>%
+    group_by(year) %>%
+    summarise(median_pit = median(duration_s, na.rm = TRUE),
+              p10 = quantile(duration_s, 0.1, na.rm = TRUE),
+              p90 = quantile(duration_s, 0.9, na.rm = TRUE))
+
+  ggplot(pit_summary, aes(x = year, y = median_pit)) +
+    geom_line() + geom_point() +
+    geom_ribbon(aes(ymin = p10, ymax = p90), alpha = 0.2) +
+    labs(title = "Pit Stop Duration (median with 10–90% band)", x = "Season", y = "Seconds")
+} else {
+  plot.new(); text(0.5,0.5,"pit_stops.csv not available in this dataset")
+}
+```
+
+## 6) Driver age & experience
+
+```{r age-experience, fig.width=9, fig.height=5}
+driver_debuts <- results_full %>%
+  group_by(driverId) %>%
+  summarise(first_year = min(year, na.rm = TRUE)) %>%
+  left_join(drivers %>% select(driverId, driverName, dob), by = "driverId")
+
+winners <- results_full %>% filter(is_win) %>%
+  select(driverId, driverName, raceDate) %>%
+  left_join(driver_debuts, by = "driverId") %>%
+  mutate(age_win = as.numeric(difftime(raceDate, dob, units = "days"))/365.25,
+         exp_years = year(raceDate) - first_year)
+
+ggplot(winners, aes(x = year(raceDate), y = age_win)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "loess", se = FALSE) +
+  labs(title = "Age of Race Winners Over Time", x = "Season", y = "Age at Win (years)")
+```
+
+## 7) Circuits: which tracks see the most overtaking (proxy)?
+
+*Proxy:* positions gained (grid - finish) as a crude overtaking indicator.
+
+```{r circuits-overtake, fig.width=9, fig.height=6}
+circuit_overtake <- results_full %>%
+  filter(grid >= 0, !is.na(positionOrder)) %>%
+  group_by(circuitName, country) %>%
+  summarise(mean_gain = mean(grid - positionOrder, na.rm = TRUE),
+            races = n()) %>%
+  filter(races >= 100) %>%
+  arrange(desc(mean_gain)) %>%
+  slice_head(n = 15) %>%
+  mutate(label = fct_reorder(paste0(circuitName, " (", country, ")"), mean_gain))
+
+ggplot(circuit_overtake, aes(x = label, y = mean_gain)) +
+  geom_col() +
+  coord_flip() +
+  labs(title = "Circuits with Highest Avg. Positions Gained (proxy)", x = NULL, y = "Avg. Positions Gained")
+```
+
+## 8) Simple predictive model: podium probability
+
+```{r model-podium, message=FALSE, warning=FALSE}
+library(rsample)
+library(recipes)
+library(parsnip)
+library(workflows)
+library(yardstick)
+
+model_df <- results_full %>%
+  filter(!is.na(grid), grid >= 0, !is.na(positionOrder)) %>%
+  mutate(podium = factor(if_else(positionOrder <= 3, "yes", "no")),
+         grid_log = log1p(grid)) %>%
+  group_by(driverId) %>%
+  mutate(driver_form = zoo::rollapply(positionOrder, width = 5, align = "right", fill = NA, FUN = function(x) mean(x, na.rm = TRUE))) %>%
+  ungroup() %>%
+  mutate(driver_form = replace_na(driver_form, mean(driver_form, na.rm = TRUE))) %>%
+  select(podium, grid, grid_log, year, constructorName, driver_form)
+
+set.seed(42)
+split <- initial_split(model_df, prop = 0.8, strata = podium)
+train <- training(split)
+test  <- testing(split)
+
+rec <- recipe(podium ~ grid_log + year + constructorName + driver_form, data = train) %>%
+  step_string2factor(constructorName) %>%
+  step_dummy(all_nominal_predictors()) %>%
+  step_zv(all_predictors())
+
+mod <- logistic_reg() %>%
+  set_engine("glm")
+
+wf <- workflow() %>% add_model(mod) %>% add_recipe(rec)
+fit <- fit(wf, data = train)
+
+pred <- predict(fit, new_data = test, type = "prob") %>% bind_cols(test)
+roc_auc(truth = podium, .pred_yes = .pred_yes)
+```
+
+```{r model-plot, fig.width=8, fig.height=5}
+pred_cls <- predict(fit, new_data = test, type = "class") %>% bind_cols(pred)
+cm <- conf_mat(pred_cls, truth = podium, estimate = .pred_class)
+autoplot(cm, type = "heatmap") + labs(title = "Confusion Matrix — Podium Classifier")
+```
+
+## 9) Save useful tables
+
+```{r save-csv, eval=FALSE}
+write_csv(top_drivers, "top_drivers_since2001.csv")
+write_csv(constructor_wins_by_season, "constructor_wins_by_season.csv")
+write_csv(podium_share, "podium_share_by_season.csv")
+```
+
+## 10) Repro notes
+
+- Data source: Kaggle — Formula 1 World Championship dataset (Rao), or newer forks.
+- If you include seasons up to 2024, keep the same CSV schema and the code will adapt automatically.
+- This RMD is designed to knit without internet access as long as CSVs are present.
+
+```{r save-csv, eval=FALSE}
+# Load necessary datasets
+drivers <- read.csv('drivers.csv')
+driver_standings <- read.csv('driver_standings.csv')
+races <- read.csv('races.csv')
+circuits <- read.csv('circuits.csv')
+
+# Get Verstappen's driverId
+verstappen_id <- drivers$driverId[tolower(drivers$surname) == 'verstappen']
+
+# Filter driver's results and merge race and circuit info
+verstappen_results <- subset(driver_standings, driverId == verstappen_id)
+verstappen_race_results <- merge(verstappen_results, races[, c('raceId', 'circuitId', 'year')], by = 'raceId')
+verstappen_race_results <- merge(verstappen_race_results, circuits[, c('circuitId', 'name')], by = 'circuitId')
+
+# Calculate average finishing position by circuit
+library(dplyr)
+circuit_performance <- verstappen_race_results %>%
+  group_by(name) %>%
+  summarise(avg_position = mean(position, na.rm = TRUE)) %>%
+  arrange(desc(avg_position))
+
+head(circuit_performance, 10)
+
+```
+
+
+
+
+
+Performance Consistency by Season and Circuit
+```{r}
+library(dplyr)
+library(ggplot2)
+
+# Load files
+drivers <- read.csv('drivers.csv')
+driver_standings <- read.csv('driver_standings.csv')
+races <- read.csv('races.csv')
+
+# Get Max Verstappen's driverId
+verstappen_id <- drivers$driverId[tolower(drivers$forename) == 'max' & tolower(drivers$surname) == 'verstappen']
+
+# Join standings with races on raceId for year
+verstappen_year_results <- driver_standings %>%
+  filter(driverId == verstappen_id) %>%
+  left_join(races %>% select(raceId, year), by='raceId')
+
+# Calculate mean and sd for each year
+yearly_consistency <- verstappen_year_results %>%
+  group_by(year) %>%
+  summarise(mean_position = mean(position, na.rm=TRUE),
+            sd_position = sd(position, na.rm=TRUE),
+            races = n())
+
+print(yearly_consistency)
+
+# Plot yearly consistency
+ggplot(yearly_consistency, aes(x=year)) +
+  geom_line(aes(y=mean_position), color='blue', size=1.2) +
+  geom_point(aes(y=mean_position), color='blue', size=2) +
+  geom_errorbar(aes(ymin = mean_position - sd_position,
+                    ymax = mean_position + sd_position), width=0.2, color='gray') +
+  labs(y='Average Finish Position', x='Year',
+       title='Max Verstappen Yearwise Performance Consistency') +
+  theme_minimal()
+
+```
+
+```{r save-csv, eval=FALSE}
+library(dplyr)
+library(ggplot2)
+
+# Assume verstappen_year_results is already created as before
+# Calculate mean and sd for each year
+yearly_consistency <- verstappen_year_results %>%
+  group_by(year) %>%
+  summarise(mean_position = mean(position, na.rm=TRUE),
+            sd_position = sd(position, na.rm=TRUE),
+            races = n())
+
+print(yearly_consistency) # Table output
+
+# Improved Plot
+ggplot(yearly_consistency, aes(x=year, y=mean_position)) +
+  geom_line(color='blue', size=1.5) +
+  geom_point(color='blue', size=3) +
+  geom_errorbar(aes(ymin=mean_position - sd_position, ymax=mean_position + sd_position), width=0.2, color='gray') +
+  geom_text(aes(label=round(mean_position,1)), vjust=-1, size=5, color='darkblue') +
+  scale_y_reverse(breaks=seq(1, max(yearly_consistency$mean_position), by=1)) + # Lower positions are better
+  labs(title='Max Verstappen Annual Performance Consistency',
+       subtitle='Average race finish position per year (lower is better)',
+       x='Year',
+       y='Average Finish Position') +
+  theme_minimal(base_size = 15) +
+  theme(panel.grid.major = element_line(color='gray80'),
+        plot.title = element_text(face='bold', hjust=0.5),
+        plot.subtitle = element_text(hjust=0.5)) 
+
+
+```
+The analysis began by extracting Max Verstappen's race performance from 2015 to 2024 using the F1 historical datasets. First, his race results were joined with season and race information to group his finishing positions by year. Summary statistics for each season were then calculated, specifically the average (mean_position) and standard deviation (sd_position) of his finishing places, as well as the number of races per year. These metrics were visualized in an improved line plot, where lower average positions correspond to better race results and smaller error bars indicate higher consistency. The results clearly show a dramatic improvement in Verstappen's average finish, dropping from nearly 12th place in 2015 to a consistent 1st place from 2023 onwards, reflecting both increasing performance and consistency across seasons. This pattern demonstrates Verstappen's growth from a midfield driver to a dominant, championship-winning performer, substantiated by both the summary table and the visual trend in the graph.
+
+```{r save-csv, eval=FALSE}
+
+
+```
+
+```{r save-csv, eval=FALSE}
+
+
+```
+
+```{r save-csv, eval=FALSE}
+
+
+```
+
+```{r save-csv, eval=FALSE}
+
+
+```
+
+```{r save-csv, eval=FALSE}
+
+
+```
+
+```{r save-csv, eval=FALSE}
+
+
+```
+
+```{r save-csv, eval=FALSE}
+
+
+```
+
+```{r save-csv, eval=FALSE}
+
+
+```
+
+```{r save-csv, eval=FALSE}
+
+
+```
+
+```{r save-csv, eval=FALSE}
+
+
+```
+
+```{r save-csv, eval=FALSE}
+
+
+```

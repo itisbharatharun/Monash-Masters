@@ -1,0 +1,387 @@
+---
+title: "F1 Strategy Insights for Max Verstappen — R Analysis"
+author: "Your Name"
+output:
+  html_document:
+    toc: true
+    toc_depth: 3
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, fig.width = 9, fig.height = 5)
+#install.packages("zoo")
+library(readr)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(lubridate)
+library(ggplot2)
+library(forcats)
+library(scales)
+library(zoo)
+```
+
+# Overview
+
+This R Markdown performs four strategist-focused, graph-driven analyses (no regressions or machine learning) using the **Formula 1 World Championship (Rao) dataset**. The analyses are specifically designed to produce actionable insights for a driver (example: **Max Verstappen**) and his strategists to improve race-winning chances.
+
+**Analyses included**
+1. Pit Stop Timing Visualization and Undercut/Overcut examples (per-race lap-time & pit overlays)  
+2. Win/Podium Rates by Starting Grid Position for Max Verstappen (frequency-based "probability" proxy)  
+3. Tire/Stint Performance Decay — lap-time vs laps-since-pit (proxy for tire degradation by stint; if compound is available, curves per compound will be shown)  
+4. Rival Battle Analysis by Track Type — head-to-head finish share against main rivals, split by track categories (street / high-speed / technical)
+
+> **Data requirement:** Place the dataset CSVs in the working directory: `races.csv`, `results.csv`, `drivers.csv`, `constructors.csv`, `lap_times.csv` (if available), `pit_stops.csv`, `circuits.csv`, `status.csv`.
+> The code will check for the presence of files and adapt where necessary.
+
+```{r load-data}
+# Load data if present. The script gracefully warns if some CSVs are missing.
+required_files <- c("races.csv", "results.csv", "drivers.csv", "constructors.csv", "circuits.csv")
+available_files <- list.files(pattern = "\\.csv$")
+
+missing_files <- setdiff(required_files, available_files)
+if (length(missing_files) > 0) {
+  stop("Missing required CSVs: ", paste(missing_files, collapse = ", "), 
+       ". Please place them in the working directory.")
+}
+
+races        <- read_csv("races.csv", show_col_types = FALSE)
+results      <- read_csv("results.csv", show_col_types = FALSE)
+drivers      <- read_csv("drivers.csv", show_col_types = FALSE)
+constructors <- read_csv("constructors.csv", show_col_types = FALSE)
+circuits     <- read_csv("circuits.csv", show_col_types = FALSE)
+# optional files
+lap_times_exists <- "lap_times.csv" %in% available_files
+pit_stops_exists <- "pit_stops.csv" %in% available_files
+if (lap_times_exists) lap_times <- read_csv("lap_times.csv", show_col_types = FALSE)
+if (pit_stops_exists) pit_stops <- read_csv("pit_stops.csv", show_col_types = FALSE)
+
+# Harmonise
+races <- races %>% mutate(raceDate = ymd(date))
+drivers <- drivers %>% mutate(driverName = str_squish(paste(forename, surname)))
+constructors <- constructors %>% rename(constructorName = name)
+circuits <- circuits %>% rename(circuitName = name)
+
+# Join results with metadata
+results_full <- results %>%
+  left_join(races %>% select(raceId, year, round, raceDate, name, circuitId), by = "raceId") %>%
+  left_join(drivers %>% select(driverId, driverName, surname, forename), by = "driverId") %>%
+  left_join(constructors %>% select(constructorId, constructorName), by = "constructorId") %>%
+  left_join(circuits %>% select(circuitId, circuitName, country), by = "circuitId") %>%
+  mutate(is_win = positionOrder == 1,
+         is_podium = positionOrder %in% 1:3)
+```
+
+# Parameters
+
+```{r params}
+# Set the driver of interest: use surname for matching - change if needed
+driver_surname <- "Verstappen"     # e.g., "Verstappen" for Max
+driver_forename_contains <- "Max"  # tolerance in case of name variations
+
+# Define main rivals to consider
+main_rivals <- c("Hamilton", "Leclerc", "Norris", "Perez", "Vettel")
+
+# Analysis seasons
+analysis_start <- 2015
+analysis_end   <- max(races$year, na.rm = TRUE)
+```
+
+# 1. Pit Stop Timing Visualization (Undercut / Overcut examples)
+
+This section visualises lap times for selected races and overlays pit stops for the driver of interest and a close rival. The idea is to visually inspect whether pitting earlier (undercut) or later (overcut) resulted in net time gains after pit exchange.
+
+```{r pit-setup}
+if (!lap_times_exists | !pit_stops_exists) {
+  cat("lap_times.csv or pit_stops.csv not available. Pit stop timing visualisations require both files.\n")
+} else {
+  # Find driverId for Verstappen (robust match)
+  driver_info <- drivers %>% 
+    filter(str_detect(tolower(driverName), tolower(driver_surname)) & 
+             str_detect(tolower(driverName), tolower(driver_forename_contains)))
+  if (nrow(driver_info) == 0) stop("Driver not found. Adjust driver_surname/forename parameters.")
+  driver_id <- driver_info$driverId[1]
+  
+  # Join lap_times with races and driver info
+  lap_joined <- lap_times %>%
+    left_join(races %>% select(raceId, year, name, round, raceDate, circuitId), by = "raceId") %>%
+    left_join(drivers %>% select(driverId, driverName), by = "driverId") %>%
+    # bring constructorId from results table
+    left_join(results %>% select(raceId, driverId, constructorId), by = c("raceId", "driverId")) %>%
+    left_join(constructors %>% select(constructorId, constructorName), by = "constructorId") %>%
+    # pit stop info
+    left_join(
+      pit_stops %>% 
+        select(raceId, driverId, stop, lap, milliseconds) %>% 
+        rename(pit_lap = lap, pit_stop = stop, pit_time_ms = milliseconds),
+      by = c("raceId", "driverId")
+    )
+  
+  # Pick a handful of recent races for Verstappen
+  candidate_races <- lap_joined %>% 
+    filter(year >= analysis_start) %>%
+    group_by(raceId) %>% 
+    summarise(has_driver = any(driverId == driver_id), total_laps = max(lap, na.rm = TRUE)) %>%
+    filter(has_driver) %>% 
+    arrange(desc(raceId)) %>% 
+    slice_head(n = 8) %>% 
+    pull(raceId)
+  
+  candidate_races <- candidate_races[!is.na(candidate_races)]
+}
+```
+
+```{r pit-plots, fig.width=10, fig.height=6}
+if (exists("lap_joined")) {
+  for (rid in candidate_races) {
+    race_meta <- races %>% filter(raceId == rid) %>% slice(1)
+    cat("\n\n### Race:", race_meta$name, "(", race_meta$year, ")\n\n")
+    
+    race_laps <- lap_joined %>% 
+      filter(raceId == rid) %>% 
+      mutate(millis = ifelse(!is.na(milliseconds), milliseconds, NA))
+    
+    # Verstappen laps
+    verst <- race_laps %>% filter(driverId == driver_id)
+    if (nrow(verst) == 0) next
+    
+    # pick rival with closest finishing position
+    verst_fin_pos <- results_full %>% 
+      filter(raceId == rid & driverId == driver_id) %>% 
+      pull(positionOrder)
+    
+    rival_row <- results_full %>% 
+      filter(raceId == rid & driverId != driver_id & !is.na(positionOrder)) %>%
+      mutate(delta_pos = abs(positionOrder - verst_fin_pos)) %>% 
+      arrange(delta_pos) %>% 
+      slice(1)
+    
+    if (nrow(rival_row) == 0) next
+    rival_id <- rival_row$driverId[1]
+    rival_name <- drivers %>% filter(driverId == rival_id) %>% pull(driverName)
+    rival_laps <- race_laps %>% filter(driverId == rival_id)
+    
+    # function to calculate lap times in seconds
+    calc_secs <- function(df) {
+      if ("milliseconds" %in% names(df) && !all(is.na(df$milliseconds))) {
+        df %>% mutate(lap_s = milliseconds / 1000)
+      } else if ("time" %in% names(df)) {
+        df %>% mutate(lap_s = as.numeric(period_to_seconds(lubridate::ms(time))))
+      } else {
+        df %>% mutate(lap_s = NA_real_)
+      }
+    }
+    
+    vplot_df <- calc_secs(verst) %>% mutate(driver = "Target")
+    rplot_df <- calc_secs(rival_laps) %>% mutate(driver = rival_name)
+    plot_df <- bind_rows(vplot_df, rplot_df) %>% filter(!is.na(lap_s))
+    
+    # pit stops, rename lap -> pit_lap
+    pit_df <- pit_stops %>% 
+      filter(raceId == rid & driverId %in% c(driver_id, rival_id)) %>%
+      left_join(drivers %>% select(driverId, driverName), by = "driverId") %>%
+      mutate(driver = ifelse(driverId == driver_id, "Target", driverName)) %>%
+      rename(pit_lap = lap)
+    
+    # build base plot
+    p <- ggplot(plot_df, aes(x = lap, y = lap_s, color = driver)) +
+      geom_line(alpha = 0.9) + 
+      geom_point(size = 0.8, alpha = 0.8) +
+      labs(title = paste0(race_meta$name, " (", race_meta$year, ") — Lap times: Target vs Rival"),
+           x = "Lap", y = "Lap time (s)") +
+      theme_minimal()
+    
+    # add pit stop markers
+    if (nrow(pit_df) > 0) {
+      max_y <- max(plot_df$lap_s, na.rm = TRUE)
+      p <- p + 
+        geom_vline(data = pit_df, aes(xintercept = pit_lap, color = driver), 
+                   linetype = "dashed", size = 0.6, show.legend = FALSE) +
+        geom_text(
+          data = pit_df %>% distinct(driver, pit_lap),
+          aes(x = pit_lap + 0.2, 
+              y = max_y + 1 + as.numeric(factor(driver)),  # stagger labels
+              label = paste0(driver, " pit")),
+          size = 3, color = "black", angle = 90, hjust = 0
+        )
+    }
+    print(p)
+  }
+}
+```
+
+**How to read the plots:** Look for where the target's lap-time line drops relative to the rival after the pit-stop exchange. If the target gains faster laps immediately following a stop while the rival is on worn tyres, the undercut has worked visually.
+
+# 2. Win/Podium Rates by Starting Grid Position (Frequency-based proxy)
+
+We compute the frequency with which the driver of interest converts grid positions into wins and podiums. This provides a straightforward, actionable summary: if starting outside P3 drastically reduces win chance, strategy should prioritise qualifying at those tracks.
+
+```{r grid-win-stats}
+# Robustly find driverId(s)
+drv_ids <- drivers %>% filter(str_detect(tolower(driverName), tolower(driver_surname)) & str_detect(tolower(driverName), tolower(driver_forename_contains))) %>% pull(driverId)
+drv_ids
+
+grid_stats <- results_full %>%
+  filter(driverId %in% drv_ids & !is.na(grid)) %>%
+  group_by(grid) %>%
+  summarise(total = n(),
+            wins = sum(positionOrder == 1, na.rm = TRUE),
+            podiums = sum(positionOrder %in% 1:3, na.rm = TRUE)) %>%
+  filter(total >= 3) %>%
+  mutate(win_rate = wins / total, podium_rate = podiums / total) %>%
+  arrange(grid)
+
+grid_stats %>% head(12) %>% kable()
+
+ggplot(grid_stats, aes(x = grid)) +
+  geom_col(aes(y = win_rate), fill = "#1f77b4", alpha = 0.8) +
+  geom_col(aes(y = podium_rate), fill = "#ff7f0e", alpha = 0.6) +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  labs(title = paste0(driver_surname, " — Win & Podium Rate by Grid Position"),
+       x = "Starting Grid Position", y = "Rate (proportion)") +
+  theme_minimal()
+```
+
+**Actionable rule of thumb:** Transform these percentages into guidance for strategy — e.g., if win_rate drops below 0.2 by P4, then maximise qualifying performance at tracks where qualifying is decisive.
+
+# 3. Tire/Stint Performance Decay (Proxy by laps-since-pit)
+
+If explicit tyre compound data is missing, we approximate degradation by analyzing **lap time as a function of laps since the last pit stop** (i.e., stint age). This provides direct guidance on optimal stint lengths.
+
+```{r stint-degradation-prepare}
+# We need lap_times and pit_stops for a robust stint analysis; fall back to lap_times only if no pit_stops
+if (!lap_times_exists) {
+  cat("lap_times.csv missing — cannot perform stint-level degradation analysis without lap times.\n")
+} else {
+  # join lap times with pit stops to compute laps since last pit per driver per race
+  lt <- lap_times %>% left_join(pit_stops %>% select(raceId, driverId, lap) %>% rename(pit_lap = lap),
+                                by = c("raceId", "driverId")) %>%
+    arrange(raceId, driverId, lap)
+  # For each driver-race, generate stint number based on pit lap occurrences
+  lt_stints <- lt %>% group_by(raceId, driverId) %>% arrange(lap) %>%
+    mutate(is_pit = lap %in% (pit_stops %>% filter(raceId == unique(raceId)[1], driverId == unique(driverId)[1]) %>% pull(lap)),
+           stint_id = cumsum(lag(is_pit, default = FALSE)) + 1) %>% ungroup()
+  # The above is a safe but conservative approach; instead compute laps since last pit by using pit_stops per driver/race:
+  pit_per_driver <- pit_stops %>% select(raceId, driverId, lap) %>% rename(pit_lap = lap)
+  lt2 <- lap_times %>% left_join(pit_per_driver, by = c("raceId", "driverId")) %>%
+    group_by(raceId, driverId) %>% arrange(lap) %>%
+    mutate(last_pit_lap = cummax(ifelse(!is.na(pit_lap), pit_lap, 0)),
+           laps_since_pit = lap - last_pit_lap) %>% ungroup()
+  # compute seconds
+  if ("milliseconds" %in% names(lt2) && !all(is.na(lt2$milliseconds))) lt2 <- lt2 %>% mutate(lap_s = milliseconds/1000) else lt2 <- lt2 %>% mutate(lap_s = NA_real_)
+  
+  # Filter to manageable sample: consider stints for the target driver and overall cohort
+  stint_summary <- lt2 %>% filter(laps_since_pit >= 0 & laps_since_pit <= 40 & !is.na(lap_s)) %>%
+    group_by(laps_since_pit) %>% summarise(mean_lap = mean(lap_s, na.rm = TRUE), n = n())
+  
+  # For target driver specifically
+  target_lt <- lt2 %>% filter(driverId %in% drv_ids & laps_since_pit >= 0 & laps_since_pit <= 40 & !is.na(lap_s))
+  target_stint <- target_lt %>% group_by(laps_since_pit) %>% summarise(mean_lap = mean(lap_s, na.rm = TRUE), n = n())
+}
+```
+
+```{r stint-plot}
+if (exists("stint_summary")) {
+  ggplot(stint_summary, aes(x = laps_since_pit, y = mean_lap)) +
+    geom_line(size = 1.1) +
+    geom_point(size = 1.5) +
+    geom_line(data = target_stint, aes(x = laps_since_pit, y = mean_lap), color = "red", size = 1, linetype = "dashed") +
+    labs(title = "Average Lap Time vs Laps Since Last Pit (All drivers) — Target in dashed red",
+         x = "Laps since last pit", y = "Mean lap time (s)") +
+    theme_minimal()
+}
+```
+
+**Interpretation:** The chart shows how lap time generally increases with stint length. Strategists can pick a 'knee' point in the curve where lap-time degradation accelerates and avoid stints longer than that on average, or choose tyre compounds that push the knee further out.
+
+# 4. Rival Battle Analysis by Track Type (Street / High-speed / Technical)
+
+We create simple track-type categories (editable) and compute head-to-head finishing share for the target vs each rival across those track types.
+
+```{r track-type-define}
+# Detect the right column name for circuits
+if ("circuitName" %in% colnames(circuits)) {
+  circuits <- circuits %>% rename(circuitLabel = circuitName)
+} else if ("name" %in% colnames(circuits)) {
+  circuits <- circuits %>% rename(circuitLabel = name)
+} else if ("circuitRef" %in% colnames(circuits)) {
+  circuits <- circuits %>% rename(circuitLabel = circuitRef)
+} else {
+  stop("No circuit name column found in `circuits` table.")
+}
+
+# --- Track Type Classification ---
+street_tracks <- c("Monaco", "Singapore", "Baku")
+high_speed_tracks <- c("Monza", "Silverstone", "Spa-Francorchamps", "Austin", "Monterey")
+
+races <- races %>%
+  left_join(circuits %>% select(circuitId, circuitLabel), by = "circuitId") %>%
+  mutate(track_type = case_when(
+    circuitLabel %in% street_tracks ~ "Street",
+    circuitLabel %in% high_speed_tracks ~ "High-speed",
+    TRUE ~ "Technical"
+  ))
+
+results_tt <- results_full %>%
+  left_join(races %>% select(raceId, track_type), by = "raceId")
+
+# --- Rival comparison ---
+rival_summary <- data.frame()
+
+for (rival_surname in main_rivals) {
+  rival_ids <- drivers %>%
+    filter(str_detect(tolower(driverName), tolower(rival_surname))) %>%
+    pull(driverId)
+  
+  if (length(rival_ids) == 0) next
+  
+  comp <- results_tt %>%
+    filter(driverId %in% c(drv_ids, rival_ids)) %>%
+    filter(!is.na(positionOrder)) %>%
+    select(raceId, driverId, driverName, positionOrder, track_type) %>%
+    group_by(raceId) %>%
+    filter(n() >= 2) %>%
+    ungroup()
+  
+  pair_comp <- comp %>%
+    group_by(raceId, track_type) %>%
+    summarise(
+      target_ahead = any(driverId %in% drv_ids & positionOrder == min(positionOrder)),
+      .groups = "drop"
+    )
+  
+  agg <- pair_comp %>%
+    group_by(track_type) %>%
+    summarise(
+      races = n(),
+      times_target_ahead = sum(target_ahead),
+      proportion = times_target_ahead / races,
+      .groups = "drop"
+    ) %>%
+    mutate(rival = rival_surname)
+  
+  rival_summary <- bind_rows(rival_summary, agg)
+}
+
+rival_summary %>% knitr::kable()
+```
+
+```{r rival-plot}
+ggplot(rival_summary, aes(x = rival, y = proportion, fill = track_type)) +
+  geom_col(position = position_dodge()) +
+  scale_y_continuous(labels = percent_format(accuracy = 1)) +
+  labs(title = paste0(driver_surname, " — Fraction of races finishing ahead of rival by track type (when both participated)"),
+       x = "Rival", y = "Share of races Target finished ahead") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 25, hjust = 1))
+```
+**How strategists can use this:** If a rival outperforms the target consistently on a given track type, the team can either (a) prioritise qualifying and aggressive undercuts at those tracks, (b) adjust car setup, or (c) plan pit-stop windows that exploit rival weakness.
+
+# Save plots / tables for insertion in report (optional)
+
+```{r save-outputs, eval=FALSE}
+# write_csv(grid_stats, "verstappen_grid_stats.csv")
+# write_csv(stint_summary, "stint_degradation_summary.csv")
+# write_csv(rival_summary, "rival_track_summary.csv")
+```

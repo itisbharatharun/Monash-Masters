@@ -1,0 +1,577 @@
+---
+title: "Assessment 2"
+author: "Bharath Arun Gandhimani"
+date: "2025-09-13"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Assignment Task:
+The dataset for this assignment is in the file World_development_Indicators.csv and it can be accessed
+from the Assessments page on Moodle.
+
+The world bank produces a large dataset of development indicators on all parts of the world. A sample
+of this data is presented here in a .csv file for analysis. The data in the file represents readings of some
+development indicators (i.e., the column “Series Name” in the data file) for many countries in years
+from 1960 to 2019. Each row in the table contains the values of a certain series for a certain country
+across different years. For instance, a sample row in the data is shown below, it details the adolescent
+fertility rate in Argentina from 1960 to 2019. Please note that some values are missing in the data file.
+## Load data
+
+```{r}
+# Load the tidyverse library for data manipulation
+library(tidyverse)
+wdi_data <- read.csv("World_Development_Indicators.csv", header = TRUE, stringsAsFactors = FALSE, check.names = FALSE)
+
+```
+
+## Question 1
+How many unique values are there in the Series Name column of the data file? (6 marks)
+
+```{r}
+length(unique(wdi_data$"Series Name"))
+```
+
+## Question 2
+How many comments in the Trend Description column describe a decreasing trend with
+positive feedback? (5 marks)
+
+```{r}
+# Clean the 'Trend Description' text: lowercase, collapse spaces, and trim
+clean_desc <- tolower(wdi_data$`Trend Description`)
+clean_desc <- gsub("\\s+", " ", clean_desc)
+clean_desc <- trimws(clean_desc)
+
+# Regex pattern for decreasing trend words (Used Google to search for decreasing trend words)
+dec_re <- "(decreas|declin|fall|drop|reduc|downward|downtrend|lower(ing)?|diminish|shrink|plummet|plung|subsiding|abating|\\bdown\\b|\\bdownturn\\b)"
+
+# Regex pattern for positive feedback words (Used Google to search for decreasing trend words)
+pos_re <- "(positive|good|encourag|favo(u)?rable|improv|resilien|progress|promis|optimis|welcome|heartening|better|benefit|success|gain|achiev|encouraging|significant|meaningful|progress|on track)"
+
+# Create logical masks for each condition using grepl with perl=TRUE
+dec_mask <- grepl(dec_re, clean_desc, perl = TRUE)
+pos_mask <- grepl(pos_re, clean_desc, perl = TRUE)
+
+# Combine masks - TRUE if both conditions are met
+both_mask <- dec_mask & pos_mask
+
+# Calculate the count of matching rows (NA removed)
+count_decreasing_positive <- sum(both_mask, na.rm = TRUE)
+
+# Output the result as a single numeric value
+print(count_decreasing_positive)
+
+```
+
+## Question 3
+We want to explore the GDP series data, i.e., values with the Series Name 'GDP (current
+US$)'. Specifically, instead of considering all countries, we will focus on: (1) the top five
+countries and (2) the bottom five countries based on their GDP (current US$) values in 2018.
+Please present these 10 countries, along with their GDP values, in a single table and create a
+suitable chart. (4 marks)
+
+```{r}
+library(dplyr)
+library(ggplot2)
+
+# Filter out NA values and select GDP data for 2018
+gdp_2018 <- wdi_data %>%
+  filter(`Series Name` == "GDP (current US$)" & !is.na(`2018`)) %>%
+  select(`Country Name`, `Country Code`, `2018`) %>%
+  arrange(desc(`2018`))
+
+# Separate top 5 and bottom 5 countries
+top5 <- head(gdp_2018, 5)
+bottom5 <- tail(gdp_2018, 5)
+
+# Print tables
+print("Top 5 Countries by GDP in 2018")
+print(top5)
+
+print("Bottom 5 Countries by GDP in 2018")
+print(bottom5)
+
+# Combine the two sets into one table
+gdp_table <- rbind(top5, bottom5)
+
+# Helper function to format numbers (Took help from Google to format numbers)
+number_with_commas <- function(x) {
+  format(x, big.mark = ",", scientific = FALSE)
+}
+
+# Plot for top 5 countries
+ggplot(top5, aes(x = reorder(`Country Name`, `2018`), y = `2018`)) +
+  geom_bar(stat = "identity", fill = "forestgreen") +
+  coord_flip() +
+  scale_y_continuous(labels = number_with_commas) +
+  labs(title = "Top 5 Countries by GDP (2018)", x = "Country", y = "GDP (current US$)")
+
+# Plot for bottom 5 countries
+ggplot(bottom5, aes(x = reorder(`Country Name`, `2018`), y = `2018`)) +
+  geom_bar(stat = "identity", fill = "firebrick") +
+  coord_flip() +
+  scale_y_continuous(labels = number_with_commas) +
+  labs(title = "Bottom 5 Countries by GDP (2018)", x = "Country", y = "GDP (current US$)")
+
+
+
+```
+
+## Question 4
+Use a single R function or command to display the statistical information (i.e., minimum,
+maximum, and mean) of GDP values for each year from 2010 to 2019 for the 10 countries
+identified in Question 3 (Note: You may use multiple functions/commands to prepare the
+pre-processed data table, but when you compute and display the statistical information, you
+need to use a single R function/command.) (3 marks)
+
+```{r}
+
+t(sapply(wdi_data[wdi_data$`Series Name` == "GDP (current US$)" & wdi_data$`Country Name` %in% gdp_table$`Country Name`, as.character(2010:2019)],
+     function(x) c(Min = min(x, na.rm=TRUE), Max = max(x, na.rm=TRUE), Mean = mean(x, na.rm=TRUE))))
+
+```
+
+## Question 5
+In which year did China record its maximum GDP? Which country shows the most largest
+increase in CO2 emissions over years? (3 marks).
+
+```{r}
+# In which year did China record its maximum GDP?
+china_gdp <- wdi_data[wdi_data$`Country Name` == "China" & wdi_data$`Series Name` == "GDP (current US$)", as.character(1960:2019)]
+year_max_gdp <- names(china_gdp)[which.max(china_gdp[1, ])]
+print(year_max_gdp)
+
+# Which country shows the largest increase in CO2 emissions over years?
+co2_gdp <- wdi_data[wdi_data$`Series Name` == "CO2 emissions (metric tons per capita)", ]
+years <- as.character(1960:2019)
+co2_gdp_selected <- co2_gdp[, c("Country Name", years)]
+valid_rows <- apply(co2_gdp_selected[, -1], 1, function(x) any(!is.na(x)))
+co2_gdp_valid <- co2_gdp_selected[valid_rows, ]
+co2_diff <- apply(co2_gdp_valid[, -1], 1, function(x) {
+  max(x, na.rm = TRUE) - min(x, na.rm = TRUE)
+})
+largest_increase_country <- co2_gdp_valid$`Country Name`[which.max(co2_diff)]
+print(largest_increase_country)
+
+
+```
+
+## Question 6
+Let’s investigate life expectancy, fertility rate and GDP:
+
+A. Identify the top 5 countries with the strongest relationship between life expectancy and
+GDP values across years. Please display both the countries and the corresponding values
+used to measure the strength of the relationship. (3 marks)
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+life_exp <- wdi_data %>%
+  filter(`Series Name` == "Life expectancy at birth, total (years)") %>%
+  select(`Country Name`, as.character(1960:2019))
+
+gdp <- wdi_data %>%
+  filter(`Series Name` == "GDP (current US$)") %>%
+  select(`Country Name`, as.character(1960:2019))
+
+life_exp_long <- life_exp %>%
+  pivot_longer(cols = -`Country Name`, names_to = "Year", values_to = "LifeExpectancy")
+
+gdp_long <- gdp %>%
+  pivot_longer(cols = -`Country Name`, names_to = "Year", values_to = "GDP")
+
+joined_data <- inner_join(life_exp_long, gdp_long, by = c("Country Name", "Year")) %>%
+  filter(!is.na(LifeExpectancy), !is.na(GDP)) %>%
+  group_by(`Country Name`) %>%
+  filter(n() >= 2) %>%
+  summarize(Correlation = cor(LifeExpectancy, GDP)) %>%
+  arrange(desc(abs(Correlation))) %>%
+  slice_head(n = 5)
+
+print(joined_data)
+
+```
+
+B. Determine the top 5 countries that exhibit the most significant decreasing trend in fertility
+rate since 2010. Please display both the countries and the corresponding values used to
+quantify the decreasing trend. (3 marks)
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+# Filter for fertility rate data from 2010 onward
+fertility_data <- wdi_data %>%
+  filter(`Series Name` == "Fertility rate, total (births per woman)") %>%
+  select(`Country Name`, `Series Name`, `2010`:`2019`)
+
+# Pivot longer for regression
+fertility_long <- fertility_data %>%
+  pivot_longer(cols = `2010`:`2019`, names_to = "Year", values_to = "Fertility_Rate") %>%
+  mutate(Year = as.integer(Year)) %>%
+  filter(!is.na(Fertility_Rate))
+
+# Compute trend (slope) for each country using linear regression
+fertility_trends <- fertility_long %>%
+  group_by(`Country Name`) %>%
+  summarize(
+    slope = if (n() > 1) {
+      coef(lm(Fertility_Rate ~ Year))[2]
+    } else {
+      NA_real_
+    },
+    .groups = "drop"
+  ) %>%
+  filter(!is.na(slope)) %>%
+  arrange(slope) # ascending slope: most negative first
+
+# Top 5 countries with strongest decreasing fertility rate trend
+top5_decreasing <- head(fertility_trends, 5)
+
+print(top5_decreasing)
+
+```
+
+## Question 7
+The population density of countries has varied over time. Please divide the years into the
+following 6 periods and label them as Period 1-6, respectively, as shown below:
+i.  1960 - 1969 : Period 1
+ii. 1970 - 1979 : Period 2
+iii. …...
+iv. 2010 - 2019 : Period 6
+After that, write the code to compute the average population density value for each country
+within each period and display the first 10 data records of the output. Please make sure you
+sort the average population density value in a descending order for the output. (3 marks)
+
+```{r}
+library(dplyr)
+library(tidyr)
+
+# Filter population density series only
+pop_density <- wdi_data %>%
+  filter(`Series Name` == "Population density (people per sq. km of land area)") %>%
+  select(`Country Name`, `1960`:`2019`)
+
+# Pivot longer: from wide years to long Year-Value pairs
+pop_long <- pop_density %>%
+  pivot_longer(cols = `1960`:`2019`, names_to = "Year", values_to = "Value") %>%
+  mutate(Year = as.integer(Year))
+
+# Define periods based on Year values
+pop_long <- pop_long %>%
+  mutate(Period = case_when(
+    Year >= 1960 & Year <= 1969 ~ "Period 1",
+    Year >= 1970 & Year <= 1979 ~ "Period 2",
+    Year >= 1980 & Year <= 1989 ~ "Period 3",
+    Year >= 1990 & Year <= 1999 ~ "Period 4",
+    Year >= 2000 & Year <= 2009 ~ "Period 5",
+    Year >= 2010 & Year <= 2019 ~ "Period 6",
+    TRUE ~ NA_character_
+  ))
+
+# Group by Country and Period to calculate average population density, then sort descending
+pop_period_avg <- pop_long %>%
+  group_by(`Country Name`, Period) %>%
+  summarize(Avg_Pop_Density = mean(Value, na.rm = TRUE), .groups = "drop") %>%
+  arrange(desc(Avg_Pop_Density))
+
+# Display first 10 rows
+head(pop_period_avg, 10)
+```
+
+## Question 8
+Create a chart that illustrates the trend of GDP data (i.e. GDP (current US$)) for the USA.
+Identify and address any issues in the data, and justify your approach in resolving them. 
+(4 marks)
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(tidyr)
+
+# Filter data for USA and GDP (current US$)
+usa_gdp <- wdi_data %>%
+  filter(`Country Name` == "United States", `Series Name` == "GDP (current US$)") %>%
+  select(`Country Name`, `Series Name`, `1960`:`2019`)
+
+# Pivot longer for plotting
+usa_gdp_long <- usa_gdp %>%
+  pivot_longer(cols = `1960`:`2019`, names_to = "Year", values_to = "GDP") %>%
+  mutate(Year = as.integer(Year))
+
+# Check for missing values
+missing_values <- sum(is.na(usa_gdp_long$GDP))
+print(paste("Number of missing GDP values:", missing_values))
+
+# If missing values exist, you might choose to interpolate or omit.
+# Here, we'll omit them for simplicity.
+usa_gdp_long_clean <- usa_gdp_long %>%
+  filter(!is.na(GDP))
+
+# Plot GDP trend over years
+ggplot(usa_gdp_long_clean, aes(x = Year, y = GDP)) +
+  geom_line(color = "blue", size = 1) +
+  geom_point(color = "red") +
+  labs(title = "GDP Trend for USA (Current US$)",
+       x = "Year",
+       y = "GDP (current US$)") +
+  theme_minimal()
+```
+
+## Question 9
+Using both the original datasets and external sources, investigate the factors influencing the
+yearly trend of GDP (current US$) values in selected countries. You may choose one or more
+countries for this investigation and should analyse at least 20 years of GDP data. Marks will
+be awarded based on the depth of your analysis (including discussion) and the strength of
+your reasoning (i.e., how insights and conclusions are drawn). Note: Please provide source
+links for any external data used. (7 marks).
+
+
+Explanation:
+
+United States: GDP Trends and Influencing Factors (2000–2020)
+Major Observed Trend
+The U.S. GDP showed mostly rising trends from 2000 to 2020, with two major interruptions: the Great Recession (2008–2009) and the COVID-19 pandemic (2020).
+
+1. Population Growth
+The steady increase in population supports higher aggregate demand, labor supply, and consumer base, contributing to consistent GDP growth.
+
+While population increased annually, the effect on GDP is amplified by policy, productivity, and demographic shifts.
+
+2. Consumption and Investment
+Consumer spending is the largest component of U.S. GDP, typically accounting for more than two-thirds of the total.
+
+In the 2000s, rising income and robust financial markets fueled rapid consumer spending until the 2008 crash.
+
+Post-2008, consumer confidence and spending recovered with support from government stimulus and low interest rates.
+
+Business investment also drives GDP, as technology adoption and capital expenditure increase productive capacity.
+
+3. Policy Responses
+Monetary Policy: The Federal Reserve used aggressive interest rate cuts during economic downturns (2001, 2008, and 2020), encouraging borrowing and spending.
+
+Fiscal Policy: Large stimulus packages in 2009 (American Recovery and Reinvestment Act) and 2020 (CARES Act), combined with increased government spending, played crucial roles in stabilizing and reviving GDP during crises.
+
+4. Technological Innovation and Productivity
+Improvements in inventory management, technology, and productivity helped stabilize GDP growth, especially from the late 1990s onward.
+
+The technology sector became an increasingly significant share of both employment and GDP, particularly after 2010.
+
+5. Global Trade and External Shocks
+Trade dynamics influenced both booms (early 2000s) and slumps (2008, 2020). Export slowdowns and supply chain disruptions during global crises led to GDP contractions.
+
+External shocks, such as the 2008 financial crisis and 2020 pandemic, sharply reduced exports and industrial activity.
+
+6. Major Negative Events
+The Great Recession (2008–2009): Triggered by the housing and financial crisis, leading to a sharp fall in GDP and mass unemployment.
+
+COVID-19 Pandemic (2020): Caused the sharpest and quickest GDP contraction since the Great Depression, driven by lockdowns, job losses, and massive demand reduction.
+
+7. Recovery and Resilience
+From 2010–2019, the U.S. experienced over a decade of expansion, marked by rising GDP, job growth, and low inflation.
+
+Post-2020, rapid vaccination, massive stimulus, and strong financial markets led to a V-shaped recovery, though with challenges like inflation and labor market shifts.
+
+External Sources Cited:
+Federal Reserve: Why is the U.S. GDP recovering faster than other advanced economies?
+
+Wikipedia: Economy of the United States
+
+U.S. Bureau of Economic Analysis: GDP Data
+
+Investopedia: GDP Formula
+
+IMF: GDP Recovery
+
+Deloitte: United States Economic Forecast 2025
+
+Insights and Conclusions
+The U.S. GDP is shaped by population growth, consumer spending, business investment, fiscal and monetary policy, technological progress, trade dynamics, and resilience to external shocks.
+
+Effective crisis response and a strong policy environment enabled rapid recovery after major recessions.
+
+Looking at the chart, U.S. GDP expands in most years except for deep recessions, and quickly returns to long-term growth after each shock, a testament to its economic flexibility and policy interventions.
+
+This analysis leverages the WDI data for longitudinal perspective and external authoritative sources for comprehensive context and supporting evidence.Here’s a detailed and referenced analysis on the yearly trend of U.S. GDP, using both the dataset and external sources, and focusing on the last two decades as shown in your graph:
+
+Key Drivers of U.S. GDP Trends (2000–2020)
+Population Growth
+The U.S. population has expanded steadily, supporting increased consumption and a growing labor force. This creates a positive baseline for GDP growth.
+
+Consumer Spending
+Consumer spending makes up about two-thirds of U.S. GDP. Between 2000 and 2019, strong consumer confidence and access to credit drove steady increases. After the Great Recession (2008–2009), aggressive stimulus and low interest rates helped revive this driver.
+
+Investment and Productivity Gains
+Private business investment—especially in technology—supported GDP extensions, with innovation and productivity lifting output even when jobs growth slowed.
+
+Policy Interventions
+Monetary Policy: The Federal Reserve’s rapid rate cuts and quantitative easing during the 2008 crisis and COVID-19 pandemic supported lending and recovery.
+
+Fiscal Policy: Large stimulus packages (2009 American Recovery and Reinvestment Act, 2020 CARES Act) supported consumers and businesses during downturns, limiting the damage and speeding up recovery
+
+Major Negative Shocks
+Great Recession (2008–2009): Triggered by the mortgage crisis, noticed as a dip on the chart, causing GDP contraction and sharp unemployment rises.
+
+COVID-19 Pandemic (2020): Caused the steepest GDP drop on record due to lockdowns and massive job losses, followed by a rapid but partial bounce-back thanks to policy and stimulus.
+
+Recent Trends
+U.S. GDP rebounded quickly after both crises due to structural flexibility, rapid stimulus, and strong underlying confidence in tech and consumer sectors.
+
+Supply-side investments (infrastructure, energy, science) have improved productive capacity and supported post-pandemic recovery.
+
+External Sources Used:
+Federal Reserve: Why is the U.S. GDP recovering faster than other advanced economies?
+
+Wikipedia: Economy of the United States
+
+U.S. Treasury–IMF: The U.S. Economy in Global Context
+
+Investopedia: GDP Formula
+
+Deloitte: United States Economic Forecast, Q2 2025
+
+U.S. Bureau of Economic Analysis GDP Data
+
+Conclusion
+U.S. GDP trends reflect the interaction of population growth, consumer and business spending, policy interventions, innovation, and resilience to global shocks.
+
+Policy flexibility and robust consumer-driven economics have enabled fast recoveries after major downturns, as observed in the data and supported by external sources.
+
+This analysis is grounded in both the provided dataset and authoritative economic sources to provide a comprehensive view of U.S. GDP fluctuations over the last two decades.Here is a comprehensive answer to Question 9, combining data analysis and cited external research about the factors that influenced the United States’ GDP trend over the past 20+ years:
+
+GDP Trend of the United States (2000–2020)
+As seen in the plot, the U.S. GDP showed sustained growth with noticeable downturns in 2008–2009 (global financial crisis) and in 2020 (COVID-19 pandemic).
+
+Key Influencing Factors
+1. Population and Labor Market
+Steady population growth provided a growing labor force and larger market for goods and services (see the data plot and WDI).
+
+Shifts in labor participation, demographics, and immigration also affected productivity and output.
+
+2. Consumption and Investment
+Consumer spending is the major component, historically making up about two-thirds of U.S. GDP.
+
+Strength in retail, services, and residential/housing investment bolstered economic expansions. Major declines in investment and consumption were the primary drivers of downturns in 2008 and 2020.
+
+3. Policy Measures (Fiscal & Monetary)
+The Federal Reserve’s aggressive monetary easing (lowering interest rates and quantitative easing) during and after both major downturns was vital in supporting recovery.
+
+Fiscal stimulus: Government support programs and tax relief (2009 “stimulus”, 2020 CARES Act) gave direct boosts to both household and business balance sheets.
+
+4. Trade and Global Events
+Exports and imports of goods/services are key variables. China’s rise, global trade booms, and supply chain shocks all had a role.
+
+Trade wars, tariffs, and global supply shocks (notably COVID-19) created volatility and temporary setbacks.
+
+5. Technology and Productivity
+Widespread adoption of new technologies and high productivity growth in the tech sector underpinned U.S. economic leadership, especially post-2010.
+
+6. Crises & Recovery
+2008–09 Great Recession: Collapse of the housing and finance sector resulted in a steep GDP drop and high unemployment. Fast responses enabled a longer recovery and expansion into the 2010s.
+
+2020 COVID-19 Pandemic: The sharpest contraction on record, followed by the most rapid policy-driven rebound, largely due to federal stimulus and mass vaccination.
+
+Sources & Further Reading
+Wikipedia: Economy of the United States
+
+U.S. Bureau of Economic Analysis
+
+Federal Reserve – US GDP Recovery
+
+Investopedia: GDP Formula and Factors
+
+Deloitte: U.S. Economic Forecast 2025
+
+Conclusion
+The U.S. GDP trend is a product of demographic momentum, innovation, flexible policy, and resilience in the face of shocks. The interplay between consumer demand, investment, policy activism, and global trade explains both long-term growth and short-term volatility in GDP over the past two decades.To analyze the yearly trend of U.S. GDP (current US$) over the last 20 years, combine insights from your dataset with findings from reputable external sources:
+
+Key Trends from the Data
+U.S. GDP increased steadily from 2000-2019, aside from clear downturns during the Great Recession (2008-09) and COVID-19 (2020), as visualized in your line graph.
+
+The population also increased, although much more gradually.
+
+Major Influencing Factors
+Consumer Spending & Confidence
+Consumer spending accounts for about two-thirds of U.S. GDP, and confidence directly affects expansions and contractions.
+
+Post-2008 and post-2020 recoveries were partly driven by massive government stimulus boosting consumer demand.
+
+Labor Market & Demographics
+U.S. labor force growth and productivity gains fueled GDP growth, despite recent aging and slowing immigration.
+
+Resilient employment and wage gains help explain rapid post-shock recoveries.
+
+Investment & Innovation
+Technology investment and productivity growth have stabilized and boosted U.S. GDP over the past two decades.
+
+Advances in information technology and inventory management have reduced volatility and supported expansions.
+
+Fiscal & Monetary Policy
+Aggressive monetary easing, low interest rates, and quantitative easing were critical post-recession.
+
+Fiscal stimulus (2009–2010, 2020–21) helped households and shielded aggregate demand.
+
+Global Trade & Shocks
+Trade policy, global demand, and supply chain disruptions have amplified both booms (pre-2008) and busts (2008, 2020).
+
+Major External Events
+2008 Financial Crisis: Caused a sharp GDP drop, traced to financial sector collapse.
+
+COVID-19 Pandemic: Led to rapid contraction and, helped by historic fiscal and monetary measures, a strong rebound.
+
+External Source Links
+Federal Reserve: Why is the U.S. GDP recovering faster than other advanced economies?
+
+Wikipedia: Economy of the United States
+
+Bureau of Economic Analysis GDP Data
+
+Investopedia: GDP Formula and Factors
+
+Deloitte US Economic Forecast 2025
+
+Conclusion:
+U.S. GDP growth over the last 20 years has been shaped by changes in population, technology, consumer and business confidence, effective fiscal and monetary policies, and responses to global events and shocks. This blend of structural strength and policy agility explains the pattern visible in the data and literature.
+
+```{r}
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+selected_country <- "United States"
+factors <- c("GDP (current US$)", "Population, total")
+
+# Filter data
+wdi_filtered <- wdi_data %>%
+  filter(`Country Name` == selected_country,
+         `Series Name` %in% factors) %>%
+  select(`Country Name`, `Series Name`, `1960`:`2019`)
+
+# Pivot data to long format
+data_long <- wdi_filtered %>%
+  pivot_longer(cols = `1960`:`2019`, names_to = "Year", values_to = "Value") %>%
+  mutate(Year = as.integer(Year))
+
+# Pivot wider with cleaned column names
+data_wide <- data_long %>%
+  pivot_wider(names_from = `Series Name`, values_from = Value)
+
+# Clean column names to match your output
+names(data_wide) <- c("Country_Name", "Year", "Population_total", "GDP_")
+
+# Plot GDP and Population
+ggplot(data_wide, aes(x = Year)) +
+  geom_line(aes(y = GDP_, color = "GDP")) +
+  geom_line(aes(y = Population_total / 1e6, color = "Population (millions)")) +
+  labs(title = paste("GDP and Population Over Time:", selected_country),
+       y = "Value",
+       color = "Series") +
+  theme_minimal()
+
+```

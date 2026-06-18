@@ -1,0 +1,667 @@
+---
+title: "Bharath Arun Gandhimani Assessment 3 - Report"
+author: "Bharath Arun Gandhimani"
+date: "2025-10-17"
+output: html_document
+---
+
+### Load Data
+```{r}
+library(readr)
+library(dplyr)
+library(tidyr)
+library(stringr)
+library(lubridate)
+library(ggplot2)
+library(forcats)
+library(scales)
+library(knitr)
+```
+
+### EDA
+```{r}
+library(dplyr)
+library(data.table)
+library(corrplot)
+
+# Helper function to clean NAs represented as "\N" or "" strings
+clean_N <- function(df) {
+  df[] <- lapply(df, function(x) {
+    if (is.character(x)) x[x == "\\N" | x == ""] <- NA
+    x
+  })
+  df
+}
+
+# Helper for safest rowwise best qualifier
+safe_best_qual <- function(q1, q2, q3) {
+  vals <- c(q1, q2, q3)
+  vals <- vals[!is.na(vals)]
+  if (length(vals) == 0) return(NA_real_)
+  min(vals, na.rm=TRUE)
+}
+
+# Load and clean data
+results <- fread("results.csv") %>% clean_N()
+qualifying <- fread("qualifying.csv") %>% clean_N()
+pit_stops <- fread("pit_stops.csv") %>% clean_N()
+lap_times <- fread("lap_times.csv") %>% clean_N()
+driver_standings <- fread("driver_standings.csv") %>% clean_N()
+constructor_standings <- fread("constructor_standings.csv") %>% clean_N()
+
+# Feature engineering and aggregation
+pit_stops$duration <- as.numeric(pit_stops$duration)
+pit_feat <- pit_stops %>%
+  group_by(raceId, driverId) %>%
+  summarise(`Number of Pit Stops` = n(),
+            `Mean Pit Stop Duration` = mean(duration, na.rm=TRUE), .groups="drop")
+
+qualifying <- qualifying %>%
+  mutate(across(c(q1, q2, q3), ~as.numeric(.)))
+
+qual_feat <- qualifying %>% 
+  rowwise() %>%
+  mutate(`Best Qualifying Lap (sec)` = safe_best_qual(q1, q2, q3)) %>%
+  ungroup() %>%
+  select(raceId, driverId, `Best Qualifying Lap (sec)`)
+
+lap_times$milliseconds <- as.numeric(lap_times$milliseconds)
+lap_feat <- lap_times %>%
+  group_by(raceId, driverId) %>%
+  summarise(`Avg. Lap Time (ms)` = mean(milliseconds, na.rm=TRUE), .groups="drop")
+
+driver_standings$points <- as.numeric(driver_standings$points)
+driver_standings$position <- as.numeric(driver_standings$position)
+driver_feat <- driver_standings %>%
+  select(raceId, driverId, `Driver Champ Points` = points, `Driver Champ Position` = position)
+
+constructor_standings$points <- as.numeric(constructor_standings$points)
+constructor_standings$position <- as.numeric(constructor_standings$position)
+constructor_feat <- constructor_standings %>%
+  select(raceId, constructorId, `Constructor Champ Points` = points, `Constructor Champ Position` = position)
+
+combined <- results %>%
+  mutate(
+    `Grid Position` = as.numeric(grid),
+    `Finish Position` = as.numeric(positionOrder),
+    `Race Points` = as.numeric(points),
+    `Laps Completed` = as.numeric(laps)
+  ) %>%
+  left_join(pit_feat, by = c("raceId", "driverId")) %>%
+  left_join(qual_feat, by = c("raceId", "driverId")) %>%
+  left_join(lap_feat, by = c("raceId", "driverId")) %>%
+  left_join(driver_feat, by = c("raceId", "driverId")) %>%
+  left_join(constructor_feat, by = c("raceId", "constructorId"))
+
+# Select columns for analysis, using professional names
+feature_names <- c(
+  "Grid Position", "Finish Position", "Race Points", "Laps Completed",
+  "Number of Pit Stops", "Mean Pit Stop Duration", "Best Qualifying Lap (sec)",
+  "Avg. Lap Time (ms)", "Driver Champ Points", "Driver Champ Position",
+  "Constructor Champ Points", "Constructor Champ Position"
+)
+
+data_corr <- combined %>%
+  select(all_of(feature_names)) %>%
+  mutate(across(everything(), as.numeric))
+
+# Only keep columns with at least 2 distinct non-NA values
+data_corr <- data_corr %>% select(where(~sum(!is.na(.)) > 1 && dplyr::n_distinct(., na.rm=TRUE) > 1))
+
+if(ncol(data_corr) >= 2) {
+  cor_matrix <- cor(data_corr, use="pairwise.complete.obs")
+  corrplot(cor_matrix,
+         method = "color",
+         tl.cex = 0.8,
+         mar = c(0,0,1,0),
+         title = "Comprehensive Correlation Heatmap",
+         addCoef.col = "black",
+         number.cex = 0.7,       # controls the font size of numbers
+         number.digits = 1)      # controls number of digits displayed
+
+} else {
+  message("Not enough numeric columns for correlation matrix.")
+}
+```
+
+Strong positive correlation between grid position and finish position: Starting near the front is highly predictive of a top finish, as seen by the dark band linking these attributes.
+
+Race points, laps completed, and driver/constructor championship positions: These features show strong intercorrelations; drivers who finish well typically accumulate more points and maintain higher standings.
+
+Pit stops, lap time, and pit stop duration: These variables are less strongly correlated; variation here suggests that race strategy and operational efficiency have complex impacts on finishing order.
+
+Mean pit stop duration and number of pit stops: Both are slightly negatively correlated with championship points and finish position, showing an indirect relationship between pit strategy/timing and overall success.
+
+Constructor vs. driver standings: There are close links between constructor and driver championship points/positions, meaning team strength sharply affects driver results.
+
+
+How EDA Reasoning helped Feature Engineering:
+Selection of Predictive Features: The EDA showed strong correlations between start position, finish position, points, and championship standings. Your code extracts these variables (e.g., grid, finish_position, Driver Champ Points, Constructor Champ Points) and uses them directly or as engineered aggregates for modeling.
+
+Use of Derived Statistics: Recognizing that average lap times, mean pit stop durations, and pit stop counts play important (but less directly correlated) roles, your feature engineering calculates and merges these statistics (e.g., mean_pit_duration, total_pit_stops, avg. lap time) for each race and driver.
+
+Rolling and Cumulative Metrics: Your EDA found that recent form and momentum matter, prompting feature creation for rolling averages (e.g., last 3 races’ constructor points and previous mean finishes). These are calculated using zoo::rollmean and zoo::rollapply, reflecting the nuanced EDA insight about momentum effects.
+
+Gap to Pole in Qualifying: Analysis showed qualifying gap is important but not always decisive, so you engineered qgap as a feature indicating Verstappen's best qualifying time relative to pole position.
+
+Track Info and Environment: EDA revealed only weak effects from circuit altitude, latitude, and longitude, but you still include these as features (altitude, lat, lng) to capture possible subtleties and ensure completeness.
+
+Filtering for Completed Races: By only including completed races (statusId == 1), your engineering avoids biasing models with retirements/non-competitive results, matching EDA practice.
+
+### Feature Engineering
+```{r}
+library(dplyr)
+library(zoo)
+
+# Load data
+circuits <- read.csv("circuits.csv")
+constructor_standings <- read.csv("constructor_standings.csv")
+constructors <- read.csv("constructors.csv")
+drivers <- read.csv("drivers.csv")
+qualifying <- read.csv("qualifying.csv")
+pit_stops <- read.csv("pit_stops.csv")
+races <- read.csv("races.csv")
+results <- read.csv("results.csv")  # Your results dataset
+
+convert_time_to_sec <- function(time_str) {
+  if (is.na(time_str) || time_str == "\\N") return(NA)
+  parts <- unlist(strsplit(time_str, ":"))
+  if (length(parts) == 2) {
+    mins <- as.numeric(parts[1]); secs <- as.numeric(parts[2])
+    return(mins * 60 + secs)
+  }
+  return(as.numeric(time_str))
+}
+
+verstappen_id <- drivers$driverId[
+  tolower(drivers$forename) == "max" & tolower(drivers$surname) == "verstappen"
+]
+
+verstappen_results <- results %>%
+  filter(driverId == verstappen_id)
+
+# CORRECTED qgap calculation with missing qualifying filter
+verstappen_qual <- qualifying %>%
+  filter(driverId == verstappen_id) %>%
+  mutate(q1_sec = sapply(q1, convert_time_to_sec),
+         q2_sec = sapply(q2, convert_time_to_sec),
+         q3_sec = sapply(q3, convert_time_to_sec),
+         verstappen_best = pmin(q1_sec, q2_sec, q3_sec, na.rm = TRUE)) %>%
+  select(raceId, verstappen_best)
+
+pole_qual <- qualifying %>%
+  mutate(q1_sec = sapply(q1, convert_time_to_sec),
+         q2_sec = sapply(q2, convert_time_to_sec),
+         q3_sec = sapply(q3, convert_time_to_sec)) %>%
+  filter(!(is.na(q1_sec) & is.na(q2_sec) & is.na(q3_sec))) %>%
+  mutate(best_time = pmin(q1_sec, q2_sec, q3_sec, na.rm = TRUE)) %>%
+  group_by(raceId) %>%
+  summarise(pole_time = min(best_time, na.rm = TRUE), .groups = "drop")
+
+qual_feat <- verstappen_qual %>%
+  left_join(pole_qual, by = "raceId") %>%
+  mutate(qgap = verstappen_best - pole_time) %>%
+  select(raceId, qgap)
+
+pit_feat <- pit_stops %>%
+  filter(driverId == verstappen_id) %>%
+  mutate(duration_num = suppressWarnings(as.numeric(duration))) %>%
+  group_by(raceId) %>%
+  summarise(total_pit_stops = n(), mean_pit_duration = mean(duration_num, na.rm = TRUE), .groups = "drop")
+
+constructor_feat <- constructor_standings %>%
+  filter(constructorId %in% verstappen_results$constructorId) %>%
+  arrange(raceId) %>%
+  group_by(constructorId) %>%
+  mutate(
+    recent_constructor_points = zoo::rollmean(points, 3, fill = NA, align = "right"),
+    cum_points = cumsum(points)
+  ) %>%
+  ungroup() %>%
+  select(raceId, constructorId, points, recent_constructor_points, wins)
+
+driver_perf <- verstappen_results %>%
+  arrange(raceId) %>%
+  mutate(prev3_mean_finish = zoo::rollapply(positionOrder, 3, mean, fill = NA, align = "right")) %>%
+  select(raceId, prev3_mean_finish)
+
+race_info <- races %>%
+  select(raceId, year, round, circuitId) %>%
+  left_join(circuits %>%
+              select(circuitId, altitude = alt, lat, lng, country),
+            by = "circuitId")
+
+model_data <- verstappen_results %>%
+  select(raceId, finish_position = positionOrder, grid, constructorId, fastestLap, rank, fastestLapTime, statusId) %>%
+  left_join(qual_feat, by = "raceId") %>%
+  left_join(pit_feat, by = "raceId") %>%
+  left_join(constructor_feat, by = c("raceId", "constructorId")) %>%
+  left_join(driver_perf, by = "raceId") %>%
+  left_join(race_info, by = "raceId") %>%
+  mutate(
+    grid_sq = grid ^ 2,
+    altitude = as.numeric(altitude),
+    finished_race = statusId == 1
+  ) %>%
+  filter(finished_race)
+
+predictors <- model_data %>%
+  select(-raceId, -constructorId, -finish_position, -statusId, -finished_race, -country)
+target <- model_data$finish_position
+```
+
+### Distribution of Finish Position
+```{r}
+library(ggplot2)
+ggplot(model_data, aes(x = finish_position)) +
+  geom_histogram(binwidth = 1, fill = "skyblue", color = "black", boundary = 0.5, closed = "left") +
+  scale_x_continuous(breaks = seq(1, max(model_data$finish_position, na.rm = TRUE), by = 1), 
+                     name = "Final Race Position",
+                     expand = c(0, 0)) +
+  ylab("Number of Races") +
+  labs(title = "Distribution of Race Finish Positions") +
+  theme_minimal()
+```
+
+The histogram of finish positions shows that a significant majority of races resulted in a finish position of 1, indicating many wins in the dataset. The frequency drops sharply as the position number increases, with very few finishes outside the top five. This distribution suggests that Max Verstappen consistently achieves top results, reinforcing a pattern of dominance or high performance throughout the races in the dataset.
+
+### Boxplot of Finish Position
+```{r}
+library(ggplot2)
+
+ggplot(model_data, aes(x = "", y = finish_position)) +
+  geom_boxplot(fill = "orange") +
+  scale_y_continuous(
+    breaks = seq(1, max(model_data$finish_position, na.rm = TRUE), by = 1),
+    name = "Final Race Position"
+  ) +
+  xlab("Max Verstappen") +
+  labs(title = "Distribution of Max Verstappen's Race Finish Positions") +
+  theme_minimal()
+```
+
+The boxplot visualizes the distribution of Max Verstappen's race finish positions. The majority of his finishes are highly concentrated at the lower end of the position spectrum, indicating strong results (many 1st or 2nd place finishes). The median finish position is close to the lower numbers, showing consistency in high placements. The box (interquartile range) extends up to about 6, suggesting most results are in the top six. The presence of a small number of outlier points higher up indicates rare instances where Verstappen finished further down the order, but these are exceptions rather than the norm. Overall, this illustrates exceptional and consistent performance in finishing near the front of the pack.
+
+The black line in the middle of the box in a boxplot represents the median finish position for Max Verstappen across all races analyzed. This line shows the central tendency of his results—meaning half of his race finishes are above this position and half are below it. In this graph, the median is close to the lower end, indicating most of his results are top finishes
+
+### Qualifying Gap vs Finish Position
+```{r}
+library(ggplot2)
+
+ggplot(model_data, aes(x = qgap, y = finish_position)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "red") +
+  scale_y_continuous(
+    breaks = seq(1, max(model_data$finish_position, na.rm = TRUE), by = 1),
+    name = "Final Race Position"
+  ) +
+  scale_x_continuous(
+    breaks = seq(floor(min(model_data$qgap, na.rm = TRUE)),
+                 ceiling(max(model_data$qgap, na.rm = TRUE)),
+                 by = 1),
+    name = "Qualifying Gap to Pole (seconds)"
+  ) +
+  labs(title = "Relationship Between Qualifying Gap and Final Race Position") +
+  theme_minimal()
+```
+
+This graph shows the relationship between Max Verstappen's qualifying gap (qgap) and his final race position for each event. The upward-sloping red line indicates a positive correlation: generally, as Verstappen's qualifying gap increases (meaning his qualifying time is slower relative to the fastest qualifier), his finish position worsens (higher numbers indicate finishing further from first place). In other words, the closer Verstappen is in time to the pole position during qualifying, the more likely he is to achieve a better result in the race.
+
+The red line is a regression line, summarizing the overall trend: as Verstappen’s qualifying gap to the pole increases, his final race position tends to be worse (higher). The line quantifies this relationship, while the shaded area around it gives the margin of error. This visual makes clear that smaller qualifying gaps help achieve stronger race results.
+
+There are several races where Max Verstappen finishes in the top positions (1st or 2nd) even with qualifying gaps above 1 or 2 seconds, which is unusual and suggests he has strong racecraft, overtaking ability, or benefitted from strategic decisions and unpredictable race events. Additionally, there are outliers where a very small qualifying gap does not lead to a top finish, showing that factors beyond qualifying pace—like reliability, incidents, or race strategy—can play pivotal roles.
+
+This deviation from the average trend highlights Verstappen's ability to outperform expectations on race day, making him stand out compared to other drivers whose final positions more closely track their qualifying performance.
+
+### Pit Stop Count Distribution
+```{r}
+ggplot(model_data, aes(x = total_pit_stops)) +
+  geom_histogram(binwidth = 1, fill = "purple", color = "black", boundary = 0.5, closed = "left") +
+  scale_x_continuous(
+    breaks = seq(min(model_data$total_pit_stops, na.rm=TRUE), max(model_data$total_pit_stops, na.rm=TRUE), by = 1),
+    name = "Number of Pit Stops"
+  ) +
+  ylab("Number of Races") +
+  labs(title = "Distribution of Pit Stop Counts per Race") +
+  theme_minimal()
+```
+
+This graph shows that the most common number of pit stops in a race is 1 or 2, with 2 pit stops being slightly more frequent. This fits expectations for modern Formula 1 strategies, where most drivers aim to minimize pit stops for optimal track position.
+
+The surprising finding is that there are a notable number of races with 4, 5, or even 6 pit stops—significantly more than typical strategy would require. These outliers suggest those races likely featured unusual circumstances, such as changing weather (requiring additional tire changes), safety car periods, or incidents that forced extra pit activity. This highlights both the consistency of pit strategy in most races and the potential for unexpected situations to drastically change standard patterns.
+
+### Mean Pit Duration vs Finish Position
+```{r}
+ggplot(model_data, aes(x = mean_pit_duration, y = finish_position)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "red") +
+  scale_y_continuous(
+    breaks = seq(1, max(model_data$finish_position, na.rm = TRUE), by = 1),
+    name = "Final Race Position"
+  ) +
+  labs(
+    title = "Average Total Pit Lane Time vs Final Race Position",
+    x = "Average Total Pit Lane Time (seconds)"
+  ) +
+  theme_minimal()
+```
+
+The obvious finding is that races with shorter average total pit lane times tend to result in better finish positions for Max Verstappen, shown by the downward clustering of lower positions at lower pit lane times. The positive slope of the red regression line reinforces that longer pit lane times are generally associated with worse race results, reflecting lost time and the importance of fast, efficient pit stops.
+
+The surprising and impressive pattern is the number of races where Verstappen achieves top positions (1st, 2nd, and 3rd) even when pit lane times are noticeably longer than average. This suggests that in some events, Verstappen and his team can overcome time lost in the pits through superior race strategy, fast in/out laps, or overtaking skill. Conversely, there are also races with short pit lane times that don’t lead to good results, highlighting that while pit stop efficiency is critical, factors like race incidents, car reliability, and tactical decisions also play a significant role in final outcomes. This nuanced relationship is a valuable insight for F1 analysis as it demonstrates both the strength of the team and the complexity of race performance.
+
+### Recent Constructor Points vs Finish Position
+```{r}
+ggplot(model_data, aes(x = recent_constructor_points, y = finish_position)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "blue") +
+  scale_y_continuous(
+    breaks = seq(1, max(model_data$finish_position, na.rm = TRUE), by = 1),
+    name = "Final Race Position"
+  ) +
+  labs(
+    title = "Recent Constructor Points vs Final Race Position",
+    x = "Constructor Points (Last 3 Races)"
+  ) +
+  theme_minimal()
+```
+
+The obvious finding is that there is a clear negative relationship: as recent constructor points increase (indicating the team’s strong form in the previous three races), Max Verstappen’s final race positions also improve (move closer to 1st place). This is highlighted by the downward-sloping blue regression line, showing that team momentum and car performance are strong predictors of race success.
+
+The surprising finding is the spread at the lower end: even when constructor points are very low, there are still some races where Verstappen achieves top finishes (1st to 3rd place). This suggests instances where Verstappen’s individual skill, strategy, or unique race circumstances allow him to outperform the broader trend of team performance. Similarly, there are also occasional poor finishes despite high recent points, demonstrating that even the best teams face unpredictability and that outliers do occur. This adds nuance to the analysis, showing both the power of team momentum and the capacity for exceptional results outside statistical expectations.
+
+### Cumulative Constructor Points (Line Plot)
+```{r}
+verstappen_race_ids <- verstappen_results$raceId
+
+verstappen_constr_feat <- constructor_feat %>%
+  filter(raceId %in% verstappen_race_ids)
+
+verstappen_era_points <- verstappen_constr_feat %>%
+  filter(raceId %in% verstappen_race_ids) %>%
+  arrange(raceId) %>%
+  mutate(race_number = row_number(),
+         cum_points = cumsum(points))
+
+ggplot(verstappen_era_points, aes(x = race_number, y = cum_points)) +
+  geom_line(color = "steelblue") +
+  labs(
+    title = "Cumulative Constructor Points for Red Bull Racing (During Verstappen's Career)",
+    x = "Constructor Race Number (Verstappen Era)",
+    y = "Cumulative Constructor Points"
+  ) +
+  theme_minimal()
+```
+
+The obvious finding is that Red Bull Racing’s cumulative constructor points during Verstappen’s career show a steep, steady climb, reflecting the team’s consistent competitiveness and exceptional run of results in the hybrid era. The graph shows few, if any, periods of stagnation—each season brings substantial points growth, highlighting both Verstappen’s and his team’s dominance.
+
+The interesting and impressive aspect is the periods where the cumulative points curve becomes even steeper, which likely correspond to championship-winning seasons or stretches where Red Bull Racing achieved near-maximum points in successive races. These phases aren’t just a marker of continuous strength—they showcase moments of near-historic domination that set Red Bull apart from rivals. The linearity and acceleration of the curve, especially at the end, demonstrate how Verstappen’s arrival helped Red Bull Racing transition from mere contenders back to title favorites and serial winners. This clear link between rapid points growth and Verstappen’s time at Red Bull illustrates the transformative impact of driver-team synergy on sustained success in F1.
+
+### Constructor Wins Over Races
+```{r}
+# Filter constructor wins to Verstappen's races only and add sequential race number
+verstappen_race_ids <- verstappen_results$raceId
+
+verstappen_wins_feat <- model_data %>%
+  filter(raceId %in% verstappen_race_ids) %>%
+  arrange(raceId) %>%
+  mutate(race_number = row_number())
+
+ggplot(verstappen_wins_feat, aes(x = race_number, y = wins)) +
+  geom_line(color = "black") +
+  labs(
+    title = "Constructor Wins Across Races (Verstappen Era)",
+    x = "Constructor Race Number (Verstappen Era)",
+    y = "Number of Constructor Wins"
+  ) +
+  theme_minimal()
+```
+
+This graph shows the cumulative number of Grand Prix race wins achieved by Red Bull Racing across races during Max Verstappen's career. The curve steps upward each time the constructor wins a race, whether by Verstappen or his teammate.
+
+There is a clear trend of increasing wins through Verstappen's era, reflecting Red Bull's growing competitiveness and frequent race victories.
+
+The rate of win accumulation is not fully linear—there are periods of rapid success (steep upward climbs) and phases of fewer victories (flatter segments).
+
+Sharp spikes in the curve indicate dominant winning streaks, which can be linked to times when Red Bull was nearly unbeatable (such as recent seasons).
+
+The graph also reveals resilience; after some flat or declining periods with fewer wins, Red Bull returns to form with renewed streaks, highlighting the team's ability to regroup and improve quickly.
+
+Between races 100 and 150, the graph’s slope intensifies, showcasing seasons where Red Bull has dramatically increased its win rate, likely during Verstappen's championship runs—this illustrates how a top driver and strategic team upgrades can transform a constructor's results.
+
+The nature of steps and plateaus emphasizes that even dominant teams experience variability, making ongoing success an impressive achievement.
+
+### Rolling Mean Finish vs Current Finish Position
+```{r}
+ggplot(model_data, aes(x = prev3_mean_finish, y = finish_position)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "darkgreen") +
+  scale_y_continuous(
+    breaks = seq(1, max(model_data$finish_position, na.rm = TRUE), by = 1),
+    name = "Final Race Position"
+  ) +
+  labs(
+    title = "How Recent Results Predict Verstappen's Next Finish",
+    x = "Average Finish (Most Recent 3 Races)",
+    y = "Final Race Position"
+  ) +
+  theme_minimal()
+```
+
+This graph shows a clear pattern: when Max Verstappen finishes near the front in his last three races, he’s very likely to finish well in the next one too; when he’s had weaker results recently, he’s more likely to finish lower in the following race.
+
+The green line represents the general trend for his results—it helps predict his next finish based on how he’s done lately.
+
+Some points are far from the line; these are races where Verstappen didn’t follow the usual pattern, either outperforming or struggling unexpectedly. They highlight his ability to bounce back after tough weekends, as well as surprise setbacks.
+
+Overall, the chart shows both Verstappen’s consistency and his resilience—strong form leads to strong finishes, but he can still recover and deliver a great result even after a rough stretch.
+
+### Altitude vs Finish Position
+```{r}
+ggplot(model_data, aes(x = altitude, y = finish_position)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "brown") +
+  scale_y_continuous(
+    breaks = seq(1, max(model_data$finish_position, na.rm = TRUE), by = 1),
+    name = "Final Race Position"
+  ) +
+  labs(
+    title = "Effect of Circuit Altitude on Max Verstappen's Race Results",
+    x = "Circuit Altitude (meters)"
+  ) +
+  theme_minimal()
+```
+
+The obvious finding is that altitude does not have a strong effect on Max Verstappen’s race results—he finishes with similar positions whether the circuit is at sea level or high elevation.
+
+The interesting finding is that even at the highest-altitude races (beyond 2000 meters), Verstappen can still place very well or poorly, suggesting that other factors matter more for his performance than the altitude itself.
+
+The red line in the middle is a linear regression trend line; it shows the overall relationship between circuit altitude and Verstappen’s finishing position. Here, the line is nearly flat, which means altitude is not a meaningful predictor of where he finishes the race. The shaded region around the line shows where most finishes are likely to fall, given the trend.
+
+### Latitude vs Finish Position
+```{r}
+ggplot(model_data, aes(x = lat, y = finish_position)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "brown") +
+  scale_y_continuous(
+    breaks = seq(1, max(model_data$finish_position, na.rm = TRUE), by = 1),
+    name = "Final Race Position"
+  ) +
+  labs(
+    title = "Effect of Circuit Latitude on Max Verstappen's Race Results",
+    x = "Circuit Latitude (degrees)"
+  ) +
+  theme_minimal()
+```
+
+The obvious finding is that Max Verstappen’s race results don’t really depend on the latitude of the circuit—he can finish strongly no matter where the race is held in the world.​
+
+The interesting finding is that there’s a tiny downward slope on the red line, hinting that he might do very slightly better at tracks closer to the equator, but the effect is extremely small and not consistent. This suggests latitude is not an important factor in predicting his performance.
+
+The red line in the middle is a linear regression line. It shows the general trend between circuit latitude and Verstappen’s finishing position—here it’s nearly flat, so there’s no clear relationship. The grey band around it shows the range where most results are likely to be, considering the usual variability in race outcomes.
+
+### Longitude vs Finish Position
+```{r}
+ggplot(model_data, aes(x = lng, y = finish_position)) +
+  geom_point() +
+  geom_smooth(method = "lm", color = "brown") +
+  scale_y_continuous(
+    breaks = seq(1, max(model_data$finish_position, na.rm = TRUE), by = 1),
+    name = "Final Race Position"
+  ) +
+  labs(
+    title = "Effect of Circuit Longitude on Max Verstappen's Race Results",
+    x = "Circuit Longitude (degrees)"
+  ) +
+  theme_minimal()
+```
+
+The obvious finding is that circuit longitude does not have a meaningful impact on Max Verstappen’s race results—he finishes well at tracks located all over the globe.
+
+The interesting finding is that the red trend line hints at a very slight upward slope, suggesting his finishing position could be a little higher (worse) at tracks further east. However, the effect is minimal and not reliable, showing his skill and consistency worldwide.
+
+The red line in the middle is a linear regression trend line. It shows the average relationship between longitude and finish position—here, it's almost flat, which means there is no strong connection. The grey band is the confidence interval, showing the expected range of variability in his results.
+
+### Finish Position by Circuit (Boxplot)
+```{r}
+# Assuming you have loaded both model_data and circuits as dataframes
+# circuits should have columns: circuitId, name
+
+model_data_named <- model_data %>%
+  left_join(circuits %>% select(circuitId, name), by = "circuitId")
+
+ggplot(model_data_named, aes(x = factor(name, levels = unique(name)), y = finish_position)) +
+  geom_boxplot() +
+  scale_y_continuous(
+    breaks = seq(1, max(model_data$finish_position, na.rm = TRUE), by = 1),
+    name = "Final Race Position"
+  ) +
+  labs(
+    title = "Distribution of Max Verstappen's Finishing Positions by Circuit",
+    x = "Circuit Name",
+    y = "Final Race Position"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```
+
+The obvious finding is that Max Verstappen’s finishing positions vary significantly between circuits—some tracks consistently see him on the podium, while others have much greater unpredictability or lower results, as shown by the differing spread and height of the boxplots.
+
+The interesting finding is that there are circuits, like the Miami International Autodrome and Yas Marina Circuit, where Verstappen almost always finishes near the front, demonstrating his exceptional adaptation and setup for these venues. On the other hand, tracks like Spa or Silverstone show wider boxplots and more outliers, indicating tougher conditions or higher competition for Verstappen at these locations. This reveals not only which circuits play to Verstappen's strengths but also highlights the unique challenges present at different Grand Prix venues.
+
+### Train-Test Split
+```{r}
+library(caret)
+set.seed(42)
+
+train_idx <- createDataPartition(target, p = 0.8, list = FALSE)
+train_X <- predictors[train_idx, ]
+test_X <- predictors[-train_idx, ]
+train_y <- target[train_idx]
+test_y <- target[-train_idx]
+
+# Missing value imputation using median on training set and apply to test set
+preProcValues <- preProcess(train_X, method = "medianImpute")
+train_X <- predict(preProcValues, train_X)
+test_X <- predict(preProcValues, test_X)
+```
+
+### Model Training
+```{r}
+library(randomForest)
+rf_model <- train(
+  x = train_X,
+  y = train_y,
+  method = "rf",
+  trControl = trainControl(method = "repeatedcv", number = 5, repeats = 3),
+  tuneLength = 10,
+  metric = "RMSE"
+)
+```
+
+### Training & Test Evaluation
+```{r}
+train_pred <- predict(rf_model, newdata = train_X)
+test_pred <- predict(rf_model, newdata = test_X)
+
+train_rmse <- sqrt(mean((train_pred - train_y)^2))
+train_mae <- mean(abs(train_pred - train_y))
+train_r2 <- cor(train_pred, train_y)^2
+
+cat("Training set RMSE:", train_rmse, "\n")
+cat("Training set MAE:", train_mae, "\n")
+cat("Training set R-squared:", train_r2, "\n")
+
+test_rmse <- sqrt(mean((test_pred - test_y)^2))
+test_mae <- mean(abs(test_pred - test_y))
+test_r2 <- cor(test_pred, test_y)^2
+
+cat("Test set RMSE:", test_rmse, "\n")
+cat("Test set MAE:", test_mae, "\n")
+cat("Test set R-squared:", test_r2, "\n")
+``` 
+### Prediction
+```{r}
+library(dplyr)
+
+# Ensure circuit info for Italy GP is correctly referenced
+italy_circuit_id <- 13
+italy_circuit <- circuits %>% filter(circuitId == italy_circuit_id)
+
+# Create input with correct data types: integers, numerics, and ensure values are compatibly formatted
+new_race_input <- data.frame(
+  grid = as.integer(2),                     # integer
+  fastestLap = as.integer(39),              # integer
+  rank = as.integer(1),                      # integer
+  fastestLapTime = as.character("01:26.000"),  # character to match original format
+  qgap = as.numeric(75.5),                  # numeric seconds from lap time conversion
+  total_pit_stops = as.integer(2),          # integer
+  mean_pit_duration = as.numeric(2.5),     # numeric seconds
+  points = as.numeric(160),                  # numeric constructor points
+  recent_constructor_points = as.numeric(140), # numeric recent points
+  wins = as.integer(10),                     # integer wins count
+  prev3_mean_finish = as.numeric(1.5),     # numeric rolling finish position
+  year = as.integer(2025),
+  round = as.integer(14),
+  circuitId = as.integer(italy_circuit_id),
+  altitude = as.numeric(italy_circuit$alt), # numeric altitude
+  lat = as.numeric(italy_circuit$lat),      # numeric
+  lng = as.numeric(italy_circuit$lng),      # numeric
+  grid_sq = as.integer(1^2)
+)
+
+# Use the same imputation and preprocessing which you applied for training data
+new_race_input_prepared <- predict(preProcValues, new_race_input)
+
+# Predict Verstappen's finish position
+predicted_position <- predict(rf_model, new_race_input_prepared)
+
+cat("Predicted Verstappen finish position at 2025 Italian GP:", round(predicted_position, 2), "\n")
+```
+
+### Goodness-of-Fit
+```{r}
+library(ggplot2)
+
+fit_df <- data.frame(
+  Actual = test_y,
+  Predicted = test_pred
+)
+
+ggplot(fit_df, aes(x = Actual, y = Predicted)) +
+  # Residual lines: draw from (Actual, Predicted) to (Actual, Actual)
+  geom_segment(aes(x = Actual, xend = Actual, y = Predicted, yend = Actual),
+               color = "orange", linetype = "solid", alpha = 0.6) +
+  geom_point(color = "steelblue", alpha = 0.7) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed", color = "red") +
+  scale_x_continuous(breaks = seq(min(fit_df$Actual, na.rm=TRUE), max(fit_df$Actual, na.rm=TRUE), 1)) +
+  scale_y_continuous(breaks = seq(min(fit_df$Predicted, na.rm=TRUE), max(fit_df$Predicted, na.rm=TRUE), 1)) +
+  labs(
+    title = "Goodness of Fit: Predicted vs Actual Race Finish Position",
+    x = "Actual Finish Position",
+    y = "Predicted Finish Position"
+  ) +
+  theme_minimal()
+```
+
+The goodness-of-fit plot demonstrates that the model predicts Max Verstappen’s finish positions with reasonable accuracy—most predicted values for high finishes (like 1st or 2nd) are close to the actual results, clustering near the red dashed identity line, though the model is less precise for lower finish positions, where it sometimes over- or underestimates the outcome; the spread of points about the line highlights that while the model captures dominant winning tendencies well, there is greater error and variability when Verstappen finishes further down the order, reflecting both the model’s strengths in forecasting top results and its limitations in rare, less typical race scenarios.
