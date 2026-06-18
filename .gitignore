@@ -1,0 +1,64 @@
+# macOS metadata
+.DS_Store
+~$*
+
+# Python build artifacts
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# R session/project user files
+.Rproj.user/
+.RData
+.RDataTmp
+.Rhistory
+.Rapp.history
+
+# Terraform provider binaries
+.terraform/providers/
+
+# Large ML model files (exceed GitHub 100MB limit)
+*.onnx
+*.onnx.data
+*.pt
+*.weights
+
+# Large compiled binaries/libraries
+*.dylib
+*.so
+*.abi3.so
+*.pkg
+
+# Large media files
+*.mp4
+*.avi
+*.mov
+
+# Archive files (large/duplicates of extracted content)
+*.zip
+
+# Node.js
+node_modules/
+
+# Large datasets — FIT5202 Big Data (each file 100MB–1.1GB)
+2026S1_dataset/
+a2_accidents.csv
+a2_collision.csv
+a2_vehicle.csv
+severity_rating.csv
+
+# Claude Code project settings
+.claude/
+
+# Tableau temp files
+*.twbr
+.~*.twbr
+
+# Temporary git backup dirs (used during repo setup)
+**/.git_bak/

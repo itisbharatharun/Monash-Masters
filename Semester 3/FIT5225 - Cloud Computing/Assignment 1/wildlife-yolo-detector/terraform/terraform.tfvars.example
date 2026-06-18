@@ -1,0 +1,13 @@
+# terraform.tfvars.example
+# Copy this file to terraform.tfvars and fill in your values.
+# Then run: terraform init && terraform apply
+# NEVER commit terraform.tfvars to git.
+
+project_id     = "fit5225-cloudeco"   # your GCP project ID
+region         = "us-central1"
+zone           = "us-central1-f"
+machine_type   = "e2-standard-4"
+disk_size_gb   = 25
+
+# Paste your SSH public key (run: cat ~/.ssh/fit5225_oci.pub)
+ssh_public_key = "ssh-rsa AAAAB3NzaC1yc2E... heisenberg@Mac.modem"
