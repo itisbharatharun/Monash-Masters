@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="oo_logical" id="D78D3141-089B-A344-6AAA-216360130E42" version="3.5">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 05:50:31 UTC</createdTime>
+<ownerDesignName>oo_logical</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>D78D3141-089B-A344-6AAA-216360130E42</designId>
+</OSDM_Design>

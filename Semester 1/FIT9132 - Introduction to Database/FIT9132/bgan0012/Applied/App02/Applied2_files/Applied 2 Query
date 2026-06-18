@@ -1,0 +1,11 @@
+select * from STUDENT;
+
+select * 
+from STUDENT
+where STUDADDRESS like '%Moorabbin';
+
+select studfname, studlname 
+from student 
+where studaddress like '%Moorabbin';
+
+DROP TABLE student CASCADE CONSTRAINTS PURGE;

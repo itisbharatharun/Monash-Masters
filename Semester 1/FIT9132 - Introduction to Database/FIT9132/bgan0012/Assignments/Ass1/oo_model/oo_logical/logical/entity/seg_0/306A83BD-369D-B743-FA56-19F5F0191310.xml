@@ -1,0 +1,135 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="306A83BD-369D-B743-FA56-19F5F0191310" name="SHIP">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:03:25 UTC</createdTime>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="ship_code" id="E268FE69-8227-BA5A-3ADF-95950F094792">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:03:35 UTC</createdTime>
+<commentInRDBMS><![CDATA[Ship Code]]></commentInRDBMS>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,7,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="reg_country" id="383AFEDC-7844-9B32-958D-048CA38A50CB">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 13:33:41 UTC</createdTime>
+<commentInRDBMS><![CDATA[Country Code]]></commentInRDBMS>
+<generatorID>5C5A6216-EEE3-2D43-A104-15CA4D64B38E</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<referedAttribute>809E1330-E434-A0AD-64B1-847CD9C69085</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>3</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="operator_id" id="FA55E6A5-A2C8-AC3C-8B47-8822B0110A19">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 08:03:16 UTC</createdTime>
+<commentInRDBMS><![CDATA[Operator ID]]></commentInRDBMS>
+<generatorID>20F58F3F-C796-DDF2-1EB0-4D63D7A865D7</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<referedAttribute>24304B05-5696-C9D3-21A3-BBD1B6A8AFBC</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ship_name" id="F0E34220-33D1-6AC8-48FE-14585EAF5262">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:03:35 UTC</createdTime>
+<commentInRDBMS><![CDATA[Ship Name]]></commentInRDBMS>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="commission_date" id="840F1C00-FF50-043B-6843-8DB51DCA5039">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:03:36 UTC</createdTime>
+<commentInRDBMS><![CDATA[Commission Date]]></commentInRDBMS>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="tonnage" id="C5014195-DEC0-4DA5-E268-3C9990AF4A20">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:03:36 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tonnage]]></commentInRDBMS>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<ownDataTypeParameters>,10,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="max_guest_cap" id="A0BCB7A4-C55C-F767-673A-FD7B0171D1BC">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:03:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Maximum Guest Capacity]]></commentInRDBMS>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<ownDataTypeParameters>,10,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="D3F6BE16-73C5-C2CE-31EC-72A883C87027" name="SHIP PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:03:58 UTC</createdTime>
+<ownerDesignName>oo_logical</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>E268FE69-8227-BA5A-3ADF-95950F094792</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

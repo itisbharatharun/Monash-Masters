@@ -1,0 +1,165 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="8783BA2E-2C93-ED22-5F21-2F4A5F9243EA" name="RENT">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>4DB6F8A9-CC67-0EAD-4436-1F236BEBC387</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="rent_agreement_no" id="F0F21BA8-51AD-8887-DE3D-2A5A2B4A3C7A">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Rent Agreement Number]]></commentInRDBMS>
+<generatorID>6C425E61-6FBA-400F-A8DC-4CA00EB714AA</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,7,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="rent_lease_start" id="82772CBA-E46A-D269-0B05-AD26E6A017A1">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Rent Lease Start Date]]></commentInRDBMS>
+<generatorID>2AF6DFAF-D685-65D5-0DCD-E61F5FF7A62C</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="rent_weekly_rate" id="44F41229-4F4E-8A7A-AA8A-6674FE1AE238">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>1BBBD971-62F3-A5F9-BD64-9C77035DD59E</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>25</dataTypePrecision>
+<ownDataTypeParameters>,25,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="rent_bond" id="4C35F16E-64A9-8A99-EE42-490E8C400A27">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Rent Bond]]></commentInRDBMS>
+<generatorID>DE5E2B0B-CB26-08BD-0F83-3EB9BE0DAD55</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<ownDataTypeParameters>,10,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="rent_lease_period" id="98DEF052-604E-9A04-76DA-18EB75C62501">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Rent Lease Period]]></commentInRDBMS>
+<generatorID>9A8068C3-79B5-66D9-1F55-D912D99F10BA</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="prop_no" id="D6958FFB-34AF-2323-8014-1963BB3933EA">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Property Number]]></commentInRDBMS>
+<generatorID>A4A69652-B4C6-18A8-C50E-E7813ECB8261</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="9018EF55-B052-E6FA-1631-CD5D58D6EF30" referredColumn="3695AD09-502D-CE76-4B75-6204A700C922"/>
+</associations>
+</Column>
+<Column name="tenant_no" id="54F812F9-C7CF-B614-C6E2-833B9C57B94D">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tenant Number]]></commentInRDBMS>
+<generatorID>A384B205-CCF2-0432-ED04-B59B273ADC21</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="AB56E73A-2761-9634-27A9-3128F722B312" referredColumn="DC6286DA-1F1E-6C59-4966-5BD08F1E8586"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="3157D55E-8F01-5002-5B83-BF639BAB81F8" name="RENT_PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>673992CF-68D4-82C4-8A5C-EE15EC817E9F</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="F0F21BA8-51AD-8887-DE3D-2A5A2B4A3C7A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="102B8DFE-BF09-0B07-5D8F-51809CF7DC93" name="rent_lease_start">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>F558DB3B-B5AE-159C-6BAD-92080D015E1B</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="82772CBA-E46A-D269-0B05-AD26E6A017A1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="7FD91B7D-247E-C255-3F79-4D69D2804D6C" name="Key_3v1">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>C04C6004-6D84-8E91-0D5E-EFF968F85EBB</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D6958FFB-34AF-2323-8014-1963BB3933EA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EE9565EB-6451-4090-43A3-F9BAC0CB5123" name="property_rent_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>C0491A2D-3972-D6A5-6CFF-FD42A339E97B</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D6958FFB-34AF-2323-8014-1963BB3933EA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1CA7A9DB-6FE4-DFDB-E06C-6592C3F1DB40" name="tenant-rent_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>514BA5B4-FA0A-31D6-B953-B20C7FE6C6FA</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="54F812F9-C7CF-B614-C6E2-833B9C57B94D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

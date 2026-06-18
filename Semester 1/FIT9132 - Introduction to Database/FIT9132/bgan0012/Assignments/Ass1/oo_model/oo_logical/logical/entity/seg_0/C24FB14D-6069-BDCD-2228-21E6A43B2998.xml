@@ -1,0 +1,133 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="C24FB14D-6069-BDCD-2228-21E6A43B2998" name="CRUISE">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:06:47 UTC</createdTime>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="cruise_id" id="F4D05687-975F-C9F9-1465-8E4578A4C7A9">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:06:59 UTC</createdTime>
+<commentInRDBMS><![CDATA[Cruise ID]]></commentInRDBMS>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,7,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ship_code" id="3E5C20B7-9E53-2AB0-2C69-BC56AB5C259B">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 08:04:39 UTC</createdTime>
+<commentInRDBMS><![CDATA[Ship Code]]></commentInRDBMS>
+<generatorID>70BC221C-E1B3-2FAF-D2BA-3A3A4DAF9EB3</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<referedAttribute>E268FE69-8227-BA5A-3ADF-95950F094792</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="cruise_name" id="8ECA12D8-7741-189E-826F-93F1FF115FE1">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:07:00 UTC</createdTime>
+<commentInRDBMS><![CDATA[Cruise Name]]></commentInRDBMS>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="cruise_desc" id="C1130C5D-9C3C-1918-4074-0471C4A482B4">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:07:00 UTC</createdTime>
+<commentInRDBMS><![CDATA[Cruise Description]]></commentInRDBMS>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="dept_date" id="A82B3A7C-601B-CABF-6B6A-FD01346D1C5F">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:07:00 UTC</createdTime>
+<commentInRDBMS><![CDATA[Departure Dare]]></commentInRDBMS>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="dept_time" id="3BDB5480-67A1-469D-A6FE-E60AD216AC8A">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:07:01 UTC</createdTime>
+<commentInRDBMS><![CDATA[Deptarture Time]]></commentInRDBMS>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="cost_per_person" id="AE7D6988-7938-55FE-4C55-33888C66316B">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:07:01 UTC</createdTime>
+<commentInRDBMS><![CDATA[Cost per Person]]></commentInRDBMS>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>15</dataTypePrecision>
+<ownDataTypeParameters>,15,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="7674B07A-3CDE-2D48-ECF9-932EDB6BB8BC" name="CRUISE PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:07:53 UTC</createdTime>
+<ownerDesignName>oo_logical</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>F4D05687-975F-C9F9-1465-8E4578A4C7A9</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

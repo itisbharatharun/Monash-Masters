@@ -1,0 +1,91 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="BCB8C9F7-B855-65B6-EE4D-7B385AE305D9" name="OWNER">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 10:21:32 UTC</createdTime>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="owner_no" id="A7A1695D-13DC-BDA6-1DB0-9EA7AA474FD6">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 10:21:42 UTC</createdTime>
+<commentInRDBMS><![CDATA[Order Number]]></commentInRDBMS>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,7,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="owner_givname" id="528C3B23-F945-73BC-FE73-FEB6E7A1118D">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 10:37:17 UTC</createdTime>
+<commentInRDBMS><![CDATA[Owner Given Name]]></commentInRDBMS>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="owner_famname" id="D8E45E66-228E-B7AB-58C5-0CE273479104">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 10:38:29 UTC</createdTime>
+<commentInRDBMS><![CDATA[Owner Family Name]]></commentInRDBMS>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="owner_name" id="1BD120DE-5E84-D7B7-F588-1952321002BA">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 10:27:39 UTC</createdTime>
+<commentInRDBMS><![CDATA[Owner Name]]></commentInRDBMS>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="850E787B-1C23-8798-9147-1304F1C87A38" name="OWNER PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 10:27:06 UTC</createdTime>
+<ownerDesignName>property_rental</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>A7A1695D-13DC-BDA6-1DB0-9EA7AA474FD6</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

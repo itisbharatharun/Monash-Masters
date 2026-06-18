@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="property_rent_fk" directorySegmentName="seg_0" id="C0491A2D-3972-D6A5-6CFF-FD42A339E97B">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:59:34 UTC</createdTime>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<sourcePk>128AF397-33C7-16E9-79CA-14C701D7AA80</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>has</nameOnSource>
+<nameOnTarget> </nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>7F26CA26-35D3-4FA0-3BAD-733806FB7E6C</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>4DB6F8A9-CC67-0EAD-4436-1F236BEBC387</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

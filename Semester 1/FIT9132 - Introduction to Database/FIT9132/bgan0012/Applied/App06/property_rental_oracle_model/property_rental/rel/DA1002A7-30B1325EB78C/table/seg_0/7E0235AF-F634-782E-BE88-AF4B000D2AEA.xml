@@ -1,0 +1,92 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7E0235AF-F634-782E-BE88-AF4B000D2AEA" name="MAINTENANCE">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>CE8668F2-57C4-678A-5CEC-ED2CFCB4BA7E</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="maint_datetime" id="B838C153-923D-3F0A-538D-CF836969E5F9">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Maintenance Date Time]]></commentInRDBMS>
+<generatorID>6BF982BE-CD0C-6C9B-A6D2-5255077DA0D6</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="maint_desc" id="E118EF8B-0342-A75B-DCE7-F7CF734083E3">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Maintenance Description]]></commentInRDBMS>
+<generatorID>C3D769B9-F132-2EAF-5A0F-794D74CB57A8</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="maint_cost" id="CA9F04BF-D548-D15D-EFA4-CCA1C951D21C">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Maintenance Cost]]></commentInRDBMS>
+<generatorID>50CC92C1-08D5-4067-75D1-B6AD9CBD5058</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>50</dataTypePrecision>
+<ownDataTypeParameters>,50,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="prop_no" id="9271EBFD-7A59-AE2A-36D7-F6BF0CC2921E">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Property Number]]></commentInRDBMS>
+<generatorID>707CD0C2-E481-3D7A-371F-F506BDF91129</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="452BD5D3-A00B-23BA-DBB9-42642018C9F4" referredColumn="3695AD09-502D-CE76-4B75-6204A700C922"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="BD34FF7D-8390-6C33-3188-D94108E77A0D" name="MAINTENANCE_PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>44DEDFE6-EF5A-9ECD-A047-74416471808E</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B838C153-923D-3F0A-538D-CF836969E5F9"/>
+<colUsage columnID="9271EBFD-7A59-AE2A-36D7-F6BF0CC2921E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="ABCC1C3F-BCF3-3E43-480C-51952A17EB49" name="property-maintenance_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>BA1A72BA-FEE1-BD5C-B2E0-B07FEAF206FA</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9271EBFD-7A59-AE2A-36D7-F6BF0CC2921E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

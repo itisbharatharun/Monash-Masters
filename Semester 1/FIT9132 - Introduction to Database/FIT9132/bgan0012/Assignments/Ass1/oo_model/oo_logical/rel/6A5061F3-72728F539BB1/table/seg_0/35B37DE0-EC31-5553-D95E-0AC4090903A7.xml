@@ -1,0 +1,52 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="35B37DE0-EC31-5553-D95E-0AC4090903A7" name="COUNTRY">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>B61A123B-2382-6A74-868E-26C9747E4347</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="country_code" id="16B27B37-B7B6-CABE-AF3A-2E81B1AA5883">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Country Code]]></commentInRDBMS>
+<generatorID>809E1330-E434-A0AD-64B1-847CD9C69085</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>3</dataTypeSize>
+<ownDataTypeParameters>3,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="country_name" id="9CEA3244-306A-9CF2-D49D-E8939FA93B18">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Country Name]]></commentInRDBMS>
+<generatorID>04796F25-02E0-0325-04E0-DB5709CF5E44</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="004C680A-0951-7AD5-C668-3ADEB06391AA" name="COUNTRY_PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>F9B75E96-2CD8-D10C-3068-B82F8FC87499</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="16B27B37-B7B6-CABE-AF3A-2E81B1AA5883"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

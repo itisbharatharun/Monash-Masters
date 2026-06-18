@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="cruise-itinerary_fk" directorySegmentName="seg_0" id="1202EF9F-4BF1-0851-D52B-9583BA4D6498">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 07:59:13 UTC</createdTime>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<sourcePk>7674B07A-3CDE-2D48-ECF9-932EDB6BB8BC</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>assigned to</nameOnSource>
+<nameOnTarget> </nameOnTarget>
+<optionalSource>false</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>C24FB14D-6069-BDCD-2228-21E6A43B2998</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>70FD9BA0-0422-0EEB-F27A-D4F92F5A1963</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

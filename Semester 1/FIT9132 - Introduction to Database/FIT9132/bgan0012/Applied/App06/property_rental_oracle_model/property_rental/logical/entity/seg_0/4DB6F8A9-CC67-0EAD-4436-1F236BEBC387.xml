@@ -1,0 +1,157 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="4DB6F8A9-CC67-0EAD-4436-1F236BEBC387" name="RENT">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 10:44:52 UTC</createdTime>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="rent_agreement_no" id="6C425E61-6FBA-400F-A8DC-4CA00EB714AA">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 10:45:42 UTC</createdTime>
+<commentInRDBMS><![CDATA[Rent Agreement Number]]></commentInRDBMS>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,7,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="rent_lease_start" id="2AF6DFAF-D685-65D5-0DCD-E61F5FF7A62C">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:11:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Rent Lease Start Date]]></commentInRDBMS>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="rent_weekly_rate" id="1BBBD971-62F3-A5F9-BD64-9C77035DD59E">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:13:51 UTC</createdTime>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>25</dataTypePrecision>
+<ownDataTypeParameters>,25,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="rent_bond" id="DE5E2B0B-CB26-08BD-0F83-3EB9BE0DAD55">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:14:26 UTC</createdTime>
+<commentInRDBMS><![CDATA[Rent Bond]]></commentInRDBMS>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<ownDataTypeParameters>,10,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="rent_lease_period" id="9A8068C3-79B5-66D9-1F55-D912D99F10BA">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:17:15 UTC</createdTime>
+<commentInRDBMS><![CDATA[Rent Lease Period]]></commentInRDBMS>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="prop_no" id="A4A69652-B4C6-18A8-C50E-E7813ECB8261">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:59:34 UTC</createdTime>
+<commentInRDBMS><![CDATA[Property Number]]></commentInRDBMS>
+<generatorID>C0491A2D-3972-D6A5-6CFF-FD42A339E97B</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<referedAttribute>64F45DEA-D106-F720-6348-D1D6FC22B744</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="tenant_no" id="A384B205-CCF2-0432-ED04-B59B273ADC21">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:51:28 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tenant Number]]></commentInRDBMS>
+<generatorID>514BA5B4-FA0A-31D6-B953-B20C7FE6C6FA</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<referedAttribute>28B73A3E-BE7F-4224-C551-CB94115D7583</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="673992CF-68D4-82C4-8A5C-EE15EC817E9F" name="RENT PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 10:46:43 UTC</createdTime>
+<ownerDesignName>property_rental</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>6C425E61-6FBA-400F-A8DC-4CA00EB714AA</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier id="F558DB3B-B5AE-159C-6BAD-92080D015E1B" name="rent_lease_start">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:21:07 UTC</createdTime>
+<ownerDesignName>property_rental</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="false"/>
+</engineerTo>
+<newElementsIDs>2AF6DFAF-D685-65D5-0DCD-E61F5FF7A62C</newElementsIDs>
+<usedAttributes>
+<attributeRef>2AF6DFAF-D685-65D5-0DCD-E61F5FF7A62C</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier id="C04C6004-6D84-8E91-0D5E-EFF968F85EBB" name="Key_3">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:00:00 UTC</createdTime>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<newElementsIDs>A4A69652-B4C6-18A8-C50E-E7813ECB8261</newElementsIDs>
+<usedAttributes>
+<attributeRef>A4A69652-B4C6-18A8-C50E-E7813ECB8261</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

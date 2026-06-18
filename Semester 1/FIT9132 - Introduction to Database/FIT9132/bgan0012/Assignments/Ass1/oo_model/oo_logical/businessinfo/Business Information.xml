@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BusinessInfoDesign class="oracle.dbtools.crest.model.businessinfo.BusinessInfoDesign" name="Business Information" id="CA756F2D-8065-8F1F-F9E7-747F742898CF">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 05:50:31 UTC</createdTime>
+<ownerDesignName>oo_logical</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</BusinessInfoDesign>

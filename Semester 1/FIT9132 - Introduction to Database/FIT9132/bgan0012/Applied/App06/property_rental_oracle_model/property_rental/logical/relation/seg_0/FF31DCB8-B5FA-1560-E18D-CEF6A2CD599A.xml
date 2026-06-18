@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="paymethod-payment_fk" directorySegmentName="seg_0" id="FF31DCB8-B5FA-1560-E18D-CEF6A2CD599A">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:49:38 UTC</createdTime>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<sourcePk>4C662011-2257-C990-F4F9-F0C95C40BB8A</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>is used to </nameOnSource>
+<nameOnTarget> </nameOnTarget>
+<optionalSource>true</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>E70FC67D-41ED-DA17-A908-D71DC4B8F86A</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>7237CFF9-F9D6-951D-054C-496726715805</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

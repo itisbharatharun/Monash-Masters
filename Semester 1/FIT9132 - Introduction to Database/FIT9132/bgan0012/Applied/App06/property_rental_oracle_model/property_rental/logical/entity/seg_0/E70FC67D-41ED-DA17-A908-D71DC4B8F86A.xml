@@ -1,0 +1,62 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="E70FC67D-41ED-DA17-A908-D71DC4B8F86A" name="PAYMETHOD">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:39:20 UTC</createdTime>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="paymethod_id" id="EA3F056A-35EF-FA17-FF9D-AC3897999EBD">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:39:33 UTC</createdTime>
+<commentInRDBMS><![CDATA[Payment Method ID]]></commentInRDBMS>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,7,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="paymethod_name" id="85E97941-6CA2-9B75-367C-4AF65B1AC99E">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:40:02 UTC</createdTime>
+<commentInRDBMS><![CDATA[Payment Method Name]]></commentInRDBMS>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="4C662011-2257-C990-F4F9-F0C95C40BB8A" name="PAYMETHOD PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:39:48 UTC</createdTime>
+<ownerDesignName>property_rental</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>EA3F056A-35EF-FA17-FF9D-AC3897999EBD</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

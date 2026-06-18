@@ -1,0 +1,100 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="7E1B880C-D233-39AB-AA14-73E468F8C2BA" name="CABIN">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>9C353485-0102-BFD8-83F9-120F5F3E7AE1</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="cabin_no" id="C3539DBA-2D7D-A0FD-4DB1-F89866158BB9">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Cabin Number]]></commentInRDBMS>
+<generatorID>F7D71D40-F5FA-D7C7-007C-CDD8E0ABF6E2</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,7,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ship_code" id="A43AED5E-2A64-87DB-DB33-8978B266E982">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Ship Code]]></commentInRDBMS>
+<generatorID>8A82C46E-3EE1-8D04-2783-4373966309D4</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="40CF874D-0E07-BF08-3A87-319E1C34773A" referredColumn="95C2C629-3AC8-3285-E974-80DF1E2ADF3D"/>
+</associations>
+</Column>
+<Column name="sleeping_capacity" id="478C8C58-CD83-70CE-E78F-6EB67F83AAAF">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Sleeping Capacity]]></commentInRDBMS>
+<generatorID>2C634D33-F56B-0B7B-F917-97347FBC62C5</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>25</dataTypePrecision>
+<ownDataTypeParameters>,25,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="cabin_class" id="48065B0D-4246-B767-8249-1AE001A8DE64">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Cabin Class]]></commentInRDBMS>
+<generatorID>7ED00698-B915-C2E2-B670-9EDA7EFDB56F</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<constraintName>chk_cabin_class</constraintName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<listOfValues>
+<valueDef value="B" description="Balcony"/>
+<valueDef value="I" description="Interior"/>
+<valueDef value="O" description="Ocean View"/>
+<valueDef value="S" description="Suite"/>
+</listOfValues>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="DFE85F47-CAB5-978C-2465-16D741C1B80C" name="CABIN_PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>2F7713E8-20BB-075B-3CC9-094735F9BA70</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C3539DBA-2D7D-A0FD-4DB1-F89866158BB9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="1EF8F8E6-58E1-E025-1F1C-CE4AE8D9A3F0" name="ship-cabin_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>C56CD54F-FDCC-89C8-3E29-13812CC70FBA</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A43AED5E-2A64-87DB-DB33-8978B266E982"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

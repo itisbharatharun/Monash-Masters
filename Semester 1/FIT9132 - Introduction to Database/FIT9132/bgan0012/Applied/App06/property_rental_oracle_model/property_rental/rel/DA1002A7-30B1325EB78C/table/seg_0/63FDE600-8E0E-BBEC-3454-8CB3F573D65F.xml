@@ -1,0 +1,138 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="63FDE600-8E0E-BBEC-3454-8CB3F573D65F" name="PAYMENT">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>7237CFF9-F9D6-951D-054C-496726715805</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="pay_no" id="29E13993-8E40-9EC5-1348-1632422D8961">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Payment Number]]></commentInRDBMS>
+<generatorID>CD3819D9-4CDB-9EDE-F24C-E8618D5B93C7</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,7,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pay_date" id="E203FEB7-C957-8FCE-2762-CDD1CE551AD7">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Payment Date]]></commentInRDBMS>
+<generatorID>6763A3D8-CC5E-E5B0-B20E-9CA0AD488D82</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pay_type" id="7D555BA8-8ECD-BE5C-AF6D-F40F793C5EE2">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Payment Type]]></commentInRDBMS>
+<generatorID>0B107DE1-4D5D-118E-9DD7-26F21E5BCF2B</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<constraintName>chk_pay_type</constraintName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<listOfValues>
+<valueDef value="D" description="Damage"/>
+<valueDef value="P" description="Bond"/>
+<valueDef value="R" description="Rental"/>
+</listOfValues>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pay_amount" id="B46AECBA-49CB-24AA-8C1F-74F33867397D">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Payment Amount]]></commentInRDBMS>
+<generatorID>584D3942-5FF8-DD1B-2783-8B47BA1B2D08</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>50</dataTypePrecision>
+<ownDataTypeParameters>,50,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pay_paidby" id="D9C2B6C7-7B92-5A00-D618-7FCA38B147B4">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Payment Method ID]]></commentInRDBMS>
+<generatorID>1723A74B-443A-8EEE-6446-BA9D0D675C90</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C735F842-0622-E92E-EB18-CBEFE0FD0139" referredColumn="BA042D05-D1CA-95F7-5344-8DBA733D5BBF"/>
+</associations>
+</Column>
+<Column name="rent_agreement_no" id="0C45297B-41C3-C6E6-5495-B3B7D1D1DA1A">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Rent Agreement Number]]></commentInRDBMS>
+<generatorID>D3F5174A-E144-8F7E-55BC-2320AF3E753E</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="319EFEE3-C471-D61E-9231-9524B60D6FCC" referredColumn="F0F21BA8-51AD-8887-DE3D-2A5A2B4A3C7A"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="264DEC3A-FC06-66E6-DF19-2B7AB98E23A3" name="PAYMENT_PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>D404A76D-BF3B-FB6D-B5B8-CA5D1A2CFAE6</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="29E13993-8E40-9EC5-1348-1632422D8961"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="C63A87CE-4F39-1D71-5B87-61E00AA3A7D0" name="paymethod-payment_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>FF31DCB8-B5FA-1560-E18D-CEF6A2CD599A</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D9C2B6C7-7B92-5A00-D618-7FCA38B147B4"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="792F6174-6502-C17B-7507-562651E4D2D0" name="rent-payent_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>A2F9D35E-52EF-C93B-4BF4-8D5979B07128</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="0C45297B-41C3-C6E6-5495-B3B7D1D1DA1A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

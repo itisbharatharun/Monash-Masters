@@ -1,0 +1,106 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="ECE26DC2-02AC-B82B-D612-C234A93206B8" name="PORT">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>A70C4ABE-C21F-C700-1044-EA76D0D38347</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="port_code" id="A7E4A67B-48A4-B9C2-3CCB-71E71F1B1210">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Port Code]]></commentInRDBMS>
+<generatorID>82C4A0F7-19A1-BB48-D342-02AE37EB1F06</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>5</dataTypeSize>
+<ownDataTypeParameters>5,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="country_code" id="C08956E9-0E4D-2EA1-E7BE-84E1A18DE779">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Country Code]]></commentInRDBMS>
+<generatorID>391CA9BB-1D5F-7BAE-2590-1A42BE4017A3</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>3</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="D05ACCC7-44B2-F45E-6148-832EA8ACDB5C" referredColumn="16B27B37-B7B6-CABE-AF3A-2E81B1AA5883"/>
+</associations>
+</Column>
+<Column name="port_name" id="59B14B3D-0C9E-6701-6BCD-F581BA95D39D">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Port Name]]></commentInRDBMS>
+<generatorID>9CD0FA0F-7630-E8DE-CAD2-0C5EE6416A5D</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="port_latitude" id="BDCD26F1-51D6-178C-9732-B68C0F89AC30">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Port Latitude]]></commentInRDBMS>
+<generatorID>74FD62AD-9A4E-CA21-F7A5-637F10B3FFC2</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="port_longitude" id="03A0BE8D-E6E7-7611-EABE-632131E4B009">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Port Longitude]]></commentInRDBMS>
+<generatorID>DD77DDC6-1255-D0F0-A43D-F02F43658C82</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="6266D778-EF2F-EB7B-6CE4-F52EB788D0DF" name="PORT_PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>19DAE5DD-6C6D-2A15-9ABC-5DFFE894F8F3</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A7E4A67B-48A4-B9C2-3CCB-71E71F1B1210"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="99E9F081-268E-906E-3DFB-5CFBC8AACA2D" name="country-port_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>6B577B5A-AEA3-6D1E-564C-FA9CD1FCC214</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="C08956E9-0E4D-2EA1-E7BE-84E1A18DE779"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

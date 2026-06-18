@@ -1,0 +1,164 @@
+SQL> 
+SQL> --
+SQL> DROP TABLE student CASCADE CONSTRAINTS PURGE;
+
+Table STUDENT dropped.
+
+SQL> DROP TABLE enrolment CASCADE CONSTRAINTS PURGE;
+
+Table ENROLMENT dropped.
+
+SQL> DROP TABLE unit CASCADE CONSTRAINTS PURGE;
+
+Table UNIT dropped.
+
+SQL> 
+SQL> CREATE TABLE student (
+  2      stu_nbr     NUMBER(8) NOT NULL,
+  3      stu_lname   VARCHAR2(50),
+  4      stu_fname   VARCHAR2(50),
+  5      stu_dob     DATE NOT NULL
+  6  );
+
+Table STUDENT created.
+
+SQL> 
+SQL> COMMENT ON COLUMN student.stu_nbr IS
+  2      'Student number';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN student.stu_lname IS
+  2      'Student last name';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN student.stu_fname IS
+  2      'Student first name';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN student.stu_dob IS
+  2      'Student date of birth';
+
+Comment created.
+
+SQL> 
+SQL> /* Add STUDENT constraints here */
+SQL> -- PK for student
+SQL> ALTER TABLE student ADD CONSTRAINT student_pk primary KEY (stu_nbr);
+
+Table STUDENT altered.
+
+SQL> -- Check contraint for stu_nbr
+SQL> ALTER TABLE student ADD CONSTRAINT chk_stu_nbr CHECK (stu_nbr > 10000000);
+
+Table STUDENT altered.
+
+SQL> /* Add UNIT data types here */
+SQL> 
+SQL> CREATE TABLE unit (
+  2      unit_code   CHAR(7) NOT NULL,
+  3      unit_name   VARCHAR2(50) NOT NULL
+  4  );
+
+Table UNIT created.
+
+SQL> 
+SQL> COMMENT ON COLUMN unit.unit_code IS
+  2      'Unit code';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN unit.unit_name IS
+  2      'Unit name';
+
+Comment created.
+
+SQL> 
+SQL> /* Add UNIT constraints here */
+SQL> ALTER TABLE unit ADD CONSTRAINT unit_pk primary KEY (unit_code);
+
+Table UNIT altered.
+
+SQL> ALTER TABLE unit ADD CONSTRAINT uq_unit_name UNIQUE (unit_name);
+
+Table UNIT altered.
+
+SQL> 
+SQL> 
+SQL> /* Add ENROLMENT attributes and data types here */
+SQL> CREATE TABLE enrolment (
+  2      stu_nbr         NUMBER(8) NOT NULL,
+  3      unit_code       CHAR(7) NOT NULL,
+  4      enrol_year      DATE NOT NULL,
+  5      enrol_semester  CHAR(1) NOT NULL,
+  6      enrol_mark      NUMBER(3),
+  7      enrol_grade     VARCHAR2(2)
+  8  );
+
+Table ENROLMENT created.
+
+SQL> 
+SQL> COMMENT ON COLUMN enrolment.stu_nbr IS
+  2      'Student number';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN enrolment.unit_code IS
+  2      'Unit code';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN enrolment.enrol_year IS
+  2      'Enrolment year';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN enrolment.enrol_semester IS
+  2      'Enrolment semester';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN enrolment.enrol_mark IS
+  2      'Enrolment mark (real)';
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN enrolment.enrol_grade IS
+  2      'Enrolment grade (letter)';
+
+Comment created.
+
+SQL> 
+SQL> /* Add ENROLMENT constraints here */
+SQL> ALTER TABLE enrolment ADD CONSTRAINT enrolment_pk PRIMARY KEY (stu_nbr, unit_code, enrol_year, enrol_semester);
+
+Table ENROLMENT altered.
+
+SQL> /* Aff FK Constraints */
+SQL> ALTER TABLE enrolment ADD CONSTRAINT student_enrolment_fk FOREIGN KEY (stu_nbr) REFERENCES student (stu_nbr);
+
+Table ENROLMENT altered.
+
+SQL> ALTER TABLE enrolment ADD CONSTRAINT unit_enrolment_fk FOREIGN KEY (unit_code) REFERENCES unit (unit_code);
+
+Table ENROLMENT altered.
+
+SQL> 
+SQL> /* Check contraint for enrol_semester */
+SQL> ALTER TABLE enrolment ADD CONSTRAINT chk_enrol_semester CHECK (enrol_semester in ('1', '2', '3'));
+
+Table ENROLMENT altered.
+
+SQL> 
+SQL> spool off

@@ -1,0 +1,148 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="225D79A1-694D-C16D-8E55-607EE0AD6543" name="DAMAGE">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:23:51 UTC</createdTime>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="dam_no" id="BB2CE9DE-B103-3C41-9FBC-432C42361A84">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:23:59 UTC</createdTime>
+<commentInRDBMS><![CDATA[Damage Number]]></commentInRDBMS>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,7,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="dam_datetime" id="C213496D-197B-6412-C604-FC85C8D591AA">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:24:24 UTC</createdTime>
+<commentInRDBMS><![CDATA[Damage Date Time]]></commentInRDBMS>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="rent_agreement_no" id="8503101B-B474-C64B-6DE0-3CC9DD098C47">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:50:59 UTC</createdTime>
+<commentInRDBMS><![CDATA[Rent Agreement Number]]></commentInRDBMS>
+<generatorID>A023731D-DAA1-5DF2-40BD-2D7114CE9A2F</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<referedAttribute>6C425E61-6FBA-400F-A8DC-4CA00EB714AA</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="dam_type" id="6B46D4ED-AAAC-3570-7C93-82E494E7CC5C">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:34:19 UTC</createdTime>
+<commentInRDBMS><![CDATA[Damage Type]]></commentInRDBMS>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="dam_cost" id="26B33A10-CFC2-39A5-AC40-461081608492">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:35:05 UTC</createdTime>
+<commentInRDBMS><![CDATA[Damage Cost]]></commentInRDBMS>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>50</dataTypePrecision>
+<ownDataTypeParameters>,50,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="pay_no" id="D3780375-1113-763B-66C0-6423FDF2E27D">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:58:19 UTC</createdTime>
+<commentInRDBMS><![CDATA[Payment Number]]></commentInRDBMS>
+<generatorID>929CBA55-F050-0C4D-6B2A-A37FD1535D35</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<referedAttribute>CD3819D9-4CDB-9EDE-F24C-E8618D5B93C7</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="E000CD10-AECB-C6A0-D0ED-AAEF4200305B" name="DAMAGE PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:24:18 UTC</createdTime>
+<ownerDesignName>property_rental</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>BB2CE9DE-B103-3C41-9FBC-432C42361A84</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier id="B4C64D9E-968A-6982-77BF-F7045F57D4C8" name="dam_datetime">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:24:59 UTC</createdTime>
+<ownerDesignName>property_rental</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="false"/>
+</engineerTo>
+<newElementsIDs>C213496D-197B-6412-C604-FC85C8D591AA</newElementsIDs>
+<usedAttributes>
+<attributeRef>C213496D-197B-6412-C604-FC85C8D591AA</attributeRef>
+</usedAttributes>
+</identifier>
+<identifier id="B46FF4B3-2430-BD91-94D8-83017E99F3A2" name="Key_3">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 11:58:43 UTC</createdTime>
+<ownerDesignName>property_rental</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="DA1002A7-04D4-68EF-48BA-30B1325EB78C" value="false"/>
+</engineerTo>
+<newElementsIDs>8503101B-B474-C64B-6DE0-3CC9DD098C47</newElementsIDs>
+<usedAttributes>
+<attributeRef>8503101B-B474-C64B-6DE0-3CC9DD098C47</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

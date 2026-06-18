@@ -1,0 +1,52 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="506B7D72-70E8-AAEC-3AAC-7EB2020AFEAB" name="PAYMETHOD">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>E70FC67D-41ED-DA17-A908-D71DC4B8F86A</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="paymethod_id" id="BA042D05-D1CA-95F7-5344-8DBA733D5BBF">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Payment Method ID]]></commentInRDBMS>
+<generatorID>EA3F056A-35EF-FA17-FF9D-AC3897999EBD</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,7,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="paymethod_name" id="9231A514-4111-670D-31C4-B3E249B81329">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Payment Method Name]]></commentInRDBMS>
+<generatorID>85E97941-6CA2-9B75-367C-4AF65B1AC99E</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B5E6EF65-3763-91AD-AD1C-F8D8BD2F15BF" name="PAYMETHOD_PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>4C662011-2257-C990-F4F9-F0C95C40BB8A</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="BA042D05-D1CA-95F7-5344-8DBA733D5BBF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

@@ -1,0 +1,131 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="08BD7A89-14B6-EDE4-2274-B55F8C3F9C9D" name="CRUISE">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>C24FB14D-6069-BDCD-2228-21E6A43B2998</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="cruise_id" id="9844A93C-7E25-D356-86B0-36D893EC6F11">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Cruise ID]]></commentInRDBMS>
+<generatorID>F4D05687-975F-C9F9-1465-8E4578A4C7A9</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,7,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ship_code" id="7241B947-E7BD-CE4A-86E4-672948AD8B3C">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Ship Code]]></commentInRDBMS>
+<generatorID>3E5C20B7-9E53-2AB0-2C69-BC56AB5C259B</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="EB478A56-8201-DBAB-0D0B-5442BDFAAE52" referredColumn="95C2C629-3AC8-3285-E974-80DF1E2ADF3D"/>
+</associations>
+</Column>
+<Column name="cruise_name" id="DCE40157-8E70-F06E-3692-86192C1250EC">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Cruise Name]]></commentInRDBMS>
+<generatorID>8ECA12D8-7741-189E-826F-93F1FF115FE1</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="cruise_desc" id="A860D43D-F5B6-E8CD-D41F-576964772BA4">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Cruise Description]]></commentInRDBMS>
+<generatorID>C1130C5D-9C3C-1918-4074-0471C4A482B4</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="dept_date" id="B7C80EE7-8ACF-F8D7-8EFC-53B645A39237">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Departure Dare]]></commentInRDBMS>
+<generatorID>A82B3A7C-601B-CABF-6B6A-FD01346D1C5F</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="dept_time" id="63C63A0F-02F1-90EA-E759-03611544AAD9">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Deptarture Time]]></commentInRDBMS>
+<generatorID>3BDB5480-67A1-469D-A6FE-E60AD216AC8A</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="cost_per_person" id="4E005F7E-FF60-868E-58E6-9BD7871C697F">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Cost per Person]]></commentInRDBMS>
+<generatorID>AE7D6988-7938-55FE-4C55-33888C66316B</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>15</dataTypePrecision>
+<ownDataTypeParameters>,15,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="AC626DCC-EABC-EBF9-3B30-816FADCFDC58" name="CRUISE_PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>7674B07A-3CDE-2D48-ECF9-932EDB6BB8BC</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9844A93C-7E25-D356-86B0-36D893EC6F11"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8A801915-A040-6218-1CBE-F90B2C94E9EA" name="ship-cruise_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>70BC221C-E1B3-2FAF-D2BA-3A3A4DAF9EB3</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="7241B947-E7BD-CE4A-86E4-672948AD8B3C"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

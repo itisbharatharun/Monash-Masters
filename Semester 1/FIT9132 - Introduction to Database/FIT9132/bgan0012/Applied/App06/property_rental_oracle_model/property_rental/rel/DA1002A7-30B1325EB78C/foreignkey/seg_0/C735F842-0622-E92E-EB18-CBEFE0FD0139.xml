@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="C735F842-0622-E92E-EB18-CBEFE0FD0139" containerWithKeyObject="63FDE600-8E0E-BBEC-3454-8CB3F573D65F" localFKIndex="C63A87CE-4F39-1D71-5B87-61E00AA3A7D0" name="paymethod-payment_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>FF31DCB8-B5FA-1560-E18D-CEF6A2CD599A</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<referredTableLongName>PAYMETHOD</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>506B7D72-70E8-AAEC-3AAC-7EB2020AFEAB</referredTableID>
+<keyObject>B5E6EF65-3763-91AD-AD1C-F8D8BD2F15BF</keyObject>
+<referredKeyID>B5E6EF65-3763-91AD-AD1C-F8D8BD2F15BF</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>paymethod_id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

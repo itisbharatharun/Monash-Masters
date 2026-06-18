@@ -1,0 +1,106 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="A70C4ABE-C21F-C700-1044-EA76D0D38347" name="PORT">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 07:03:59 UTC</createdTime>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="port_code" id="82C4A0F7-19A1-BB48-D342-02AE37EB1F06">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 07:04:04 UTC</createdTime>
+<commentInRDBMS><![CDATA[Port Code]]></commentInRDBMS>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>5</dataTypeSize>
+<ownDataTypeParameters>5,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="country_code" id="391CA9BB-1D5F-7BAE-2590-1A42BE4017A3">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 07:41:45 UTC</createdTime>
+<commentInRDBMS><![CDATA[Country Code]]></commentInRDBMS>
+<generatorID>6B577B5A-AEA3-6D1E-564C-FA9CD1FCC214</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<referedAttribute>809E1330-E434-A0AD-64B1-847CD9C69085</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>3</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="port_name" id="9CD0FA0F-7630-E8DE-CAD2-0C5EE6416A5D">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 07:04:04 UTC</createdTime>
+<commentInRDBMS><![CDATA[Port Name]]></commentInRDBMS>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="port_latitude" id="74FD62AD-9A4E-CA21-F7A5-637F10B3FFC2">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 07:04:14 UTC</createdTime>
+<commentInRDBMS><![CDATA[Port Latitude]]></commentInRDBMS>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>20</dataTypeSize>
+<ownDataTypeParameters>20,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="port_longitude" id="DD77DDC6-1255-D0F0-A43D-F02F43658C82">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 07:04:14 UTC</createdTime>
+<commentInRDBMS><![CDATA[Port Longitude]]></commentInRDBMS>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="19DAE5DD-6C6D-2A15-9ABC-5DFFE894F8F3" name="PORT PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 07:04:25 UTC</createdTime>
+<ownerDesignName>oo_logical</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>82C4A0F7-19A1-BB48-D342-02AE37EB1F06</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

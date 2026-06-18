@@ -1,0 +1,90 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="296D61FF-629D-4619-CCA3-E873AA661010" name="TENANT">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>1F8F6074-C8DE-B549-B941-E931C65C082A</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="tenant_no" id="DC6286DA-1F1E-6C59-4966-5BD08F1E8586">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tenant Number]]></commentInRDBMS>
+<generatorID>28B73A3E-BE7F-4224-C551-CB94115D7583</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,7,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="tenant_givname" id="684FB86E-D562-8359-8B3A-2A7D3B123A09">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tenant Given Name]]></commentInRDBMS>
+<generatorID>17F45E4A-58CE-DA71-AB7C-D056930C0BB0</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="tenant_famname" id="507761D7-A5F2-455D-15C7-6E559293AC9A">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tenant Family Name]]></commentInRDBMS>
+<generatorID>C70381B4-C4F8-3AA6-A136-4897D60DCBCF</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="tenant_address" id="52CA638C-E3E6-B041-61DE-C81B388E8990">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tenant Address]]></commentInRDBMS>
+<generatorID>6A900188-D2F9-6C88-240E-F2EEDE4E559C</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="tenant_phone" id="F273E783-ABAC-1FF7-4595-609808577F44">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tenant Phone]]></commentInRDBMS>
+<generatorID>5C2E6558-D83C-D1B7-400E-5BC474A1328A</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="7F89A7BB-CAB2-68F7-26FF-E1660D62669A" name="TENANT_PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>D769A1C8-E9B3-1BCD-53B0-565A45E1861A</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DC6286DA-1F1E-6C59-4966-5BD08F1E8586"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

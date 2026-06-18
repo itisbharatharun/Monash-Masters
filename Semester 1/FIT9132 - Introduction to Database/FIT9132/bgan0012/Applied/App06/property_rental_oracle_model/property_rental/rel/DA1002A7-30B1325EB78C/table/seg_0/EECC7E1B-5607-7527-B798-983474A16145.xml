@@ -1,0 +1,167 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="EECC7E1B-5607-7527-B798-983474A16145" name="DAMAGE">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>225D79A1-694D-C16D-8E55-607EE0AD6543</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="dam_no" id="FE7477A1-2DCA-F113-CD5D-949F735039D1">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Damage Number]]></commentInRDBMS>
+<generatorID>BB2CE9DE-B103-3C41-9FBC-432C42361A84</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,7,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="dam_datetime" id="3DC04164-B893-899E-00C0-FDEB2ECAA6FF">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Damage Date Time]]></commentInRDBMS>
+<generatorID>C213496D-197B-6412-C604-FC85C8D591AA</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="rent_agreement_no" id="4B6221C5-5BF1-7BB3-C06A-983BE3591A97">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Rent Agreement Number]]></commentInRDBMS>
+<generatorID>8503101B-B474-C64B-6DE0-3CC9DD098C47</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C026AE44-8970-57D9-D15A-B86D81B4FF08" referredColumn="F0F21BA8-51AD-8887-DE3D-2A5A2B4A3C7A"/>
+</associations>
+</Column>
+<Column name="dam_type" id="B4F0EA16-AF39-AAB9-6AB0-48E30148CC1D">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Damage Type]]></commentInRDBMS>
+<generatorID>6B46D4ED-AAAC-3570-7C93-82E494E7CC5C</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="dam_cost" id="C253C6B6-FA6F-4BA0-1D2F-E806D1AD3708">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Damage Cost]]></commentInRDBMS>
+<generatorID>26B33A10-CFC2-39A5-AC40-461081608492</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>50</dataTypePrecision>
+<ownDataTypeParameters>,50,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pay_no" id="D95BADCF-C15C-4FE6-649F-F5C535F02971">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<commentInRDBMS><![CDATA[Payment Number]]></commentInRDBMS>
+<generatorID>D3780375-1113-763B-66C0-6423FDF2E27D</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="7D3A7C1F-FA0F-6BD0-E266-E09296F63481" referredColumn="29E13993-8E40-9EC5-1348-1632422D8961"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="E5C1F1CB-01FA-AF02-E339-EAA9C65CB9E1" name="DAMAGE_PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>E000CD10-AECB-C6A0-D0ED-AAEF4200305B</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="FE7477A1-2DCA-F113-CD5D-949F735039D1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="64B39CFA-0F67-B83B-DB3A-901A6C190083" name="dam_datetime">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>B4C64D9E-968A-6982-77BF-F7045F57D4C8</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3DC04164-B893-899E-00C0-FDEB2ECAA6FF"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E208D17C-8720-F819-43F6-7B5BD34B167A" name="Key_3">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>B46FF4B3-2430-BD91-94D8-83017E99F3A2</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4B6221C5-5BF1-7BB3-C06A-983BE3591A97"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CA368558-F5ED-ACAB-BDA9-E70C1AC5F68C" name="DAMAGE__IDX">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<ownerDesignName>property_rental</ownerDesignName>
+<indexState>Unique Plain Index</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<relationGeneratorID>929CBA55-F050-0C4D-6B2A-A37FD1535D35</relationGeneratorID>
+<indexColumnUsage>
+<colUsage columnID="D95BADCF-C15C-4FE6-649F-F5C535F02971"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CEBA9C4C-285E-547E-E653-A5EFCA2EFA97" name="damage_payment_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>929CBA55-F050-0C4D-6B2A-A37FD1535D35</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D95BADCF-C15C-4FE6-649F-F5C535F02971"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="D35740DE-CFE7-69C7-512C-0B3FCB1F33AB" name="rent-damage_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-14 12:16:37 UTC</createdTime>
+<generatorID>A023731D-DAA1-5DF2-40BD-2D7114CE9A2F</generatorID>
+<ownerDesignName>property_rental</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="4B6221C5-5BF1-7BB3-C06A-983BE3591A97"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

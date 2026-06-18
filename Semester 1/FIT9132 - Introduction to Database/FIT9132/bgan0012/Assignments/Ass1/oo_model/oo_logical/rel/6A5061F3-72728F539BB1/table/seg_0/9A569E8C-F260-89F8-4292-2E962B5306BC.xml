@@ -1,0 +1,152 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="9A569E8C-F260-89F8-4292-2E962B5306BC" name="ITINERARY">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>70FD9BA0-0422-0EEB-F27A-D4F92F5A1963</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="date_time" id="B3B99A57-ECCE-657C-D4F8-F379BC07556B">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Itinerary Date Time]]></commentInRDBMS>
+<generatorID>218180E8-DFE8-1ABE-6155-AC485F0A56F2</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="cruise_id" id="B7BE41D7-3B72-8395-A79B-4B0E06222238">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Cruise ID]]></commentInRDBMS>
+<generatorID>51F940BD-A4EF-1A39-FA7F-DEA96127E64F</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="1212EEAE-CCAA-B00B-4747-24D4C5C68AEA" referredColumn="9844A93C-7E25-D356-86B0-36D893EC6F11"/>
+</associations>
+</Column>
+<Column name="port_code" id="22CA8382-F951-B07A-0F44-12B477BEBA1E">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Port Code]]></commentInRDBMS>
+<generatorID>7F97D53A-7DF9-28FD-4E67-94EEF110E5FD</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>5</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="8E514D26-99E2-6637-16F3-1165A26F0AD5" referredColumn="A7E4A67B-48A4-B9C2-3CCB-71E71F1B1210"/>
+</associations>
+</Column>
+<Column name="departure_arrival" id="3D7E8A46-1D25-792A-1FAB-B7AE93C0397B">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Departure or Arrival]]></commentInRDBMS>
+<generatorID>D6831CB7-DDB8-BADF-B385-3122428A5BC8</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<constraintName>chk_depart_arrival</constraintName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<listOfValues>
+<valueDef value="Arrival" description="Arrival"/>
+<valueDef value="Departure" description="Departure"/>
+</listOfValues>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="itinerary_no" id="FEC79468-DB09-7F9E-F1FF-28F6DBA469AF">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-27 11:32:29 UTC</createdTime>
+<commentInRDBMS><![CDATA[Itinerary Number (Surrogate Key)]]></commentInRDBMS>
+<generatorID>47EFBC85-9536-735C-DAA0-9F5ADFAB4389</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,7,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="A33AD9CA-EB7F-BCA0-330A-7E923956D8E5" name="ITINERARY_PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>9AB3D555-94C4-AA7F-52B3-1D0D286662FD</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B3B99A57-ECCE-657C-D4F8-F379BC07556B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="03571F3F-02A6-3D4A-113D-145D84E6A151" name="ITINERARY_NK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>3BF5E202-DFCE-58D5-3327-F15C70DE3FE9</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B7BE41D7-3B72-8395-A79B-4B0E06222238"/>
+<colUsage columnID="22CA8382-F951-B07A-0F44-12B477BEBA1E"/>
+<colUsage columnID="B3B99A57-ECCE-657C-D4F8-F379BC07556B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B228009C-6625-A672-FFD0-D85329AE376E" name="ITINERARY_NKv2">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-27 11:32:29 UTC</createdTime>
+<generatorID>5DB25B67-0BDE-A096-E165-3F4783DB9279</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B3B99A57-ECCE-657C-D4F8-F379BC07556B"/>
+<colUsage columnID="B7BE41D7-3B72-8395-A79B-4B0E06222238"/>
+<colUsage columnID="22CA8382-F951-B07A-0F44-12B477BEBA1E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EEE680AE-3B8E-38A3-DBDE-F87673D05413" name="cruise-itinerary_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>1202EF9F-4BF1-0851-D52B-9583BA4D6498</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="B7BE41D7-3B72-8395-A79B-4B0E06222238"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="3AC68AA0-F852-3A1A-F3CD-D3F5B21DF913" name="port-itinerary_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>F4AD2AED-7CDC-6C7F-06C5-7F793B501F8B</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="22CA8382-F951-B07A-0F44-12B477BEBA1E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

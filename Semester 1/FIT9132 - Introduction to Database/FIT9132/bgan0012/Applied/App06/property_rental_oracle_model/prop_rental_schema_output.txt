@@ -1,0 +1,1236 @@
+SQL> 
+SQL> --student id: 35501308
+SQL> --student name: Bharath Arun Gandhimani
+SQL> 
+SQL> DROP TABLE DAMAGE CASCADE CONSTRAINTS 
+  2  ;
+
+Error starting at line : 13 in command -
+DROP TABLE DAMAGE CASCADE CONSTRAINTS
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> DROP TABLE MAINTENANCE CASCADE CONSTRAINTS 
+  2  ;
+
+Error starting at line : 16 in command -
+DROP TABLE MAINTENANCE CASCADE CONSTRAINTS
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> DROP TABLE OWNER CASCADE CONSTRAINTS 
+  2  ;
+
+Table OWNER dropped.
+
+SQL> 
+SQL> DROP TABLE PAYMENT CASCADE CONSTRAINTS 
+  2  ;
+
+Error starting at line : 22 in command -
+DROP TABLE PAYMENT CASCADE CONSTRAINTS
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> DROP TABLE PAYMETHOD CASCADE CONSTRAINTS 
+  2  ;
+
+Table PAYMETHOD dropped.
+
+SQL> 
+SQL> DROP TABLE PROPERTY CASCADE CONSTRAINTS 
+  2  ;
+
+Table PROPERTY dropped.
+
+SQL> 
+SQL> DROP TABLE RENT CASCADE CONSTRAINTS 
+  2  ;
+
+Table RENT dropped.
+
+SQL> 
+SQL> DROP TABLE TENANT CASCADE CONSTRAINTS 
+  2  ;
+
+Table TENANT dropped.
+
+SQL> 
+SQL> -- predefined type, no DDL - MDSYS.SDO_GEOMETRY
+SQL> 
+SQL> -- predefined type, no DDL - XMLTYPE
+SQL> 
+SQL> CREATE TABLE DAMAGE 
+  2      ( 
+  3       dam_no            NUMBER (7)  NOT NULL , 
+  4       dam_datetime      DATE  NOT NULL , 
+  5       rent_agreement_no NUMBER (7)  NOT NULL , 
+  6       dam_type          CHAR (25)  NOT NULL , 
+  7       dam_cost          NUMBER (50)  NOT NULL , 
+  8       pay_no            NUMBER (7) 
+  9      ) 
+ 10  ;
+
+Error starting at line : 41 in command -
+CREATE TABLE DAMAGE 
+    ( 
+     dam_no            NUMBER (7)  NOT NULL , 
+     dam_datetime      DATE  NOT NULL , 
+     rent_agreement_no NUMBER (7)  NOT NULL , 
+     dam_type          CHAR (25)  NOT NULL , 
+     dam_cost          NUMBER (50)  NOT NULL , 
+     pay_no            NUMBER (7) 
+    )
+Error report -
+ORA-01727: numeric precision specifier is out of range (1 to 38)
+
+https://docs.oracle.com/error-help/db/ora-01727/01727. 00000 -  "numeric precision specifier is out of range (1 to 38)"
+*Cause:    The precision specified for a number column in a
+           CREATE or ALTER TABLE or CREATE CLUSTER statement must be a digit
+           between 1 and 38. If no precision was specified, a default
+           precision of 22 digits was used.
+*Action:   Specify numeric precision between 1 and 38 and retry
+           the statement.
+SQL> 
+SQL> COMMENT ON COLUMN DAMAGE.dam_no IS 'Damage Number' 
+  2  ;
+
+Error starting at line : 52 in command -
+COMMENT ON COLUMN DAMAGE.dam_no IS 'Damage Number'
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> COMMENT ON COLUMN DAMAGE.dam_datetime IS 'Damage Date Time' 
+  2  ;
+
+Error starting at line : 55 in command -
+COMMENT ON COLUMN DAMAGE.dam_datetime IS 'Damage Date Time'
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> COMMENT ON COLUMN DAMAGE.rent_agreement_no IS 'Rent Agreement Number' 
+  2  ;
+
+Error starting at line : 58 in command -
+COMMENT ON COLUMN DAMAGE.rent_agreement_no IS 'Rent Agreement Number'
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> COMMENT ON COLUMN DAMAGE.dam_type IS 'Damage Type' 
+  2  ;
+
+Error starting at line : 61 in command -
+COMMENT ON COLUMN DAMAGE.dam_type IS 'Damage Type'
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> COMMENT ON COLUMN DAMAGE.dam_cost IS 'Damage Cost' 
+  2  ;
+
+Error starting at line : 64 in command -
+COMMENT ON COLUMN DAMAGE.dam_cost IS 'Damage Cost'
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> COMMENT ON COLUMN DAMAGE.pay_no IS 'Payment Number' 
+  2  ;
+
+Error starting at line : 67 in command -
+COMMENT ON COLUMN DAMAGE.pay_no IS 'Payment Number'
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> CREATE UNIQUE INDEX DAMAGE__IDX ON DAMAGE 
+  2      ( 
+  3       pay_no ASC 
+  4      ) 
+  5  ;
+
+Error starting at line : 69 in command -
+CREATE UNIQUE INDEX DAMAGE__IDX ON DAMAGE 
+    ( 
+     pay_no ASC 
+    )
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> ALTER TABLE DAMAGE 
+  2      ADD CONSTRAINT DAMAGE_PK PRIMARY KEY ( dam_no ) ;
+
+Error starting at line : 75 in command -
+ALTER TABLE DAMAGE 
+    ADD CONSTRAINT DAMAGE_PK PRIMARY KEY ( dam_no )
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> ALTER TABLE DAMAGE 
+  2      ADD CONSTRAINT dam_datetime UNIQUE ( dam_datetime ) ;
+
+Error starting at line : 78 in command -
+ALTER TABLE DAMAGE 
+    ADD CONSTRAINT dam_datetime UNIQUE ( dam_datetime )
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> ALTER TABLE DAMAGE 
+  2      ADD CONSTRAINT Key_3 UNIQUE ( rent_agreement_no ) ;
+
+Error starting at line : 81 in command -
+ALTER TABLE DAMAGE 
+    ADD CONSTRAINT Key_3 UNIQUE ( rent_agreement_no )
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> CREATE TABLE MAINTENANCE 
+  2      ( 
+  3       maint_datetime DATE  NOT NULL , 
+  4       maint_desc     CHAR (50)  NOT NULL , 
+  5       maint_cost     NUMBER (50)  NOT NULL , 
+  6       prop_no        NUMBER  NOT NULL 
+  7      ) 
+  8  ;
+
+Error starting at line : 84 in command -
+CREATE TABLE MAINTENANCE 
+    ( 
+     maint_datetime DATE  NOT NULL , 
+     maint_desc     CHAR (50)  NOT NULL , 
+     maint_cost     NUMBER (50)  NOT NULL , 
+     prop_no        NUMBER  NOT NULL 
+    )
+Error report -
+ORA-01727: numeric precision specifier is out of range (1 to 38)
+
+https://docs.oracle.com/error-help/db/ora-01727/01727. 00000 -  "numeric precision specifier is out of range (1 to 38)"
+*Cause:    The precision specified for a number column in a
+           CREATE or ALTER TABLE or CREATE CLUSTER statement must be a digit
+           between 1 and 38. If no precision was specified, a default
+           precision of 22 digits was used.
+*Action:   Specify numeric precision between 1 and 38 and retry
+           the statement.
+SQL> 
+SQL> COMMENT ON COLUMN MAINTENANCE.maint_datetime IS 'Maintenance Date Time' 
+  2  ;
+
+Error starting at line : 93 in command -
+COMMENT ON COLUMN MAINTENANCE.maint_datetime IS 'Maintenance Date Time'
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> COMMENT ON COLUMN MAINTENANCE.maint_desc IS 'Maintenance Description' 
+  2  ;
+
+Error starting at line : 96 in command -
+COMMENT ON COLUMN MAINTENANCE.maint_desc IS 'Maintenance Description'
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> COMMENT ON COLUMN MAINTENANCE.maint_cost IS 'Maintenance Cost' 
+  2  ;
+
+Error starting at line : 99 in command -
+COMMENT ON COLUMN MAINTENANCE.maint_cost IS 'Maintenance Cost'
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> COMMENT ON COLUMN MAINTENANCE.prop_no IS 'Property Number' 
+  2  ;
+
+Error starting at line : 102 in command -
+COMMENT ON COLUMN MAINTENANCE.prop_no IS 'Property Number'
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> ALTER TABLE MAINTENANCE 
+  2      ADD CONSTRAINT MAINTENANCE_PK PRIMARY KEY ( maint_datetime, prop_no ) ;
+
+Error starting at line : 105 in command -
+ALTER TABLE MAINTENANCE 
+    ADD CONSTRAINT MAINTENANCE_PK PRIMARY KEY ( maint_datetime, prop_no )
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> CREATE TABLE OWNER 
+  2      ( 
+  3       owner_no      NUMBER (7)  NOT NULL , 
+  4       owner_givname CHAR (25) , 
+  5       owner_famname CHAR 
+  6  --  WARNING: CHAR size not specified 
+  7                      , 
+  8       owner_name    CHAR (25)  NOT NULL 
+  9      ) 
+ 10  ;
+
+Table OWNER created.
+
+SQL> 
+SQL> COMMENT ON COLUMN OWNER.owner_no IS 'Order Number' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN OWNER.owner_givname IS 'Owner Given Name' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN OWNER.owner_famname IS 'Owner Family Name' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN OWNER.owner_name IS 'Owner Name' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> ALTER TABLE OWNER 
+  2      ADD CONSTRAINT OWNER_PK PRIMARY KEY ( owner_no ) ;
+
+Table OWNER altered.
+
+SQL> 
+SQL> CREATE TABLE PAYMENT 
+  2      ( 
+  3       pay_no            NUMBER (7)  NOT NULL , 
+  4       pay_date          DATE  NOT NULL , 
+  5       pay_type          CHAR 
+  6  --  WARNING: CHAR size not specified 
+  7                       NOT NULL , 
+  8       pay_amount        NUMBER (50)  NOT NULL , 
+  9       pay_paidby        NUMBER (7)  NOT NULL , 
+ 10       rent_agreement_no NUMBER (7)  NOT NULL 
+ 11      ) 
+ 12  ;
+
+Error starting at line : 134 in command -
+CREATE TABLE PAYMENT 
+    ( 
+     pay_no            NUMBER (7)  NOT NULL , 
+     pay_date          DATE  NOT NULL , 
+     pay_type          CHAR 
+--  WARNING: CHAR size not specified 
+                     NOT NULL , 
+     pay_amount        NUMBER (50)  NOT NULL , 
+     pay_paidby        NUMBER (7)  NOT NULL , 
+     rent_agreement_no NUMBER (7)  NOT NULL 
+    )
+Error report -
+ORA-01727: numeric precision specifier is out of range (1 to 38)
+
+https://docs.oracle.com/error-help/db/ora-01727/01727. 00000 -  "numeric precision specifier is out of range (1 to 38)"
+*Cause:    The precision specified for a number column in a
+           CREATE or ALTER TABLE or CREATE CLUSTER statement must be a digit
+           between 1 and 38. If no precision was specified, a default
+           precision of 22 digits was used.
+*Action:   Specify numeric precision between 1 and 38 and retry
+           the statement.
+SQL> 
+SQL> ALTER TABLE PAYMENT 
+  2      ADD CONSTRAINT chk_pay_type 
+  3      CHECK (pay_type IN ('D', 'P', 'R')) 
+  4  ;
+
+Error starting at line : 147 in command -
+ALTER TABLE PAYMENT 
+    ADD CONSTRAINT chk_pay_type 
+    CHECK (pay_type IN ('D', 'P', 'R'))
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> COMMENT ON COLUMN PAYMENT.pay_no IS 'Payment Number' 
+  2  ;
+
+Error starting at line : 152 in command -
+COMMENT ON COLUMN PAYMENT.pay_no IS 'Payment Number'
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> COMMENT ON COLUMN PAYMENT.pay_date IS 'Payment Date' 
+  2  ;
+
+Error starting at line : 155 in command -
+COMMENT ON COLUMN PAYMENT.pay_date IS 'Payment Date'
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> COMMENT ON COLUMN PAYMENT.pay_type IS 'Payment Type' 
+  2  ;
+
+Error starting at line : 158 in command -
+COMMENT ON COLUMN PAYMENT.pay_type IS 'Payment Type'
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> COMMENT ON COLUMN PAYMENT.pay_amount IS 'Payment Amount' 
+  2  ;
+
+Error starting at line : 161 in command -
+COMMENT ON COLUMN PAYMENT.pay_amount IS 'Payment Amount'
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> COMMENT ON COLUMN PAYMENT.pay_paidby IS 'Payment Method ID' 
+  2  ;
+
+Error starting at line : 164 in command -
+COMMENT ON COLUMN PAYMENT.pay_paidby IS 'Payment Method ID'
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> COMMENT ON COLUMN PAYMENT.rent_agreement_no IS 'Rent Agreement Number' 
+  2  ;
+
+Error starting at line : 167 in command -
+COMMENT ON COLUMN PAYMENT.rent_agreement_no IS 'Rent Agreement Number'
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> ALTER TABLE PAYMENT 
+  2      ADD CONSTRAINT PAYMENT_PK PRIMARY KEY ( pay_no ) ;
+
+Error starting at line : 170 in command -
+ALTER TABLE PAYMENT 
+    ADD CONSTRAINT PAYMENT_PK PRIMARY KEY ( pay_no )
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> CREATE TABLE PAYMETHOD 
+  2      ( 
+  3       paymethod_id   NUMBER (7)  NOT NULL , 
+  4       paymethod_name CHAR (50)  NOT NULL 
+  5      ) 
+  6  ;
+
+Table PAYMETHOD created.
+
+SQL> 
+SQL> COMMENT ON COLUMN PAYMETHOD.paymethod_id IS 'Payment Method ID' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN PAYMETHOD.paymethod_name IS 'Payment Method Name' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> ALTER TABLE PAYMETHOD 
+  2      ADD CONSTRAINT PAYMETHOD_PK PRIMARY KEY ( paymethod_id ) ;
+
+Table PAYMETHOD altered.
+
+SQL> 
+SQL> CREATE TABLE PROPERTY 
+  2      ( 
+  3       prop_no      NUMBER  NOT NULL , 
+  4       prop_address CHAR 
+  5  --  WARNING: CHAR size not specified 
+  6                       NOT NULL , 
+  7       prop_value   NUMBER  NOT NULL , 
+  8       owner_no     NUMBER (7)  NOT NULL 
+  9      ) 
+ 10  ;
+
+Table PROPERTY created.
+
+SQL> 
+SQL> COMMENT ON COLUMN PROPERTY.prop_no IS 'Property Number' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN PROPERTY.prop_address IS 'Property Address' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN PROPERTY.prop_value IS 'Property Value' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN PROPERTY.owner_no IS 'Order Number' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> ALTER TABLE PROPERTY 
+  2      ADD CONSTRAINT PROPERTY_PK PRIMARY KEY ( prop_no ) ;
+
+Table PROPERTY altered.
+
+SQL> 
+SQL> CREATE TABLE RENT 
+  2      ( 
+  3       rent_agreement_no NUMBER (7)  NOT NULL , 
+  4       rent_lease_start  DATE  NOT NULL , 
+  5       rent_weekly_rate  NUMBER (25)  NOT NULL , 
+  6       rent_bond         NUMBER (10)  NOT NULL , 
+  7       rent_lease_period NUMBER  NOT NULL , 
+  8       prop_no           NUMBER  NOT NULL , 
+  9       tenant_no         NUMBER (7)  NOT NULL 
+ 10      ) 
+ 11  ;
+
+Table RENT created.
+
+SQL> 
+SQL> COMMENT ON COLUMN RENT.rent_agreement_no IS 'Rent Agreement Number' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN RENT.rent_lease_start IS 'Rent Lease Start Date' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN RENT.rent_bond IS 'Rent Bond' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN RENT.rent_lease_period IS 'Rent Lease Period' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN RENT.prop_no IS 'Property Number' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN RENT.tenant_no IS 'Tenant Number' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> ALTER TABLE RENT 
+  2      ADD CONSTRAINT RENT_PK PRIMARY KEY ( rent_agreement_no ) ;
+
+Table RENT altered.
+
+SQL> 
+SQL> ALTER TABLE RENT 
+  2      ADD CONSTRAINT rent_lease_start UNIQUE ( rent_lease_start ) ;
+
+Table RENT altered.
+
+SQL> 
+SQL> ALTER TABLE RENT 
+  2      ADD CONSTRAINT Key_3v1 UNIQUE ( prop_no ) ;
+
+Table RENT altered.
+
+SQL> 
+SQL> CREATE TABLE TENANT 
+  2      ( 
+  3       tenant_no      NUMBER (7)  NOT NULL , 
+  4       tenant_givname CHAR 
+  5  --  WARNING: CHAR size not specified 
+  6                      , 
+  7       tenant_famname CHAR 
+  8  --  WARNING: CHAR size not specified 
+  9                      , 
+ 10       tenant_address CHAR (50)  NOT NULL , 
+ 11       tenant_phone   NUMBER  NOT NULL 
+ 12      ) 
+ 13  ;
+
+Table TENANT created.
+
+SQL> 
+SQL> COMMENT ON COLUMN TENANT.tenant_no IS 'Tenant Number' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN TENANT.tenant_givname IS 'Tenant Given Name' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN TENANT.tenant_famname IS 'Tenant Family Name' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN TENANT.tenant_address IS 'Tenant Address' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> COMMENT ON COLUMN TENANT.tenant_phone IS 'Tenant Phone' 
+  2  ;
+
+Comment created.
+
+SQL> 
+SQL> ALTER TABLE TENANT 
+  2      ADD CONSTRAINT TENANT_PK PRIMARY KEY ( tenant_no ) ;
+
+Table TENANT altered.
+
+SQL> 
+SQL> ALTER TABLE DAMAGE 
+  2      ADD CONSTRAINT damage_payment_fk FOREIGN KEY 
+  3      ( 
+  4       pay_no
+  5      ) 
+  6      REFERENCES PAYMENT 
+  7      ( 
+  8       pay_no
+  9      ) 
+ 10  ;
+
+Error starting at line : 286 in command -
+ALTER TABLE DAMAGE 
+    ADD CONSTRAINT damage_payment_fk FOREIGN KEY 
+    ( 
+     pay_no
+    ) 
+    REFERENCES PAYMENT 
+    ( 
+     pay_no
+    )
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> ALTER TABLE PROPERTY 
+  2      ADD CONSTRAINT "owner-property_fk" FOREIGN KEY 
+  3      ( 
+  4       owner_no
+  5      ) 
+  6      REFERENCES OWNER 
+  7      ( 
+  8       owner_no
+  9      ) 
+ 10  ;
+
+Table PROPERTY altered.
+
+SQL> 
+SQL> ALTER TABLE PAYMENT 
+  2      ADD CONSTRAINT "paymethod-payment_fk" FOREIGN KEY 
+  3      ( 
+  4       pay_paidby
+  5      ) 
+  6      REFERENCES PAYMETHOD 
+  7      ( 
+  8       paymethod_id
+  9      ) 
+ 10  ;
+
+Error starting at line : 308 in command -
+ALTER TABLE PAYMENT 
+    ADD CONSTRAINT "paymethod-payment_fk" FOREIGN KEY 
+    ( 
+     pay_paidby
+    ) 
+    REFERENCES PAYMETHOD 
+    ( 
+     paymethod_id
+    )
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> ALTER TABLE RENT 
+  2      ADD CONSTRAINT property_rent_fk FOREIGN KEY 
+  3      ( 
+  4       prop_no
+  5      ) 
+  6      REFERENCES PROPERTY 
+  7      ( 
+  8       prop_no
+  9      ) 
+ 10  ;
+
+Table RENT altered.
+
+SQL> 
+SQL> ALTER TABLE MAINTENANCE 
+  2      ADD CONSTRAINT "property-maintenance_fk" FOREIGN KEY 
+  3      ( 
+  4       prop_no
+  5      ) 
+  6      REFERENCES PROPERTY 
+  7      ( 
+  8       prop_no
+  9      ) 
+ 10  ;
+
+Error starting at line : 330 in command -
+ALTER TABLE MAINTENANCE 
+    ADD CONSTRAINT "property-maintenance_fk" FOREIGN KEY 
+    ( 
+     prop_no
+    ) 
+    REFERENCES PROPERTY 
+    ( 
+     prop_no
+    )
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> ALTER TABLE DAMAGE 
+  2      ADD CONSTRAINT "rent-damage_fk" FOREIGN KEY 
+  3      ( 
+  4       rent_agreement_no
+  5      ) 
+  6      REFERENCES RENT 
+  7      ( 
+  8       rent_agreement_no
+  9      ) 
+ 10  ;
+
+Error starting at line : 341 in command -
+ALTER TABLE DAMAGE 
+    ADD CONSTRAINT "rent-damage_fk" FOREIGN KEY 
+    ( 
+     rent_agreement_no
+    ) 
+    REFERENCES RENT 
+    ( 
+     rent_agreement_no
+    )
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> ALTER TABLE PAYMENT 
+  2      ADD CONSTRAINT "rent-payent_fk" FOREIGN KEY 
+  3      ( 
+  4       rent_agreement_no
+  5      ) 
+  6      REFERENCES RENT 
+  7      ( 
+  8       rent_agreement_no
+  9      ) 
+ 10  ;
+
+Error starting at line : 352 in command -
+ALTER TABLE PAYMENT 
+    ADD CONSTRAINT "rent-payent_fk" FOREIGN KEY 
+    ( 
+     rent_agreement_no
+    ) 
+    REFERENCES RENT 
+    ( 
+     rent_agreement_no
+    )
+Error report -
+ORA-00942: table or view does not exist
+
+https://docs.oracle.com/error-help/db/ora-00942/00942. 00000 -  "table or view%s does not exist"
+*Cause:    The specified table or view did not exist, or a synonym
+           pointed to a table or view that did not exist.
+           To find existing user tables and views, query the
+           ALL_TABLES and ALL_VIEWS data dictionary views. Certain
+           privileges may be required to access the table. If an
+           application returned this message, then the table that the
+           application tried to access did not exist in the database, or
+           the application did not have access to it.
+*Action:   Check each of the following
+           - The spelling of the table or view name is correct.
+           - The referenced table or view name does exist.
+           - The synonym points to an existing table or view.
+SQL> 
+SQL> ALTER TABLE RENT 
+  2      ADD CONSTRAINT "tenant-rent_fk" FOREIGN KEY 
+  3      ( 
+  4       tenant_no
+  5      ) 
+  6      REFERENCES TENANT 
+  7      ( 
+  8       tenant_no
+  9      ) 
+ 10  ;
+
+Table RENT altered.
+
+SQL> 
+SQL> 
+SQL> 
+SQL> -- Oracle SQL Developer Data Modeler Summary Report: 
+SQL> -- 
+SQL> -- CREATE TABLE                             8
+SQL> -- CREATE INDEX                             1
+SQL> -- ALTER TABLE                             21
+SQL> -- CREATE VIEW                              0
+SQL> -- ALTER VIEW                               0
+SQL> -- CREATE PACKAGE                           0
+SQL> -- CREATE PACKAGE BODY                      0
+SQL> -- CREATE PROCEDURE                         0
+SQL> -- CREATE FUNCTION                          0
+SQL> -- CREATE TRIGGER                           0
+SQL> -- ALTER TRIGGER                            0
+SQL> -- CREATE COLLECTION TYPE                   0
+SQL> -- CREATE STRUCTURED TYPE                   0
+SQL> -- CREATE STRUCTURED TYPE BODY              0
+SQL> -- CREATE CLUSTER                           0
+SQL> -- CREATE CONTEXT                           0
+SQL> -- CREATE DATABASE                          0
+SQL> -- CREATE DIMENSION                         0
+SQL> -- CREATE DIRECTORY                         0
+SQL> -- CREATE DISK GROUP                        0
+SQL> -- CREATE ROLE                              0
+SQL> -- CREATE ROLLBACK SEGMENT                  0
+SQL> -- CREATE SEQUENCE                          0
+SQL> -- CREATE MATERIALIZED VIEW                 0
+SQL> -- CREATE MATERIALIZED VIEW LOG             0
+SQL> -- CREATE SYNONYM                           0
+SQL> -- CREATE TABLESPACE                        0
+SQL> -- CREATE USER                              0
+SQL> -- 
+SQL> -- DROP TABLESPACE                          0
+SQL> -- DROP DATABASE                            0
+SQL> -- 
+SQL> -- REDACTION POLICY                         0
+SQL> -- TSDP POLICY                              0
+SQL> -- 
+SQL> -- ORDS DROP SCHEMA                         0
+SQL> -- ORDS ENABLE SCHEMA                       0
+SQL> -- ORDS ENABLE OBJECT                       0
+SQL> -- 
+SQL> -- ERRORS                                   0
+SQL> -- WARNINGS                                 5
+SQL> SPOOL off

@@ -1,0 +1,21 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Relation class="oracle.dbtools.crest.model.design.logical.Relation" name="port-itinerary_fk" directorySegmentName="seg_0" id="F4AD2AED-7CDC-6C7F-06C5-7F793B501F8B">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 07:59:48 UTC</createdTime>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<sourcePk>19DAE5DD-6C6D-2A15-9ABC-5DFFE894F8F3</sourcePk>
+<identifying>false</identifying>
+<nameOnSource>assigned to</nameOnSource>
+<nameOnTarget> </nameOnTarget>
+<optionalSource>false</optionalSource>
+<optionalTarget>false</optionalTarget>
+<sourceCardinality>1</sourceCardinality>
+<sourceEntity>A70C4ABE-C21F-C700-1044-EA76D0D38347</sourceEntity>
+<targetCardinalityString>*</targetCardinalityString>
+<targetEntity>70FD9BA0-0422-0EEB-F27A-D4F92F5A1963</targetEntity>
+<transferable>true</transferable>
+<deleteRule>NO ACTION</deleteRule>
+</Relation>

@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="E9EE26B3-8272-B177-EE4B-397F0614FBF6" containerWithKeyObject="FFB91D54-E0A9-CA8C-01CF-E8911404B170" localFKIndex="8BC80144-AC80-B56F-3766-1B5BAC58009A" name="cabin-booking_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>6D0C5F22-2E5A-0823-B2FC-1546A95FF8A3</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<referredTableLongName>CABIN</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>7E1B880C-D233-39AB-AA14-73E468F8C2BA</referredTableID>
+<keyObject>DFE85F47-CAB5-978C-2465-16D741C1B80C</keyObject>
+<referredKeyID>DFE85F47-CAB5-978C-2465-16D741C1B80C</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>cabin_no</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

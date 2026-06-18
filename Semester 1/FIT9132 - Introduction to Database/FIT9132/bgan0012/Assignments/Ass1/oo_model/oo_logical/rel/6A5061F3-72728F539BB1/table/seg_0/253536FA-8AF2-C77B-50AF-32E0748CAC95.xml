@@ -1,0 +1,195 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="253536FA-8AF2-C77B-50AF-32E0748CAC95" name="PASSENGER">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>82AC53DE-09C6-D6AC-AB5A-5804D3101B54</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="pass_id" id="DBAF3A44-6431-47FE-4CBE-76CAC1D6443D">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Passenger ID]]></commentInRDBMS>
+<generatorID>CF7186C0-4015-A79D-B4EE-137F602142C3</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,7,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="guardian_id" id="1086007B-57A0-6F37-C9B6-7E9EC579066F">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Passenger ID]]></commentInRDBMS>
+<generatorID>C9542681-C554-33FC-AC13-40A5D0FF68EA</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="3B3C0BFA-6D4F-8473-3EA6-316EDFE9BE28" referredColumn="DBAF3A44-6431-47FE-4CBE-76CAC1D6443D"/>
+</associations>
+</Column>
+<Column name="pass_fname" id="612B37DC-B9A4-E77B-6133-AAF4DF1CB87A">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Passenger First Name]]></commentInRDBMS>
+<generatorID>EF723C7B-7B3C-4429-D14C-67CC9F2890C9</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pass_lname" id="002C5AA1-F185-D069-EF08-0FCFB7745B49">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Passenger Last Name]]></commentInRDBMS>
+<generatorID>6EDF8867-017D-023F-032E-BED966698B48</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pass_gender" id="CDEDD406-79D2-7B7D-5C51-989932747AD8">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Passenger Gender]]></commentInRDBMS>
+<generatorID>9A6C3BD6-5B0F-BC67-752A-C7D5EA10CB40</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<constraintName>chk_passenger_gender</constraintName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<listOfValues>
+<valueDef value="F" description="Female"/>
+<valueDef value="M" description="Male"/>
+</listOfValues>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pass_dob" id="83F1A8C5-507A-90B0-8B4A-755933FBFF76">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Passenger Date of Birth]]></commentInRDBMS>
+<generatorID>B90F7613-1583-43A0-5815-D486B422953A</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pass_street" id="8CCC2CD8-8511-6C1D-7BE4-9A9B53CC33E3">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Passenger Street]]></commentInRDBMS>
+<generatorID>4F6129DE-4495-2C71-CE14-C50952DF9C98</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pass_town" id="641AE319-CF51-DC2B-DFDC-A521AC896DA9">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Passenger Town]]></commentInRDBMS>
+<generatorID>3C2E09B9-8060-E217-F1AE-4D977B60072B</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pass_passcode" id="F3CE885B-4F5C-1E5C-019D-76CF53797C27">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Passenger Passcode]]></commentInRDBMS>
+<generatorID>6496B168-A894-34FD-0905-37259D20F025</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pass_country" id="7D05EC3A-A4A1-08E1-AFBD-173F854B781B">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Passenger Country]]></commentInRDBMS>
+<generatorID>4A9635FF-87BB-4BE3-D934-764B0B4ED5B2</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="pass_phone_no" id="471E35C2-B4F8-01A2-1B93-F78DC33F5E71">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Passenger Phone Number]]></commentInRDBMS>
+<generatorID>F064D9CA-1B9C-8FB4-791D-79DE75A25C3D</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<constraintName>chk_phone_no</constraintName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<checkConstraint>
+<implementationDef dbType="Generic Constraint" definition="(pass_dob &lt;= SYSDATE - INTERVAL &apos;18&apos; YEAR AND pass_phone_no IS NOT NULL) OR (pass_dob &gt; SYSDATE - INTERVAL &apos;18&apos; YEAR AND pass_phone_no IS NULL)"/>
+</checkConstraint>
+<ownDataTypeParameters>,10,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="5D728CCE-BCC5-86C5-B447-ED4F55C88A01" name="PASSENGER_PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>3ECF5E36-897C-D609-A399-67086FA28B6F</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="DBAF3A44-6431-47FE-4CBE-76CAC1D6443D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="4DC99AA6-5B5C-9BB8-817D-900D7A4C1C65" name="passenger-guardian_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>3D7E7CE1-9698-1BC7-E391-975A0B5C71FB</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1086007B-57A0-6F37-C9B6-7E9EC579066F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

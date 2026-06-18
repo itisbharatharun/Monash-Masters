@@ -1,0 +1,146 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="0D23E8EF-F195-A6BD-612D-B15F59290EA4" name="SHIP">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>306A83BD-369D-B743-FA56-19F5F0191310</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="ship_code" id="95C2C629-3AC8-3285-E974-80DF1E2ADF3D">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Ship Code]]></commentInRDBMS>
+<generatorID>E268FE69-8227-BA5A-3ADF-95950F094792</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,7,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="reg_country" id="06372A08-21A7-2B85-6FEE-45AAEF580E99">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Country Code]]></commentInRDBMS>
+<generatorID>383AFEDC-7844-9B32-958D-048CA38A50CB</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT025</logicalDatatype>
+<dataTypeSize>3</dataTypeSize>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="14D1CD57-DA3F-55C2-6A4D-422115009ADF" referredColumn="16B27B37-B7B6-CABE-AF3A-2E81B1AA5883"/>
+</associations>
+</Column>
+<Column name="operator_id" id="2DE791EC-9CA7-E353-1821-47FB839FCD1F">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Operator ID]]></commentInRDBMS>
+<generatorID>FA55E6A5-A2C8-AC3C-8B47-8822B0110A19</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="79A110EA-F996-F9C7-7BC3-CE3EF09532D6" referredColumn="1E3F83DF-23CD-FEF0-EB52-5E3F06170F71"/>
+</associations>
+</Column>
+<Column name="ship_name" id="2C243643-8C9C-6910-E33F-45C178790DE3">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Ship Name]]></commentInRDBMS>
+<generatorID>F0E34220-33D1-6AC8-48FE-14585EAF5262</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="commission_date" id="939376CD-9898-0296-6ED9-A28E2503D08C">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Commission Date]]></commentInRDBMS>
+<generatorID>840F1C00-FF50-043B-6843-8DB51DCA5039</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="tonnage" id="46F76E4E-355A-9CB6-85BB-2E0BEC935DA0">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Tonnage]]></commentInRDBMS>
+<generatorID>C5014195-DEC0-4DA5-E268-3C9990AF4A20</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<ownDataTypeParameters>,10,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="max_guest_cap" id="2CBC206F-1A1B-B9D5-94BF-F26F72E7129E">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Maximum Guest Capacity]]></commentInRDBMS>
+<generatorID>A0BCB7A4-C55C-F767-673A-FD7B0171D1BC</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>10</dataTypePrecision>
+<ownDataTypeParameters>,10,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="EAD31B19-D46A-A75E-5870-12FEA9A4970E" name="SHIP_PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>D3F6BE16-73C5-C2CE-31EC-72A883C87027</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="95C2C629-3AC8-3285-E974-80DF1E2ADF3D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="EF438FBA-9B76-6815-47F4-42C62B527402" name="country-ship_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>5C5A6216-EEE3-2D43-A104-15CA4D64B38E</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="06372A08-21A7-2B85-6FEE-45AAEF580E99"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="365D6000-6D57-FDEB-163B-B0BB5FE66ABA" name="operator-ship_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>20F58F3F-C796-DDF2-1EB0-4D63D7A865D7</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="2DE791EC-9CA7-E353-1821-47FB839FCD1F"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

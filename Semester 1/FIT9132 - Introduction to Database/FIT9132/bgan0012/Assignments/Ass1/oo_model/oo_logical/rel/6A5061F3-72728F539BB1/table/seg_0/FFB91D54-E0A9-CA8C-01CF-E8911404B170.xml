@@ -1,0 +1,161 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="FFB91D54-E0A9-CA8C-01CF-E8911404B170" name="BOOKING">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>25DA9FB6-3E17-2702-E001-7873174CF007</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="booking_no" id="55AD8542-7F06-4276-AFF1-F0D27FBCD70A">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Booking Number (Surrogate PK)]]></commentInRDBMS>
+<generatorID>DE20ECFC-2C0D-A073-F6FF-8F8F0440E00F</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,7,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="cruise_id" id="D1945F2D-6525-912C-5335-17DAF1195A58">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Cruise ID]]></commentInRDBMS>
+<generatorID>819A49F8-600B-163E-841F-5CA155603DAF</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="C90F5D4A-1615-4BC0-07C2-8C2129172023" referredColumn="9844A93C-7E25-D356-86B0-36D893EC6F11"/>
+</associations>
+</Column>
+<Column name="cabin_no" id="E2AEA84E-DE45-14EB-C3C9-AA4E63F0478D">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Cabin Number]]></commentInRDBMS>
+<generatorID>BD6911D9-56F6-1397-CE9B-CF6C1E04E6DB</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="E9EE26B3-8272-B177-EE4B-397F0614FBF6" referredColumn="C3539DBA-2D7D-A0FD-4DB1-F89866158BB9"/>
+</associations>
+</Column>
+<Column name="pass_id" id="3BDE0183-E502-2950-B5C2-DB5E57C1EBBD">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Passenger ID]]></commentInRDBMS>
+<generatorID>C7655831-60D9-C216-2690-2D9524445076</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="961D76ED-78F3-CCCB-05B8-0F3472C46DA9" referredColumn="DBAF3A44-6431-47FE-4CBE-76CAC1D6443D"/>
+</associations>
+</Column>
+<Column name="booking_date" id="AC3FE613-FCA2-0F43-CD4E-FDD5D0902E66">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Booking Date]]></commentInRDBMS>
+<generatorID>BEE30C2D-73ED-2623-9E81-1F92CAC1385F</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT007</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="booking_time" id="C2D61266-1C0F-3233-A51C-7A957F1081A8">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<commentInRDBMS><![CDATA[Booking Time]]></commentInRDBMS>
+<generatorID>685A140F-C60F-4D14-9B3A-1E5A8EAA3CC1</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="681DB806-1435-5509-B66B-00894307A805" name="BOOKING_PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>19464607-78FE-3E26-2CD2-6CA3C749008D</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="55AD8542-7F06-4276-AFF1-F0D27FBCD70A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="101C9E6E-C353-9130-82C5-B1FEE66D9F6F" name="BOOKING_NK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>3B3F28E0-61FD-5E7D-42D3-B50188923176</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<indexState>Unique Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D1945F2D-6525-912C-5335-17DAF1195A58"/>
+<colUsage columnID="E2AEA84E-DE45-14EB-C3C9-AA4E63F0478D"/>
+<colUsage columnID="3BDE0183-E502-2950-B5C2-DB5E57C1EBBD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="8BC80144-AC80-B56F-3766-1B5BAC58009A" name="cabin-booking_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>6D0C5F22-2E5A-0823-B2FC-1546A95FF8A3</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E2AEA84E-DE45-14EB-C3C9-AA4E63F0478D"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B7B3F365-E308-0941-E7D3-0D38FE162A09" name="cruise-booking_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>1A5E4FF0-1242-C495-87C0-D3674ACC515D</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D1945F2D-6525-912C-5335-17DAF1195A58"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="CBAD9F0B-7C48-6FF4-332E-C7305E6F88EA" name="passenger-booking_fk">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-24 13:32:18 UTC</createdTime>
+<generatorID>42FFEEBD-415B-A5C8-5062-16F53272A29B</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="3BDE0183-E502-2950-B5C2-DB5E57C1EBBD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

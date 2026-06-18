@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="customer_order" id="420C07FE-E5F6-9AC5-E58E-F85F131E93E9" version="3.5">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-10 09:06:36 UTC</createdTime>
+<ownerDesignName>customer_order</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>420C07FE-E5F6-9AC5-E58E-F85F131E93E9</designId>
+</OSDM_Design>

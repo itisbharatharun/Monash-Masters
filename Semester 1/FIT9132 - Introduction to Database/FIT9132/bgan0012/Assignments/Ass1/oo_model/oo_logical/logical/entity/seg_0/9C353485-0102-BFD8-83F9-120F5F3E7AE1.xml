@@ -1,0 +1,99 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="9C353485-0102-BFD8-83F9-120F5F3E7AE1" name="CABIN">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:11:28 UTC</createdTime>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="cabin_no" id="F7D71D40-F5FA-D7C7-007C-CDD8E0ABF6E2">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:17:56 UTC</createdTime>
+<commentInRDBMS><![CDATA[Cabin Number]]></commentInRDBMS>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,7,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="ship_code" id="8A82C46E-3EE1-8D04-2783-4373966309D4">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 08:14:34 UTC</createdTime>
+<commentInRDBMS><![CDATA[Ship Code]]></commentInRDBMS>
+<generatorID>C56CD54F-FDCC-89C8-3E29-13812CC70FBA</generatorID>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<referedAttribute>E268FE69-8227-BA5A-3ADF-95950F094792</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>7</dataTypePrecision>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="sleeping_capacity" id="2C634D33-F56B-0B7B-F917-97347FBC62C5">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:18:03 UTC</createdTime>
+<commentInRDBMS><![CDATA[Sleeping Capacity]]></commentInRDBMS>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>25</dataTypePrecision>
+<ownDataTypeParameters>,25,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="cabin_class" id="7ED00698-B915-C2E2-B670-9EDA7EFDB56F">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:18:06 UTC</createdTime>
+<commentInRDBMS><![CDATA[Cabin Class]]></commentInRDBMS>
+<ownerDesignName>oo_logical</ownerDesignName>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="true"/>
+</engineerTo>
+<constraintName>chk_cabin_class</constraintName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>25</dataTypeSize>
+<listOfValues>
+<valueDef value="B" description="Balcony"/>
+<valueDef value="I" description="Interior"/>
+<valueDef value="O" description="Ocean View"/>
+<valueDef value="S" description="Suite"/>
+</listOfValues>
+<ownDataTypeParameters>25,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="2F7713E8-20BB-075B-3CC9-094735F9BA70" name="CABIN PK">
+<createdBy>heisenberg</createdBy>
+<createdTime>2025-04-22 06:18:19 UTC</createdTime>
+<ownerDesignName>oo_logical</ownerDesignName>
+<shouldEngineer>false</shouldEngineer>
+<engineerTo>
+<item key="6A5061F3-B81C-2B37-CB97-72728F539BB1" value="false"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>F7D71D40-F5FA-D7C7-007C-CDD8E0ABF6E2</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>
